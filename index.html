@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events Calendar</title>
+  <link rel="icon" href="logo.webp" type="image/webp">
+
+  <!-- Import a modern Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Using Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global Reset/Box-Sizing */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #1e7a41, #2ca45d); /* Updated to green */
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    header img {
+      max-width: 120px;
+      height: auto;
+    }
+
+    header h1 {
+      font-size: 2.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* Filter Container */
+    .filter-container {
+      background-color: #fff;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: 1200px;
+      margin: -1rem auto 2rem auto;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-container select {
+      flex: 1;
+      min-width: 150px;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      background-color: #f9f9f9;
+      appearance: none;
+      background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="%23333" d="M0 0l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 10px 5px;
+    }
+
+    .filter-container select:focus {
+      outline: none;
+      border-color: #1e7a41; /* Updated to green */
+      background-color: #fff;
+    }
+
+    /* Calendar Container */
+    .calendar-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Event Card */
+    .event {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .event:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Date Circle (top-right) */
+    .event-date-circle {
+      background-color: #1e7a41; /* Updated to green */
+      color: #fff;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* Event Title */
+    .event h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #1e7a41; /* Updated to green */
+    }
+
+    /* Event Date */
+    .event-date {
+      font-weight: 600;
+      color: #7f8c8d;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Event Paragraphs */
+    .event p {
+      margin: 0.3rem 0;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1e7a41; /* Updated to green */
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #d1d1d1;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-container select {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.75rem;
+      }
+      .event {
+        padding: 1rem;
+      }
+      .event-date-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 0.8rem;
+      }
+      .event h3 {
+        font-size: 1rem;
+      }
+      .event p {
+        font-size: 0.85rem;
+      }
+      .filter-container {
+        padding: 1rem;
+      }
+      .filter-container select {
+        padding: 0.75rem 1rem;
+      }
+    }
+
+    /* Additional Mobile Styling for Filter Menu */
+    @media (max-width: 480px) {
+      .filter-container {
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.webp" alt="Motor Meets Logo" onclick="resetFilters()">
+    <h1>Motor Meets - Ireland</h1>
+  </header>
+
+  <!-- Filter Section -->
+  <div class="filter-container">
+    <select id="type-filter">
+      <option value="all">All Event Types</option>
+      <option value="show">Show</option>
+      <option value="rally">Rally</option>
+      <option value="run">Run</option>
+    </select>
+
+    <select id="location-filter">
+      <option value="all">All Locations</option>
+      <option value="Antrim">Antrim</option>
+      <option value="Carlow">Carlow</option>
+      <option value="Donegal">Donegal</option>
+      <option value="Galway">Galway</option>
+      <option value="Laois">Laois</option>
+      <option value="Limerick">Limerick</option>
+      <option value="Meath">Meath</option>
+    </select>
+
+    <select id="month-filter">
+      <option value="all">All Months</option>
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+  </div>
+
+  <div class="calendar-container">
+
+    <div class="event" data-type="show" data-location="Meath" data-month="January">
+      <div class="event-date-circle">19 Jan</div>
+      <h3>Rev &amp; Refuel Car Show</h3>
+      <p class="event-date">January 19, 2025</p>
+      <p>Location: Smyth’s Service Station, Slane, Ireland C15 EP22</p>
+      <p>Description: Kick off the new year with this exciting car show.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="January">
+        <div class="event-date-circle">26 January</div>
+        <h3>Open Day</h3>
+        <p class="event-date">January 26, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A welcoming day for all car enthusiasts to kick off the year.</p>
+      </div>
+      
+    <div class="event" data-type="rally" data-location="Galway" data-month="February">
+        <div class="event-date-circle">7-8 Feb</div>
+        <h3>Galway International Rally</h3>
+        <p class="event-date">February 7-8, 2025</p>
+        <p>Location: Galway, Ireland</p>
+        <p>Description: Celebrate the 54th anniversary of this thrilling rally.</p>
+      </div>
+
+      <div class="event" data-type="show" data-location="Limerick" data-month="February">
+        <div class="event-date-circle">23 February</div>
+        <h3>American Day</h3>
+        <p class="event-date">February 23, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A celebration of American cars and culture with classic muscle cars and more.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="March">
+        <div class="event-date-circle">23 March</div>
+        <h3>Classic Day</h3>
+        <p class="event-date">March 23, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A showcase of timeless classic cars for enthusiasts and collectors.</p>
+      </div>
+
+      <div class="event" data-type="show" data-location="Antrim" data-month="April">
+        <div class="event-date-circle">5-6 Apr</div>
+        <h3>Dubshed 2025</h3>
+        <p class="event-date">April 5-6, 2025</p>
+        <p>Location: Eikon Exhibition Centre, Lisburn</p>
+        <p>Description: Ireland's largest car show featuring a wide array of vehicles and attractions.</p>
+      </div>
+
+      <div class="event" data-type="show" data-location="Limerick" data-month="April">
+        <div class="event-date-circle">27 April</div>
+        <h3>Motorbike Day</h3>
+        <p class="event-date">April 27, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A day dedicated to motorbike lovers, featuring bikes from all eras.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="May">
+        <div class="event-date-circle">25 May</div>
+        <h3>German Day</h3>
+        <p class="event-date">May 25, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A tribute to German engineering with iconic cars from brands like BMW and Mercedes.</p>
+      </div>
+      
+      <div class="event" data-type="run" data-location="Laois" data-month="May">
+        <div class="event-date-circle">31 May</div>
+        <h3>Gordon Bennett Classic Car Run</h3>
+        <p class="event-date">May 31 - June 2, 2025</p>
+        <p>Location: Counties Laois, Carlow, and Kildare</p>
+        <p>Description: A classic car run through historic routes.</p>
+      </div>
+
+      <div class="event" data-type="rally" data-location="Donegal" data-month="June">
+        <div class="event-date-circle">20-22 Jun</div>
+        <h3>Donegal International Rally</h3>
+        <p class="event-date">June 20-22, 2025</p>
+        <p>Location: County Donegal</p>
+        <p>Description: An annual car race known for its challenging routes and rich history.</p>
+      </div>
+        
+
+      <div class="event" data-type="show" data-location="Limerick" data-month="June">
+        <div class="event-date-circle">22 June</div>
+        <h3>Italian Day</h3>
+        <p class="event-date">June 22, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: Experience the passion of Italian cars, from Ferraris to Fiats.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="July">
+        <div class="event-date-circle">27 July</div>
+        <h3>Japanese Day</h3>
+        <p class="event-date">July 27, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A spotlight on Japanese vehicles, from tuners to classics.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="August">
+        <div class="event-date-circle">24 August</div>
+        <h3>Supercar Day</h3>
+        <p class="event-date">August 24, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A day of luxury and speed featuring the most exotic supercars.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="September">
+        <div class="event-date-circle">28 September</div>
+        <h3>Convertible Day</h3>
+        <p class="event-date">September 28, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: A celebration of convertibles and open-top vehicles.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="October">
+        <div class="event-date-circle">26 October</div>
+        <h3>French Day</h3>
+        <p class="event-date">October 26, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: Featuring French automotive elegance and innovation, from Citroëns to Peugeots.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="November">
+        <div class="event-date-circle">23 November</div>
+        <h3>English Day</h3>
+        <p class="event-date">November 23, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: Honoring British cars with iconic models from Rolls-Royce to Mini.</p>
+      </div>
+      
+      <div class="event" data-type="show" data-location="Limerick" data-month="December">
+        <div class="event-date-circle">28 December</div>
+        <h3>Open Day Sunday</h3>
+        <p class="event-date">December 28, 2025</p>
+        <p>Location: Limerick</p>
+        <p>Description: Closing the year with a festive gathering for all car enthusiasts.</p>
+      </div>
+    </div> 
+  <footer>
+    <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
+  </footer>
+
+  <!-- JavaScript for Filtering -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const typeFilter = document.getElementById('type-filter');
+      const locationFilter = document.getElementById('location-filter');
+      const monthFilter = document.getElementById('month-filter');
+      const events = document.querySelectorAll('.event');
+
+      function filterEvents() {
+        const selectedType = typeFilter.value.toLowerCase();
+        const selectedLocation = locationFilter.value.toLowerCase();
+        const selectedMonth = monthFilter.value.toLowerCase();
+
+        events.forEach(event => {
+          const eventType = event.getAttribute('data-type').toLowerCase();
+          const eventLocation = event.getAttribute('data-location').toLowerCase();
+          const eventMonth = event.getAttribute('data-month').toLowerCase();
+
+          const typeMatch = selectedType === 'all' || eventType === selectedType;
+          const locationMatch = selectedLocation === 'all' || eventLocation === selectedLocation;
+          const monthMatch = selectedMonth === 'all' || eventMonth === selectedMonth;
+
+          if (typeMatch && locationMatch && monthMatch) {
+            event.style.display = 'flex';
+          } else {
+            event.style.display = 'none';
+          }
+        });
+      }
+
+      // Attach event listeners to filters
+      typeFilter.addEventListener('change', filterEvents);
+      locationFilter.addEventListener('change', filterEvents);
+      monthFilter.addEventListener('change', filterEvents);
+
+            // Reset Filters and Refresh Page
+            window.resetFilters = function() {
+        typeFilter.value = 'all';
+        locationFilter.value = 'all';
+        monthFilter.value = 'all';
+        filterEvents();
+      };
+    });
+  </script>
+</body>
+</html>
