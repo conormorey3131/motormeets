@@ -13,248 +13,289 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Global Reset/Box-Sizing */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* Global Reset and Box-Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: 'Montserrat', Arial, sans-serif;
-      background-color: #f2f2f2;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-    /* Header */
-    header {
-      background: linear-gradient(135deg, #1e7a41, #2ca45d); /* Updated to green */
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-    }
+/* Header Styles */
+header {
+  background: linear-gradient(135deg, #1e7a41, #2ca45d);
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
 
-    header img {
-      max-width: 120px;
-      height: auto;
-    }
+header img {
+  max-width: 120px;
+  height: auto;
+}
 
-    header h1 {
-      font-size: 2.25rem;
-      font-weight: 600;
-      margin: 0;
-    }
+header h1 {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin: 0;
+}
 
-    /* Filter Container */
-    .filter-container {
-      background-color: #fff;
-      padding: 1.5rem 2rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      max-width: 1200px;
-      margin: -1rem auto 2rem auto;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
+/* Filter Container */
+.filter-container {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: -1rem auto 2rem;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
 
-    .filter-container select {
-      flex: 1;
-      min-width: 150px;
-      padding: 0.75rem 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-      transition: border-color 0.2s;
-      background-color: #f9f9f9;
-      appearance: none;
-      background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="%23333" d="M0 0l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-      background-size: 10px 5px;
-    }
+.filter-container select {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="%23333" d="M0 0l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 10px 5px;
+  transition: border-color 0.2s;
+}
 
-    .filter-container select:focus {
-      outline: none;
-      border-color: #1e7a41; /* Updated to green */
-      background-color: #fff;
-    }
+.filter-container select:focus {
+  outline: none;
+  border-color: #1e7a41;
+  background-color: #fff;
+}
 
-    /* Calendar Container */
-    .calendar-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
+/* Calendar Container */
+.calendar-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
-    /* Event Card */
-    .event {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      position: relative;
-    }
+@media (max-width: 480px) {
+  .calendar-container {
+    grid-template-columns: 1fr;
+  }
+}
 
-    .event:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
+/* Event Card Styles */
+.event {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
 
-    /* Date Circle (top-right) */
-    .event-date-circle {
-      background-color: #1e7a41; /* Updated to green */
-      color: #fff;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.9rem;
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      text-align: center;
-      line-height: 1.2;
-    }
+.event:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
 
-    /* Event Title */
-    .event h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #1e7a41; /* Updated to green */
-    }
+.event-date-circle {
+  color: #fff;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  text-align: center;
+  line-height: 1.2;
+}
 
-    /* Event Date */
-    .event-date {
-      font-weight: 600;
-      color: #7f8c8d;
-      margin-bottom: 0.5rem;
-    }
+.event-date-circle.rally {
+  background-color: #1e7a41;
+}
 
-    /* Event Paragraphs */
-    .event p {
-      margin: 0.3rem 0;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
+.event-date-circle.show {
+  background-color: #007bff;
+}
 
-    /* Footer */
-    footer {
-      background-color: #1e7a41; /* Updated to green */
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-    }
+.event-date-circle.run {
+  background-color: #ffc107;
+}
 
-    footer p {
-      margin: 0;
-    }
+.event-date-circle.trackday {
+  background-color: #e83e8c;
+}
 
-    footer a {
-      color: #fff;
-      text-decoration: underline;
-      transition: color 0.2s;
-    }
+.event-date-circle.idc {
+  background-color: #17a2b8;
+}
 
-    footer a:hover {
-      color: #d1d1d1;
-    }
+.event h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #1e7a41;
+}
 
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      .filter-container {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .filter-container select {
-        width: 100%;
-      }
-    }
+.event-date {
+  font-weight: 600;
+  color: #7f8c8d;
+  margin-bottom: 0.5rem;
+}
 
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.75rem;
-      }
-      .event {
-        padding: 1rem;
-      }
-      .event-date-circle {
-        width: 50px;
-        height: 50px;
-        font-size: 0.8rem;
-      }
-      .event h3 {
-        font-size: 1rem;
-      }
-      .event p {
-        font-size: 0.85rem;
-      }
-      .filter-container {
-        padding: 1rem;
-      }
-      .filter-container select {
-        padding: 0.75rem 1rem;
-      }
-    }
+.event p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
 
-    /* Additional Mobile Styling for Filter Menu */
-    @media (max-width: 480px) {
-      .filter-container {
-        gap: 0.75rem;
-      }
-    }
+/* Footer Styles */
+footer {
+  background-color: #1e7a41;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+footer a:hover {
+  color: #d1d1d1;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-container select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.75rem;
+  }
+
+  .event {
+    padding: 1rem;
+  }
+
+  .event-date-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 0.8rem;
+  }
+
+  .event h3 {
+    font-size: 1rem;
+  }
+
+  .event p {
+    font-size: 0.85rem;
+  }
+
+  .filter-container {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .filter-container select {
+    padding: 0.75rem 1rem;
+  }
+}
+
   </style>
 </head>
 <body>
   <header>
     <img src="logo.webp" alt="Motor Meets Logo" onclick="resetFilters()">
     <h1>Motor Meets - Ireland</h1>
+    <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
+    </a>
+    
   </header>
 
   <!-- Filter Section -->
   <div class="filter-container">
     <select id="type-filter">
       <option value="all">All Event Types</option>
-      <option value="show">Show</option>
       <option value="rally">Rally</option>
+      <option value="show">Show</option>
       <option value="run">Run</option>
+      <option value="run">Trackday</option>
+      <option value="run">IDC - (Irish Drift ChampionshiP)</option>
     </select>
 
     <select id="location-filter">
       <option value="all">All Locations</option>
       <option value="Antrim">Antrim</option>
+      <option value="Armagh">Armagh</option>
       <option value="Carlow">Carlow</option>
+      <option value="Clare">Clare</option>
+      <option value="Cork">Cork</option>
       <option value="Donegal">Donegal</option>
+      <option value="Derry">Derry</option>
+      <option value="Down">Down</option>
+      <option value="Fermanagh">Fermanagh</option>
       <option value="Galway">Galway</option>
       <option value="Laois">Laois</option>
       <option value="Limerick">Limerick</option>
+      <option value="Longford">Longford</option>
       <option value="Meath">Meath</option>
+      <option value="Tyrone">Tyrone</option>
     </select>
 
     <select id="month-filter">
@@ -276,142 +317,394 @@
 
   <div class="calendar-container">
 
-    <div class="event" data-type="show" data-location="Meath" data-month="January">
-      <div class="event-date-circle">19 Jan</div>
+    <div class="event" data-type="show" data-location="Meath" data-month="January" data-date="2025-01-19">
+      <div class="event-date-circle show">19 Jan</div>
       <h3>Rev &amp; Refuel Car Show</h3>
       <p class="event-date">January 19, 2025</p>
       <p>Location: Smyth’s Service Station, Slane, Ireland C15 EP22</p>
       <p>Description: Kick off the new year with this exciting car show.</p>
     </div>
 
-    <div class="event" data-type="show" data-location="Limerick" data-month="January">
-        <div class="event-date-circle">26 January</div>
-        <h3>Open Day</h3>
-        <p class="event-date">January 26, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A welcoming day for all car enthusiasts to kick off the year.</p>
-      </div>
-      
-    <div class="event" data-type="rally" data-location="Galway" data-month="February">
-        <div class="event-date-circle">7-8 Feb</div>
-        <h3>Galway International Rally</h3>
-        <p class="event-date">February 7-8, 2025</p>
-        <p>Location: Galway, Ireland</p>
-        <p>Description: Celebrate the 54th anniversary of this thrilling rally.</p>
-      </div>
+    <div class="event" data-type="show" data-location="Limerick" data-month="January" data-date="2025-01-26">
+      <div class="event-date-circle show">26 Jan</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">January 26, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Open Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Galway" data-month="February" data-date="2025-02-01">
+      <div class="event-date-circle rally">01-02 Feb</div>
+      <h3>Galway International Rally</h3>
+      <p class="event-date">February 01-02, 2025</p>
+      <p>Location: Galway</p>
+      <p>Description: A thrilling international rally held in Galway.</p>
+    </div>
 
-      <div class="event" data-type="show" data-location="Limerick" data-month="February">
-        <div class="event-date-circle">23 February</div>
-        <h3>American Day</h3>
-        <p class="event-date">February 23, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A celebration of American cars and culture with classic muscle cars and more.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="March">
-        <div class="event-date-circle">23 March</div>
-        <h3>Classic Day</h3>
-        <p class="event-date">March 23, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A showcase of timeless classic cars for enthusiasts and collectors.</p>
-      </div>
+    <div class="event" data-type="rally" data-location="Donegal" data-month="February" data-date="2025-02-16">
+      <div class="event-date-circle rally">16 Feb</div>
+      <h3>Donegal Forest Rally</h3>
+      <p class="event-date">February 16, 2025</p>
+      <p>Location: Donegal</p>
+      <p>Description: Exciting forest rally stages in Donegal.</p>
+    </div>
 
-      <div class="event" data-type="show" data-location="Antrim" data-month="April">
-        <div class="event-date-circle">5-6 Apr</div>
+    <div class="event" data-type="rally" data-location="Tyrone" data-month="February" data-date="2025-02-22">
+      <div class="event-date-circle rally">22 Feb</div>
+      <h3>Fivemiletown Forest Rally</h3>
+      <p class="event-date">February 22, 2025</p>
+      <p>Description: Forest rally excitement at Fivemiletown.</p>
+    </div>
+    
+    <div class="event" data-type="show" data-location="Limerick" data-month="February" data-date="2025-02-23">
+      <div class="event-date-circle show">23 Feb</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">February 23, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: American Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Longford" data-month="March" data-date="2025-03-02">
+      <div class="event-date-circle rally">02 Mar</div>
+      <h3>Midland Moto Stages Rally</h3>
+      <p class="event-date">March 02, 2025</p>
+      <p>Description: A fast-paced rally event in the Midlands.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Down" data-month="March" data-date="2025-03-08">
+      <div class="event-date-circle rally">08 Mar</div>
+      <h3>Bishopscourt Stages Rally</h3>
+      <p class="event-date">March 08, 2025</p>
+      <p>Description: Rally stages held at Bishopscourt.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Cork" data-month="March" data-date="2025-03-14">
+      <div class="event-date-circle rally">14-16 Mar</div>
+      <h3>West Cork Rally</h3>
+      <p class="event-date">March 14-16, 2025</p>
+      <p>Location: West Cork</p>
+      <p>Description: Iconic rally event through West Cork.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="March" data-date="2025-03-23">
+      <div class="event-date-circle show">23 Mar</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">March 23, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Classic Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Carlow" data-month="March" data-date="2025-03-23">
+      <div class="event-date-circle rally">23 Mar</div>
+      <h3>Carlow Forest Rally</h3>
+      <p class="event-date">March 23, 2025</p>
+      <p>Location: Carlow</p>
+      <p>Description: Forest rally stages in Carlow.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Kerry" data-month="March" data-date="2025-03-30">
+      <div class="event-date-circle rally">30 Mar</div>
+      <h3>Circuit of Kerry Rally</h3>
+      <p class="event-date">March 30, 2025</p>
+      <p>Location: Kerry</p>
+      <p>Description: Circuit rally in Kerry.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Derry" data-month="April" data-date="2025-04-05">
+      <div class="event-date-circle rally">05 Apr</div>
+      <h3>Tour of the Sperrins Rally</h3>
+      <p class="event-date">April 05, 2025</p>
+      <p>Description: Tour rally through the Sperrins.</p>
+    </div>
+
+      <div class="event" data-type="show" data-location="Antrim" data-month="April" data-date="2025-04-05">
+        <div class="event-date-circle show">5-6 Apr</div>
         <h3>Dubshed 2025</h3>
         <p class="event-date">April 5-6, 2025</p>
         <p>Location: Eikon Exhibition Centre, Lisburn</p>
         <p>Description: Ireland's largest car show featuring a wide array of vehicles and attractions.</p>
       </div>
+    
+    
+    <div class="event" data-type="rally" data-location="Cork" data-month="April" data-date="2025-04-12">
+      <div class="event-date-circle rally">12 Apr</div>
+      <h3>Moonraker Forest Rally</h3>
+      <p class="event-date">April 12, 2025</p>
+      <p>Description: Forest rally event full of excitement.</p>
+    </div>
 
-      <div class="event" data-type="show" data-location="Limerick" data-month="April">
-        <div class="event-date-circle">27 April</div>
-        <h3>Motorbike Day</h3>
-        <p class="event-date">April 27, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A day dedicated to motorbike lovers, featuring bikes from all eras.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="May">
-        <div class="event-date-circle">25 May</div>
-        <h3>German Day</h3>
-        <p class="event-date">May 25, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A tribute to German engineering with iconic cars from brands like BMW and Mercedes.</p>
-      </div>
-      
-      <div class="event" data-type="run" data-location="Laois" data-month="May">
-        <div class="event-date-circle">31 May</div>
-        <h3>Gordon Bennett Classic Car Run</h3>
-        <p class="event-date">May 31 - June 2, 2025</p>
-        <p>Location: Counties Laois, Carlow, and Kildare</p>
-        <p>Description: A classic car run through historic routes.</p>
-      </div>
+    <div class="event" data-type="rally" data-location="" data-month="April" data-date="2025-04-18">
+      <div class="event-date-circle rally">18-19 Apr</div>
+      <h3>Circuit of Ireland Rally</h3>
+      <p class="event-date">April 18-19, 2025</p>
+      <p>Location: Ireland</p>
+      <p>Description: One of the longest-running rallies in Ireland.</p>
+    </div>
 
-      <div class="event" data-type="rally" data-location="Donegal" data-month="June">
-        <div class="event-date-circle">20-22 Jun</div>
-        <h3>Donegal International Rally</h3>
-        <p class="event-date">June 20-22, 2025</p>
-        <p>Location: County Donegal</p>
-        <p>Description: An annual car race known for its challenging routes and rich history.</p>
-      </div>
-        
+    <div class="event" data-type="show" data-location="Limerick" data-month="April" data-date="2025-04-27">
+      <div class="event-date-circle show">27 Apr</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">April 27, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Motorbike Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Kerry" data-month="May" data-date="2025-05-03">
+      <div class="event-date-circle rally">03-04 May</div>
+      <h3>Rally of the Lakes</h3>
+      <p class="event-date">May 03-04, 2025</p>
+      <p>Location: Lakes</p>
+      <p>Description: A spectacular rally event near scenic lakes.</p>
+    </div>
 
-      <div class="event" data-type="show" data-location="Limerick" data-month="June">
-        <div class="event-date-circle">22 June</div>
-        <h3>Italian Day</h3>
-        <p class="event-date">June 22, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: Experience the passion of Italian cars, from Ferraris to Fiats.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="July">
-        <div class="event-date-circle">27 July</div>
-        <h3>Japanese Day</h3>
-        <p class="event-date">July 27, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A spotlight on Japanese vehicles, from tuners to classics.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="August">
-        <div class="event-date-circle">24 August</div>
-        <h3>Supercar Day</h3>
-        <p class="event-date">August 24, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A day of luxury and speed featuring the most exotic supercars.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="September">
-        <div class="event-date-circle">28 September</div>
-        <h3>Convertible Day</h3>
-        <p class="event-date">September 28, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: A celebration of convertibles and open-top vehicles.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="October">
-        <div class="event-date-circle">26 October</div>
-        <h3>French Day</h3>
-        <p class="event-date">October 26, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: Featuring French automotive elegance and innovation, from Citroëns to Peugeots.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="November">
-        <div class="event-date-circle">23 November</div>
-        <h3>English Day</h3>
-        <p class="event-date">November 23, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: Honoring British cars with iconic models from Rolls-Royce to Mini.</p>
-      </div>
-      
-      <div class="event" data-type="show" data-location="Limerick" data-month="December">
-        <div class="event-date-circle">28 December</div>
-        <h3>Open Day Sunday</h3>
-        <p class="event-date">December 28, 2025</p>
-        <p>Location: Limerick</p>
-        <p>Description: Closing the year with a festive gathering for all car enthusiasts.</p>
-      </div>
+    <div class="event" data-type="rally" data-location="Tipperary" data-month="May" data-date="2025-05-11">
+      <div class="event-date-circle rally">11 May</div>
+      <h3>Tipperary Forest Rally</h3>
+      <p class="event-date">May 11, 2025</p>
+      <p>Location: Tipperary</p>
+      <p>Description: Forest rally event held in Tipperary.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Derry" data-month="May" data-date="2025-05-24">
+      <div class="event-date-circle rally">24 May</div>
+      <h3>Maiden City Stages Rally</h3>
+      <p class="event-date">May 24, 2025</p>
+      <p>Description: Exciting stages rally near Maiden City.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="May" data-date="2025-05-25">
+      <div class="event-date-circle show">25 May</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">May 25, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: German Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Cavan" data-month="May" data-date="2025-05-25">
+      <div class="event-date-circle rally">25 May</div>
+      <h3>Cavan Stages Rally</h3>
+      <p class="event-date">May 25, 2025</p>
+      <p>Location: Cavan</p>
+      <p>Description: Thrilling rally event in Cavan.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Mayo" data-month="May" data-date="2025-05-31">
+      <div class="event-date-circle rally">31 May</div>
+      <h3>Mayo Forest Rally</h3>
+      <p class="event-date">May 31, 2025</p>
+      <p>Location: Mayo</p>
+      <p>Description: A forest rally through the scenic Mayo region.</p>
+    </div>
+
+    <div class="event" data-type="run" data-location="Laois, Carlow, Kildare" data-month="May" data-date="2025-05-31">
+      <div class="event-date-circle run">31 May</div>
+      <h3>Gordon Bennett Classic Car Run</h3>
+      <p class="event-date">May 31 - June 2, 2025</p>
+      <p>Location: Counties Laois, Carlow, and Kildare</p>
+      <p>Description: A classic car run through historic routes.</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Laois" data-month="June" data-date="2025-06-08">
+      <div class="event-date-circle rally">08 Jun</div>
+      <h3>Laois Heartlands Mini Stages Rally</h3>
+      <p class="event-date">June 08, 2025</p>
+      <p>Location: Laois</p>
+      <p>Description: A compact and exciting rally event in Laois.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Donegal" data-month="June" data-date="2025-06-20">
+      <div class="event-date-circle rally">20-22 Jun</div>
+      <h3>Donegal International Rally</h3>
+      <p class="event-date">June 20-22, 2025</p>
+      <p>Location: Donegal</p>
+      <p>Description: The famous Donegal International Rally.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="June" data-date="2025-06-22">
+      <div class="event-date-circle show">22 Jun</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">June 22, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Italian Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Armagh" data-month="July" data-date="2025-07-05">
+    <div class="event-date-circle rally">05 Jul</div>
+    <h3>Loughgall Stages Rally</h3>
+    <p class="event-date">July 05, 2025</p>
+    <p>Location: Loughgall</p>
+    <p>Description: A thrilling rally through Loughgall's roads.</p>
+  </div>
+  
+  <div class="event" data-type="rally" data-location="Waterford" data-month="July" data-date="2025-07-06">
+    <div class="event-date-circle rally">06 Jul</div>
+    <h3>Ravens Rock Rally</h3>
+    <p class="event-date">July 06, 2025</p>
+    <p>Description: Exciting rally action at Ravens Rock.</p>
+  </div>
+
+  <div class="event" data-type="rally" data-location="Down" data-month="July" data-date="2025-07-19">
+    <div class="event-date-circle rally">19 Jul</div>
+    <h3>Down Stages Rally</h3>
+    <p class="event-date">July 19, 2025</p>
+    <p>Description: An adrenaline-pumping rally in the Down region.</p>
+  </div>
+
+  <div class="event" data-type="rally" data-location="Sligo" data-month="July" data-date="2025-07-20">
+    <div class="event-date-circle rally">20 Jul</div>
+    <h3>Sligo Stages Rally</h3>
+    <p class="event-date">July 20, 2025</p>
+    <p>Description: An exciting rally in Sligo.</p>
+  </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="July" data-date="2025-07-27">
+      <div class="event-date-circle show">27 Jul</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">July 27, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Japanese Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Cork" data-month="July" data-date="2025-07-27">
+      <div class="event-date-circle rally">27 Jul</div>
+      <h3>Imokilly Mini Stage Rally</h3>
+      <p class="event-date">July 27, 2025</p>
+      <p>Description: A compact yet action-packed rally event.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Cork" data-month="August" data-date="2025-08-10">
+      <div class="event-date-circle rally">10 Aug</div>
+      <h3>Cork Forest Rally</h3>
+      <p class="event-date">August 10, 2025</p>
+      <p>Description: Forest rally excitement in Cork.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="" data-month="August" data-date="2025-08-15">
+      <div class="event-date-circle rally">15-16 Aug</div>
+      <h3>Ulster Rally</h3>
+      <p class="event-date">August 15-16, 2025</p>
+      <p>Description: A major rally event held in Ulster.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Meath" data-month="August" data-date="2025-08-17">
+      <div class="event-date-circle rally">17 Aug</div>
+      <h3>ALMC Hellfire Stages Rally</h3>
+      <p class="event-date">August 17, 2025</p>
+      <p>Description: A thrilling rally through challenging stages.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Derry" data-month="August" data-date="2025-08-23">
+      <div class="event-date-circle rally">23 Aug</div>
+      <h3>Davagh Stages Rally</h3>
+      <p class="event-date">August 23, 2025</p>
+      <p>Description: Exciting stages rally in Davagh.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="August" data-date="2025-08-24">
+      <div class="event-date-circle show">24 Aug</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">August 24, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Supercar Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Limerick" data-month="August" data-date="2025-08-24">
+      <div class="event-date-circle rally">24 Aug</div>
+      <h3>Limerick Mini Stages Rally</h3>
+      <p class="event-date">August 24, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Mini stages rally held in Limerick.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Clare" data-month="September" data-date="2025-09-07">
+      <div class="event-date-circle rally">07 Sep</div>
+      <h3>Clare Stages Rally</h3>
+      <p class="event-date">September 07, 2025</p>
+      <p>Description: A rally featuring scenic routes in Clare.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Fermanagh" data-month="September" data-date="2025-09-08">
+      <div class="event-date-circle rally">08 Sep</div>
+      <h3>Lakeland Stages Rally</h3>
+      <p class="event-date">September 08, 2025</p>
+      <p>Description: A picturesque rally in the Lakeland region.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Wexford" data-month="September" data-date="2025-09-13">
+      <div class="event-date-circle rally">13-14 Sep</div>
+      <h3>Wexford Stages Rally</h3>
+      <p class="event-date">September 13-14, 2025</p>
+      <p>Location: Wexford</p>
+      <p>Description: A prominent rally event in Wexford.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Tyrone" data-month="September" data-date="2025-09-19">
+      <div class="event-date-circle rally">19-20 Sep</div>
+      <h3>Bushwhacker Rally</h3>
+      <p class="event-date">September 19-20, 2025</p>
+      <p>Description: An exhilarating rally event through rugged terrain.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="September" data-date="2025-09-28">
+      <div class="event-date-circle show">28 Sep</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">September 28, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Convertible Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Cork" data-month="October" data-date="2025-10-04">
+      <div class="event-date-circle rally">04-05 Oct</div>
+      <h3>Cork 20 Rally</h3>
+      <p class="event-date">October 04-05, 2025</p>
+      <p>Description: A major rally event hosted in Cork.</p>
+    </div>
+
+    <div class="event" data-type="rally" data-location="Derry" data-month="October" data-date="2025-10-11">
+      <div class="event-date-circle rally">11 Oct</div>
+      <h3>Dogleap Rally</h3>
+      <p class="event-date">October 11, 2025</p>
+      <p>Description: A thrilling rally through Donegal.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="October" data-date="2025-10-26">
+      <div class="event-date-circle show">26 Oct</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">October 26, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: French Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Cork" data-month="October" data-date="2025-10-26">
+      <div class="event-date-circle rally">26 Oct</div>
+      <h3>Fastnet Stages Rally</h3>
+      <p class="event-date">October 26, 2025</p>
+      <p>Description: Exciting stages rally through the Fastnet region.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="November" data-date="2025-11-23">
+      <div class="event-date-circle show">23 Nov</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">November 23, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: English Day</p>
+    </div>
+    
+    <div class="event" data-type="rally" data-location="Kerry" data-month="November" data-date="2025-11-29">
+      <div class="event-date-circle rally">29 Nov</div>
+      <h3>Killarney Historic Rally</h3>
+      <p class="event-date">November 29, 2025</p>
+      <p>Description: A historic rally event hosted in Killarney.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Limerick" data-month="December" data-date="2025-12-28">
+      <div class="event-date-circle show">28 Dec</div>
+      <h3>Limerick C&C</h3>
+      <p class="event-date">December 28, 2025</p>
+      <p>Location: Limerick</p>
+      <p>Description: Open Day</p>
+    </div>
+    
     </div> 
   <footer>
     <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
@@ -419,47 +712,59 @@
 
   <!-- JavaScript for Filtering -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const typeFilter = document.getElementById('type-filter');
       const locationFilter = document.getElementById('location-filter');
       const monthFilter = document.getElementById('month-filter');
       const events = document.querySelectorAll('.event');
-
+      
+      // Get today's date without time for comparison
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+  
       function filterEvents() {
         const selectedType = typeFilter.value.toLowerCase();
         const selectedLocation = locationFilter.value.toLowerCase();
         const selectedMonth = monthFilter.value.toLowerCase();
-
+  
         events.forEach(event => {
           const eventType = event.getAttribute('data-type').toLowerCase();
           const eventLocation = event.getAttribute('data-location').toLowerCase();
           const eventMonth = event.getAttribute('data-month').toLowerCase();
-
+          const eventDate = new Date(event.getAttribute('data-date'));
+  
+          // Check if the event is in the future
+          const isUpcoming = eventDate >= today;
+  
           const typeMatch = selectedType === 'all' || eventType === selectedType;
           const locationMatch = selectedLocation === 'all' || eventLocation === selectedLocation;
           const monthMatch = selectedMonth === 'all' || eventMonth === selectedMonth;
-
-          if (typeMatch && locationMatch && monthMatch) {
+  
+          if (isUpcoming && typeMatch && locationMatch && monthMatch) {
             event.style.display = 'flex';
           } else {
             event.style.display = 'none';
           }
         });
       }
-
+  
       // Attach event listeners to filters
       typeFilter.addEventListener('change', filterEvents);
       locationFilter.addEventListener('change', filterEvents);
       monthFilter.addEventListener('change', filterEvents);
-
-            // Reset Filters and Refresh Page
-            window.resetFilters = function() {
+  
+      // Reset Filters and Refresh Page
+      window.resetFilters = function () {
         typeFilter.value = 'all';
         locationFilter.value = 'all';
         monthFilter.value = 'all';
         filterEvents();
       };
+  
+      // Initial filter to hide past events
+      filterEvents();
     });
   </script>
+  
 </body>
 </html>
