@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Events Calendar</title>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events Calendar</title>
+  <link rel="icon" href="logo.webp" type="image/webp">
 
-<!-- Import a modern Google Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-
+  <!-- Import a modern Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Using Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
 /* Global Reset and Box-Sizing */
@@ -164,6 +164,18 @@ header h1 {
   background-color: #17a2b8;
 }
 
+.event-date-circle.dr {
+  background-color: #6c757d; 
+}
+
+.event-date-circle.sd {
+  background-color: #6610f2; 
+}
+
+.event-date-circle.bee {
+  background-color: #fd7e14; 
+}
+
 .event h3 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
@@ -181,6 +193,43 @@ header h1 {
   margin: 0.3rem 0;
   font-size: 0.95rem;
   line-height: 1.4;
+}
+
+.upcoming-info {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto 2rem; /* space before the footer */
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Style the link to match your palette */
+.upcoming-info a {
+  color: #1e7a41; /* match your brand color */
+  text-decoration: underline;
+}
+
+.upcoming-info a:hover {
+  color: #2ca45d; /* hover effect */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  .upcoming-info {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .upcoming-info {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
 }
 
 /* Footer Styles */
@@ -256,6 +305,31 @@ footer a:hover {
   }
 }
 
+/* Global Link Styles */
+a {
+  color: #1e7a41;             /* Match your brand color */
+  text-decoration: underline; /* Underline for clarity or use none if preferred */
+  transition: color 0.2s;
+}
+
+a:hover,
+a:focus {
+  color: #2ca45d;             /* Slightly lighter brand color on hover/focus */
+  text-decoration: underline; /* Keep or remove the underline on hover as desired */
+}
+
+/* Footer Link Override (if you want footer links to stay white) */
+footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+footer a:hover,
+footer a:focus {
+  color: #d1d1d1;
+  text-decoration: underline;
+}
+
   </style>
 </head>
 <body>
@@ -275,8 +349,11 @@ footer a:hover {
       <option value="rally">Rally</option>
       <option value="show">Show</option>
       <option value="run">Run</option>
-      <option value="run">Trackday</option>
-      <option value="run">IDC - (Irish Drift ChampionshiP)</option>
+      <option value="Trackday">Trackday</option>
+      <option value="idc">IDC - (Irish Drift Championship)</option>
+      <option value="dr">Drag Racing</option>
+      <option value="bee">Bumblebee 1000</option>
+      <option value="sd">Slab Day</option>
     </select>
 
     <select id="location-filter">
@@ -292,10 +369,13 @@ footer a:hover {
       <option value="Fermanagh">Fermanagh</option>
       <option value="Galway">Galway</option>
       <option value="Laois">Laois</option>
+      <option value="Louth">Louth</option>
       <option value="Limerick">Limerick</option>
       <option value="Longford">Longford</option>
       <option value="Meath">Meath</option>
       <option value="Tyrone">Tyrone</option>
+      <option value="Waterford">Waterford</option>
+      <option value="Wicklow">Wicklow</option>
     </select>
 
     <select id="month-filter">
@@ -317,12 +397,40 @@ footer a:hover {
 
   <div class="calendar-container">
 
+    <div class="event" data-type="show" data-location="Louth" data-month="January" data-date="2025-01-05">
+      <div class="event-date-circle show">5 January</div>
+      <h3>Cars and Coffee North East</h3>
+      <p class="event-date">January 5, 2025</p>
+      <p>Location: Louth</p>
+      <p>Description: A must-see Cars and Coffee North East experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/CarsandCoffeeNE/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="show" data-location="Meath" data-month="January" data-date="2025-01-19">
       <div class="event-date-circle show">19 Jan</div>
       <h3>Rev &amp; Refuel Car Show</h3>
       <p class="event-date">January 19, 2025</p>
       <p>Location: Smyth’s Service Station, Slane, Ireland C15 EP22</p>
       <p>Description: Kick off the new year with this exciting car show.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/people/RevRefuel/61559659337186/" 
+          target="_blank" 
+          rel="noopener"
+        >
+        Event Page
+        </a>
+      </p>
     </div>
 
     <div class="event" data-type="show" data-location="Limerick" data-month="January" data-date="2025-01-26">
@@ -331,14 +439,87 @@ footer a:hover {
       <p class="event-date">January 26, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Open Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="January" data-date="2025-01-26">
+      <div class="event-date-circle show">26 January</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">January 26, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Galway" data-month="February" data-date="2025-02-01">
       <div class="event-date-circle rally">01-02 Feb</div>
       <h3>Galway International Rally</h3>
       <p class="event-date">February 01-02, 2025</p>
       <p>Location: Galway</p>
       <p>Description: A thrilling international rally held in Galway.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Louth" data-month="February" data-date="2025-02-02">
+      <div class="event-date-circle show">2 February</div>
+      <h3>Cars and Coffee North <br> East</h3>
+      <p class="event-date">February 2, 2025</p>
+      <p>Location: Louth</p>
+      <p>Description: A must-see Cars and Coffee North East experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/CarsandCoffeeNE/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Wicklow" data-month="February" data-date="2025-02-02">
+      <div class="event-date-circle show">2 February</div>
+      <h3>Cars and Coffee Bray</h3>
+      <p class="event-date">February 2, 2025</p>
+      <p>Location: Wicklow</p>
+      <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+      <p>
+        Website:
+        <a
+          href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Cork" data-month="February" data-date="2025-02-09">
+      <div class="event-date-circle show">9 February</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">February 9, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
     </div>
 
     <div class="event" data-type="rally" data-location="Donegal" data-month="February" data-date="2025-02-16">
@@ -362,8 +543,63 @@ footer a:hover {
       <p class="event-date">February 23, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: American Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="February" data-date="2025-02-23">
+      <div class="event-date-circle show">23 February</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">February 23, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Louth" data-month="March" data-date="2025-03-02">
+      <div class="event-date-circle show">2 March</div>
+      <h3>Cars and Coffee North <br> East</h3>
+      <p class="event-date">March 2, 2025</p>
+      <p>Location: Louth</p>
+      <p>Description: A must-see Cars and Coffee North East experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/CarsandCoffeeNE/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Wicklow" data-month="March" data-date="2025-03-02">
+      <div class="event-date-circle show">2 March</div>
+      <h3>Cars and Coffee Bray</h3>
+      <p class="event-date">March 2, 2025</p>
+      <p>Location: Wicklow</p>
+      <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+      <p>
+        Website:
+        <a
+          href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Longford" data-month="March" data-date="2025-03-02">
       <div class="event-date-circle rally">02 Mar</div>
       <h3>Midland Moto Stages Rally</h3>
@@ -376,6 +612,24 @@ footer a:hover {
       <h3>Bishopscourt Stages Rally</h3>
       <p class="event-date">March 08, 2025</p>
       <p>Description: Rally stages held at Bishopscourt.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Cork" data-month="March" data-date="2025-03-09">
+      <div class="event-date-circle show">9 March</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">March 9, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
     </div>
 
     <div class="event" data-type="rally" data-location="Cork" data-month="March" data-date="2025-03-14">
@@ -392,8 +646,27 @@ footer a:hover {
       <p class="event-date">March 23, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Classic Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="March" data-date="2025-03-23">
+      <div class="event-date-circle show">23 March</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">March 23, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Carlow" data-month="March" data-date="2025-03-23">
       <div class="event-date-circle rally">23 Mar</div>
       <h3>Carlow Forest Rally</h3>
@@ -425,7 +698,61 @@ footer a:hover {
         <p>Description: Ireland's largest car show featuring a wide array of vehicles and attractions.</p>
       </div>
     
+      <div class="event" data-type="show" data-location="Cork" data-month="April" data-date="2025-04-06">
+        <div class="event-date-circle show">6 April</div>
+        <h3>Cars and Coffee Cork</h3>
+        <p class="event-date">April 6, 2025</p>
+        <p>Location: Cork</p>
+        <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+        <p>
+          Website:
+          <a 
+            href="https://www.facebook.com/groups/1036664849732370/"
+            target="_blank"
+            rel="noopener"
+          >
+            Event Page
+          </a>
+        </p>
+      </div>
+
+      <div class="event" data-type="show" data-location="Louth" data-month="April" data-date="2025-04-06">
+        <div class="event-date-circle show">6 April</div>
+        <h3>Cars and Coffee North <br> East</h3>
+        <p class="event-date">April 6, 2025</p>
+        <p>Location: Louth</p>
+        <p>Description: A must-see Cars and Coffee North East experience!</p>
+        <p>
+          Website:
+          <a 
+            href="https://www.facebook.com/CarsandCoffeeNE/" 
+            target="_blank" 
+            rel="noopener"
+          >
+            Event Page
+          </a>
+        </p>
+      </div>
     
+      <div class="event" data-type="show" data-location="Wicklow" data-month="April" data-date="2025-04-06">
+        <div class="event-date-circle show">6 April</div>
+        <h3>Cars and Coffee Bray</h3>
+        <p class="event-date">April 6, 2025</p>
+        <p>Location: Wicklow</p>
+        <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+        <p>
+          Website:
+          <a
+            href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+            target="_blank"
+            rel="noopener"
+          >
+            Event Page
+          </a>
+        </p>
+      </div>
+      
+
     <div class="event" data-type="rally" data-location="Cork" data-month="April" data-date="2025-04-12">
       <div class="event-date-circle rally">12 Apr</div>
       <h3>Moonraker Forest Rally</h3>
@@ -441,12 +768,31 @@ footer a:hover {
       <p>Description: One of the longest-running rallies in Ireland.</p>
     </div>
 
+    <div class="event" data-type="show" data-location="Cork" data-month="April" data-date="2025-04-20">
+      <div class="event-date-circle show">20 April</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">April 20, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="show" data-location="Limerick" data-month="April" data-date="2025-04-27">
       <div class="event-date-circle show">27 Apr</div>
       <h3>Limerick C&C</h3>
       <p class="event-date">April 27, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Motorbike Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
     <div class="event" data-type="rally" data-location="Kerry" data-month="May" data-date="2025-05-03">
@@ -457,6 +803,60 @@ footer a:hover {
       <p>Description: A spectacular rally event near scenic lakes.</p>
     </div>
 
+    <div class="event" data-type="show" data-location="Cork" data-month="May" data-date="2025-05-04">
+      <div class="event-date-circle show">4 May</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">May 4, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+<div class="event" data-type="show" data-location="Louth" data-month="May" data-date="2025-05-04">
+  <div class="event-date-circle show">4 May</div>
+  <h3>Cars and Coffee North <br> East</h3>
+  <p class="event-date">May 4, 2025</p>
+  <p>Location: Louth</p>
+  <p>Description: A must-see Cars and Coffee North East experience!</p>
+  <p>
+    Website:
+    <a 
+      href="https://www.facebook.com/CarsandCoffeeNE/" 
+      target="_blank" 
+      rel="noopener"
+    >
+      Event Page
+    </a>
+  </p>
+</div>
+
+<div class="event" data-type="show" data-location="Wicklow" data-month="May" data-date="2025-05-04">
+  <div class="event-date-circle show">4 May</div>
+  <h3>Cars and Coffee Bray</h3>
+  <p class="event-date">May 4, 2025</p>
+  <p>Location: Wicklow</p>
+  <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+  <p>
+    Website:
+    <a
+      href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+      target="_blank"
+      rel="noopener"
+    >
+      Event Page
+    </a>
+  </p>
+</div>
+
     <div class="event" data-type="rally" data-location="Tipperary" data-month="May" data-date="2025-05-11">
       <div class="event-date-circle rally">11 May</div>
       <h3>Tipperary Forest Rally</h3>
@@ -464,6 +864,42 @@ footer a:hover {
       <p>Location: Tipperary</p>
       <p>Description: Forest rally event held in Tipperary.</p>
     </div>
+
+    <div class="event" data-type="show" data-location="Cork" data-month="May" data-date="2025-05-18">
+      <div class="event-date-circle show">18 May</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">May 18, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Waterford" data-month="May" data-date="2025-05-24">
+      <div class="event-date-circle show">24 May</div>
+      <h3>Castle & Cars<br>Exhibition 5.0</h3>
+      <p class="event-date">January 26, 2025</p>
+      <p>Location: Waterford</p>
+      <p>Description: A must-see Castle & Cars experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.parknchillwaterford.ie/event-details/castle-n-cars-exhibition-5-0" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>  
 
     <div class="event" data-type="rally" data-location="Derry" data-month="May" data-date="2025-05-24">
       <div class="event-date-circle rally">24 May</div>
@@ -478,6 +914,7 @@ footer a:hover {
       <p class="event-date">May 25, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: German Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
     <div class="event" data-type="rally" data-location="Cavan" data-month="May" data-date="2025-05-25">
@@ -498,23 +935,95 @@ footer a:hover {
 
     <div class="event" data-type="run" data-location="Laois, Carlow, Kildare" data-month="May" data-date="2025-05-31">
       <div class="event-date-circle run">31 May</div>
-      <h3>Gordon Bennett Classic Car Run</h3>
+      <h3>Gordon Bennett Classic <br> Car Run</h3>
       <p class="event-date">May 31 - June 2, 2025</p>
       <p>Location: Counties Laois, Carlow, and Kildare</p>
       <p>Description: A classic car run through historic routes.</p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="June" data-date="2025-06-01">
+      <div class="event-date-circle show">1 June</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">June 1, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+<div class="event" data-type="show" data-location="Louth" data-month="June" data-date="2025-06-01">
+  <div class="event-date-circle show">1 June</div>
+  <h3>Cars and Coffee North <br> East</h3>
+  <p class="event-date">June 1, 2025</p>
+  <p>Location: Louth</p>
+  <p>Description: A must-see Cars and Coffee North East experience!</p>
+  <p>
+    Website:
+    <a 
+      href="https://www.facebook.com/CarsandCoffeeNE/" 
+      target="_blank" 
+      rel="noopener"
+    >
+      Event Page
+    </a>
+  </p>
+</div>
+
+<div class="event" data-type="show" data-location="Wicklow" data-month="June" data-date="2025-06-01">
+  <div class="event-date-circle show">1 June</div>
+  <h3>Cars and Coffee Bray</h3>
+  <p class="event-date">June 1, 2025</p>
+  <p>Location: Wicklow</p>
+  <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+  <p>
+    Website:
+    <a
+      href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+      target="_blank"
+      rel="noopener"
+    >
+      Event Page
+    </a>
+  </p>
+</div>
+
     <div class="event" data-type="rally" data-location="Laois" data-month="June" data-date="2025-06-08">
       <div class="event-date-circle rally">08 Jun</div>
-      <h3>Laois Heartlands Mini Stages Rally</h3>
+      <h3>Laois Heartlands Mini <br> Stages Rally</h3>
       <p class="event-date">June 08, 2025</p>
       <p>Location: Laois</p>
       <p>Description: A compact and exciting rally event in Laois.</p>
     </div>
 
+    <div class="event" data-type="show" data-location="Cork" data-month="June" data-date="2025-06-15">
+      <div class="event-date-circle show">15 June</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">June 15, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Donegal" data-month="June" data-date="2025-06-20">
       <div class="event-date-circle rally">20-22 Jun</div>
-      <h3>Donegal International Rally</h3>
+      <h3>Donegal International <br> Rally</h3>
       <p class="event-date">June 20-22, 2025</p>
       <p>Location: Donegal</p>
       <p>Description: The famous Donegal International Rally.</p>
@@ -526,8 +1035,27 @@ footer a:hover {
       <p class="event-date">June 22, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Italian Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="June" data-date="2025-06-29">
+      <div class="event-date-circle show">29 June</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">June 29, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Armagh" data-month="July" data-date="2025-07-05">
     <div class="event-date-circle rally">05 Jul</div>
     <h3>Loughgall Stages Rally</h3>
@@ -536,11 +1064,65 @@ footer a:hover {
     <p>Description: A thrilling rally through Loughgall's roads.</p>
   </div>
   
+  <div class="event" data-type="show" data-location="Louth" data-month="July" data-date="2025-07-06">
+    <div class="event-date-circle show">6 July</div>
+    <h3>Cars and Coffee North <br> East</h3>
+    <p class="event-date">July 6, 2025</p>
+    <p>Location: Louth</p>
+    <p>Description: A must-see Cars and Coffee North East experience!</p>
+    <p>
+      Website:
+      <a 
+        href="https://www.facebook.com/CarsandCoffeeNE/" 
+        target="_blank" 
+        rel="noopener"
+      >
+        Event Page
+      </a>
+    </p>
+  </div>
+
+  <div class="event" data-type="show" data-location="Wicklow" data-month="July" data-date="2025-07-06">
+    <div class="event-date-circle show">6 July</div>
+    <h3>Cars and Coffee Bray</h3>
+    <p class="event-date">July 6, 2025</p>
+    <p>Location: Wicklow</p>
+    <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+    <p>
+      Website:
+      <a
+        href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+        target="_blank"
+        rel="noopener"
+      >
+        Event Page
+      </a>
+    </p>
+  </div>
+
   <div class="event" data-type="rally" data-location="Waterford" data-month="July" data-date="2025-07-06">
     <div class="event-date-circle rally">06 Jul</div>
     <h3>Ravens Rock Rally</h3>
     <p class="event-date">July 06, 2025</p>
     <p>Description: Exciting rally action at Ravens Rock.</p>
+  </div>
+
+  <div class="event" data-type="show" data-location="Cork" data-month="July" data-date="2025-07-13">
+    <div class="event-date-circle show">13 July</div>
+    <h3>Cars and Coffee Cork</h3>
+    <p class="event-date">July 13, 2025</p>
+    <p>Location: Cork</p>
+    <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+    <p>
+      Website:
+      <a 
+        href="https://www.facebook.com/groups/1036664849732370/"
+        target="_blank"
+        rel="noopener"
+      >
+        Event Page
+      </a>
+    </p>
   </div>
 
   <div class="event" data-type="rally" data-location="Down" data-month="July" data-date="2025-07-19">
@@ -563,13 +1145,86 @@ footer a:hover {
       <p class="event-date">July 27, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Japanese Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="July" data-date="2025-07-27">
+      <div class="event-date-circle show">27 July</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">July 27, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Cork" data-month="July" data-date="2025-07-27">
       <div class="event-date-circle rally">27 Jul</div>
       <h3>Imokilly Mini Stage Rally</h3>
       <p class="event-date">July 27, 2025</p>
       <p>Description: A compact yet action-packed rally event.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Louth" data-month="August" data-date="2025-08-03">
+      <div class="event-date-circle show">3 August</div>
+      <h3>Cars and Coffee North <br> East</h3>
+      <p class="event-date">August 3, 2025</p>
+      <p>Location: Louth</p>
+      <p>Description: A must-see Cars and Coffee North East experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/CarsandCoffeeNE/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Wicklow" data-month="August" data-date="2025-08-03">
+      <div class="event-date-circle show">3 August</div>
+      <h3>Cars and Coffee Bray</h3>
+      <p class="event-date">August 3, 2025</p>
+      <p>Location: Wicklow</p>
+      <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+      <p>
+        Website:
+        <a
+          href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Cork" data-month="August" data-date="2025-08-10">
+      <div class="event-date-circle show">10 August</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">August 10, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
     </div>
 
     <div class="event" data-type="rally" data-location="Cork" data-month="August" data-date="2025-08-10">
@@ -606,8 +1261,27 @@ footer a:hover {
       <p class="event-date">August 24, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Supercar Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="August" data-date="2025-08-24">
+      <div class="event-date-circle show">24 August</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">August 24, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Limerick" data-month="August" data-date="2025-08-24">
       <div class="event-date-circle rally">24 Aug</div>
       <h3>Limerick Mini Stages Rally</h3>
@@ -621,6 +1295,60 @@ footer a:hover {
       <h3>Clare Stages Rally</h3>
       <p class="event-date">September 07, 2025</p>
       <p>Description: A rally featuring scenic routes in Clare.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Cork" data-month="September" data-date="2025-09-07">
+      <div class="event-date-circle show">7 September</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">September 7, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Louth" data-month="September" data-date="2025-09-07">
+      <div class="event-date-circle show">7 September</div>
+      <h3>Cars and Coffee North <br> East</h3>
+      <p class="event-date">September 7, 2025</p>
+      <p>Location: Louth</p>
+      <p>Description: A must-see Cars and Coffee North East experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/CarsandCoffeeNE/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Wicklow" data-month="September" data-date="2025-09-07">
+      <div class="event-date-circle show">7 September</div>
+      <h3>Cars and Coffee Bray</h3>
+      <p class="event-date">September 7, 2025</p>
+      <p>Location: Wicklow</p>
+      <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+      <p>
+        Website:
+        <a
+          href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
     </div>
 
     <div class="event" data-type="rally" data-location="Fermanagh" data-month="September" data-date="2025-09-08">
@@ -645,12 +1373,31 @@ footer a:hover {
       <p>Description: An exhilarating rally event through rugged terrain.</p>
     </div>
 
+    <div class="event" data-type="show" data-location="Cork" data-month="September" data-date="2025-09-21">
+      <div class="event-date-circle show">21 September</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">September 21, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="show" data-location="Limerick" data-month="September" data-date="2025-09-28">
       <div class="event-date-circle show">28 Sep</div>
       <h3>Limerick C&C</h3>
       <p class="event-date">September 28, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Convertible Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
     <div class="event" data-type="rally" data-location="Cork" data-month="October" data-date="2025-10-04">
@@ -660,11 +1407,83 @@ footer a:hover {
       <p>Description: A major rally event hosted in Cork.</p>
     </div>
 
+    <div class="event" data-type="show" data-location="Cork" data-month="October" data-date="2025-10-05">
+      <div class="event-date-circle show">5 October</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">October 5, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Louth" data-month="October" data-date="2025-10-05">
+      <div class="event-date-circle show">5 October</div>
+      <h3>Cars and Coffee North <br> East</h3>
+      <p class="event-date">October 5, 2025</p>
+      <p>Location: Louth</p>
+      <p>Description: A must-see Cars and Coffee North East experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/CarsandCoffeeNE/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Wicklow" data-month="October" data-date="2025-10-05">
+      <div class="event-date-circle show">5 October</div>
+      <h3>Cars and Coffee Bray</h3>
+      <p class="event-date">October 5, 2025</p>
+      <p>Location: Wicklow</p>
+      <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+      <p>
+        Website:
+        <a
+          href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="rally" data-location="Derry" data-month="October" data-date="2025-10-11">
       <div class="event-date-circle rally">11 Oct</div>
       <h3>Dogleap Rally</h3>
       <p class="event-date">October 11, 2025</p>
       <p>Description: A thrilling rally through Donegal.</p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Cork" data-month="October" data-date="2025-10-19">
+      <div class="event-date-circle show">19 October</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">October 19, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
     </div>
 
     <div class="event" data-type="show" data-location="Limerick" data-month="October" data-date="2025-10-26">
@@ -673,6 +1492,7 @@ footer a:hover {
       <p class="event-date">October 26, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: French Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
     <div class="event" data-type="rally" data-location="Cork" data-month="October" data-date="2025-10-26">
@@ -682,12 +1502,85 @@ footer a:hover {
       <p>Description: Exciting stages rally through the Fastnet region.</p>
     </div>
 
+    <div class="event" data-type="show" data-location="Cork" data-month="November" data-date="2025-11-02">
+      <div class="event-date-circle show">2 November</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">November 2, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+<div class="event" data-type="show" data-location="Louth" data-month="November" data-date="2025-11-02">
+  <div class="event-date-circle show">2 November</div>
+  <h3>Cars and Coffee North <br> East</h3>
+  <p class="event-date">November 2, 2025</p>
+  <p>Location: Louth</p>
+  <p>Description: A must-see Cars and Coffee North East experience!</p>
+  <p>
+    Website:
+    <a 
+      href="https://www.facebook.com/CarsandCoffeeNE/" 
+      target="_blank" 
+      rel="noopener"
+    >
+      Event Page
+    </a>
+  </p>
+</div>
+
+<div class="event" data-type="show" data-location="Wicklow" data-month="November" data-date="2025-11-02">
+  <div class="event-date-circle show">2 November</div>
+  <h3>Cars and Coffee Bray</h3>
+  <p class="event-date">November 2, 2025</p>
+  <p>Location: Wicklow</p>
+  <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+  <p>
+    Website:
+    <a
+      href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+      target="_blank"
+      rel="noopener"
+    >
+      Event Page
+    </a>
+  </p>
+</div>
+
+<div class="event" data-type="show" data-location="Cork" data-month="November" data-date="2025-11-16">
+  <div class="event-date-circle show">16 November</div>
+  <h3>Cars and Coffee Cork</h3>
+  <p class="event-date">November 16, 2025</p>
+  <p>Location: Cork</p>
+  <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+  <p>
+    Website:
+    <a 
+      href="https://www.facebook.com/groups/1036664849732370/"
+      target="_blank"
+      rel="noopener"
+    >
+      Event Page
+    </a>
+  </p>
+</div>
+
     <div class="event" data-type="show" data-location="Limerick" data-month="November" data-date="2025-11-23">
       <div class="event-date-circle show">23 Nov</div>
       <h3>Limerick C&C</h3>
       <p class="event-date">November 23, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: English Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
     <div class="event" data-type="rally" data-location="Kerry" data-month="November" data-date="2025-11-29">
@@ -697,15 +1590,118 @@ footer a:hover {
       <p>Description: A historic rally event hosted in Killarney.</p>
     </div>
 
+    <div class="event" data-type="show" data-location="Cork" data-month="November" data-date="2025-11-30">
+      <div class="event-date-circle show">30 November</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">November 30, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Louth" data-month="December" data-date="2025-12-07">
+      <div class="event-date-circle show">7 December</div>
+      <h3>Cars and Coffee North <br> East</h3>
+      <p class="event-date">December 7, 2025</p>
+      <p>Location: Louth</p>
+      <p>Description: A must-see Cars and Coffee North East experience!</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/CarsandCoffeeNE/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Wicklow" data-month="December" data-date="2025-12-07">
+      <div class="event-date-circle show">7 December</div>
+      <h3>Cars and Coffee Bray</h3>
+      <p class="event-date">December 7, 2025</p>
+      <p>Location: Wicklow</p>
+      <p>Description: A fantastic Cars and Coffee Bray experience in Wicklow!</p>
+      <p>
+        Website:
+        <a
+          href="https://www.facebook.com/pages/Cars-Coffee-Bray/1273113852719169"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
+    <div class="event" data-type="show" data-location="Cork" data-month="December" data-date="2025-12-14">
+      <div class="event-date-circle show">14 December</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">December 14, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     <div class="event" data-type="show" data-location="Limerick" data-month="December" data-date="2025-12-28">
       <div class="event-date-circle show">28 Dec</div>
       <h3>Limerick C&C</h3>
       <p class="event-date">December 28, 2025</p>
       <p>Location: Limerick</p>
       <p>Description: Open Day</p>
+      <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
     </div>
     
+    <div class="event" data-type="show" data-location="Cork" data-month="December" data-date="2025-12-28">
+      <div class="event-date-circle show">28 December</div>
+      <h3>Cars and Coffee Cork</h3>
+      <p class="event-date">December 28, 2025</p>
+      <p>Location: Cork</p>
+      <p>Description: Located in Little Island, Spar from 11 am to 2 pm.</p>
+      <p>
+        Website:
+        <a 
+          href="https://www.facebook.com/groups/1036664849732370/"
+          target="_blank"
+          rel="noopener"
+        >
+          Event Page
+        </a>
+      </p>
+    </div>
+
     </div> 
+    <!-- BEGIN: Upcoming Info Section -->
+<div class="upcoming-info">
+  <p>
+    We’ll be adding more events as soon as they’re announced. 
+    If you don’t see a particular event or you’re an event organizer 
+    and would like your event featured, please email as many details 
+    as possible to
+    <a href="mailto:conor@moreydigital.ie">conor@moreydigital.ie</a>.
+  </p>
+</div>
+<!-- END: Upcoming Info Section -->
+
   <footer>
     <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
   </footer>
@@ -764,6 +1760,15 @@ footer a:hover {
       // Initial filter to hide past events
       filterEvents();
     });
+
+    const L = "https://www.facebook.com/profile.php?id=61555336797338";
+
+// After the DOM loads, set the href for all <a> elements that match.
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".lc-link").forEach(anchor => {
+    anchor.href = L;
+  });
+});
   </script>
   
 </body>
