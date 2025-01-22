@@ -1,0 +1,316 @@
+/* Global Reset and Box-Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(135deg, #1e7a41, #2ca45d);
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+header img {
+  max-width: 120px;
+  height: auto;
+}
+
+header h1 {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Filter Container */
+.filter-container {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: -1rem auto 2rem;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.filter-container select {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="%23333" d="M0 0l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 10px 5px;
+  transition: border-color 0.2s;
+}
+
+.filter-container select:focus {
+  outline: none;
+  border-color: #1e7a41;
+  background-color: #fff;
+}
+
+/* Calendar Container */
+.calendar-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 480px) {
+  .calendar-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Event Card Styles */
+.event {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.event:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.event-date-circle {
+  color: #fff;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.event-date-circle.rally {
+  background-color: #1e7a41;
+}
+
+.event-date-circle.show {
+  background-color: #007bff;
+}
+
+.event-date-circle.run {
+  background-color: #ffc107;
+}
+
+.event-date-circle.trackday {
+  background-color: #e83e8c;
+}
+
+.event-date-circle.idc {
+  background-color: #17a2b8;
+}
+
+.event-date-circle.dr {
+  background-color: #6c757d;
+}
+
+.event-date-circle.sd {
+  background-color: #6610f2;
+}
+
+.event-date-circle.bee {
+  background-color: #fd7e14;
+}
+
+.event h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #1e7a41;
+}
+
+.event-date {
+  font-weight: 600;
+  color: #7f8c8d;
+  margin-bottom: 0.5rem;
+}
+
+.event p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.upcoming-info {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto 2rem; /* space before the footer */
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Style the link to match your palette */
+.upcoming-info a {
+  color: #1e7a41; /* match your brand color */
+  text-decoration: underline;
+}
+
+.upcoming-info a:hover {
+  color: #2ca45d; /* hover effect */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  .upcoming-info {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .upcoming-info {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Footer Styles */
+footer {
+  background-color: #1e7a41;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+footer a:hover {
+  color: #d1d1d1;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-container select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.75rem;
+  }
+
+  .event {
+    padding: 1rem;
+  }
+
+  .event-date-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 0.8rem;
+  }
+
+  .event h3 {
+    font-size: 1rem;
+  }
+
+  .event p {
+    font-size: 0.85rem;
+  }
+
+  .filter-container {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .filter-container select {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Global Link Styles */
+a {
+  color: #1e7a41;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+a:hover,
+a:focus {
+  color: #2ca45d;
+  text-decoration: underline;
+}
+
+/* Footer Link Override (if you want footer links to stay white) */
+footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+footer a:hover,
+footer a:focus {
+  color: #d1d1d1;
+  text-decoration: underline;
+}
