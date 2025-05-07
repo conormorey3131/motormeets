@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Meets Ireland - Map View</title>
+    <link rel="icon" href="logo.webp" type="image/webp">
+    
+    <!-- Add Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <!-- Make sure Leaflet JS is loaded before our script -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e7a41, #2ca45d);
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        header img {
+            max-width: 80px;
+            height: auto;
+        }
+        
+        header h1 {
+            font-size: 1.75rem;
+            margin: 0;
+        }
+        
+        .filter-container {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto 1rem;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .filters-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            flex: 3;
+        }
+        
+        .filter-container select {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="%23333" d="M0 0l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 10px 5px;
+            transition: border-color 0.2s;
+        }
+        
+        .filter-container select:focus {
+            outline: none;
+            border-color: #1e7a41;
+            background-color: #fff;
+        }
+        
+        /* View Toggle Switch */
+        .view-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+        
+        input:checked + .slider {
+            background-color: #1e7a41;
+        }
+        
+        input:focus + .slider {
+            box-shadow: 0 0 1px #1e7a41;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .slider.round {
+            border-radius: 34px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        #map-container {
+            width: 100%;
+            height: calc(100vh - 120px);
+            position: relative;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .custom-marker {
+            cursor: pointer;
+        }
+        
+        .event-popup {
+            min-width: 200px;
+        }
+        
+        .event-popup h3 {
+            color: #1e7a41;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .event-popup p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: #1e7a41;
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+            text-decoration: none;
+            color: #1e7a41;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.webp" alt="Motor Meets Logo" onclick="resetFilters()">
+        <h1>Motor Meets - Ireland</h1>
+        <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
+        </a>
+    </header>
+    
+    <div class="filter-container">
+        <div class="filters-group">
+            <select id="type-filter">
+                <option value="all">All Event Types</option>
+                <option value="rally">Rally</option>
+                <option value="show">Show</option>
+                <option value="run">Run</option>
+                <option value="Trackday">Trackday</option>
+                <option value="ids">Irish Drift Series</option>
+                <option value="dr">Slab Day</option>
+                <option value="bee">Bumblebee 1000</option>
+                <option value="sd">Buggy Championship</option>
+            </select>
+
+            <select id="location-filter">
+                <option value="all">All Locations</option>
+                <option value="Antrim">Antrim</option>
+                <option value="Armagh">Armagh</option>
+                <option value="Carlow">Carlow</option>
+                <option value="Cavan">Cavan</option>
+                <option value="Clare">Clare</option>
+                <option value="Cork">Cork</option>
+                <option value="Derry">Derry</option>
+                <option value="Donegal">Donegal</option>
+                <option value="Down">Down</option>
+                <option value="Dublin">Dublin</option>
+                <option value="Fermanagh">Fermanagh</option>
+                <option value="Galway">Galway</option>
+                <option value="Kerry">Kerry</option>
+                <option value="Kildare">Kildare</option>
+                <option value="Kilkenny">Kilkenny</option>
+                <option value="Laois">Laois</option>
+                <option value="Leitrim">Leitirm</option>
+                <option value="Limerick">Limerick</option>
+                <option value="Longford">Longford</option>
+                <option value="Louth">Louth</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Meath">Meath</option>
+                <option value="Monaghan">Monaghan</option>
+                <option value="Offaly">Offaly</option>
+                <option value="Roscommon">Roscommon</option>
+                <option value="Sligo">Sligo</option>
+                <option value="Tipperary">Tipperary</option>
+                <option value="Tyrone">Tyrone</option>
+                <option value="Waterford">Waterford</option>
+                <option value="Westmeath">Westmeath</option>
+                <option value="Wexford">Wexford</option>
+                <option value="Wicklow">Wicklow</option>
+            </select>
+
+            <select id="month-filter">
+                <option value="all">All Months</option>
+                <option value="May" selected>May</option>
+                <option value="June">June</option>
+            </select>
+
+            <select id="week-filter">
+                <option value="all">All Weeks</option>
+                <!-- Week options will be populated by JavaScript -->
+            </select>
+        </div>
+        
+        <div class="view-toggle">
+            <span>Calendar</span>
+            <label class="switch">
+                <input type="checkbox" id="view-toggle" checked>
+                <span class="slider round"></span>
+            </label>
+            <span>Map</span>
+        </div>
+    </div>
+    
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
+    </footer>
+    
+    <script>
+        // Event-specific coordinates
+        const eventCoordinates = {
+            'cars_cathedral': [52.6682, -8.6260],
+            'rally_lakes': [52.0599, -9.5044],
+            'juicebox_drift_jam': [52.3461, -9.5361],
+            'cars_coffee_tipp': [52.4741, -8.1565], // E34 HY24
+            'herbert_park_show': [53.3267, -6.2380],
+            'cars_coffee_north_east': [53.9909, -6.3946],
+            'cars_coffee_bray': [53.2009, -6.1110],
+            'sligo_cnc': [54.2697, -8.4731],
+            'db_quay': [52.3323, -6.4625],
+            'street_beasts': [54.0050, -6.4050], // Brewery Business Park, Dundalk, Co. Louth, A91 XR98
+            'jpccni_cars_coffee': [54.5118, -6.0541],
+            'drive_lake_ireland': [52.9292, -8.2777],
+            'tipperary_forest_rally': [52.4700, -8.1581],
+            'cars_coffee_cork': [51.9093, -8.3459],
+            'jdm_classics_trackday': [53.2580, -6.7467],
+            'galway_auto_meet': [53.2784, -9.0149],
+            'j14_cars_coffee': [53.1392, -6.9129],
+            'europrojekt': [53.4250, -7.4920], // N91 H260
+            'waterford_cnc': [52.2472, -7.1101],
+            'camshafts_coffee': [53.3351, -6.3162],
+            'country_cruisers': [52.9392, -7.0425], // N78, Ballylynan Lower, Ballylynan, Co. Laois, R14 EH39
+            'bishopscourt_ids': [54.3380, -5.5720], // BT30 7EY
+            'castle_cars_exhibition': [52.3010, -6.4992],
+            'mayors_supercar': [54.9962, -7.3199],
+            'maiden_city_rally': [55.0070, -7.3195],
+            'irx_championship': [53.2580, -6.7467],
+            'limerick_cnc': [52.6642, -8.5806],
+            'tramore_cnc': [52.1614, -7.1449], // Tramore C&C
+            'cavan_stages_rally': [54.0088, -7.3614],
+            'shift_happens_cars_coffee': [53.3014, -6.6069],
+            'mayo_forest_rally': [53.8480, -9.2982],
+            'turbo_lense_meet': [53.2152, -6.6626],
+            'loughderg_1000': [52.8800, -8.3300], // Carey's Glass International, Tipperary, E45 XV81
+            'gordon_bennett_run': [52.9842, -7.3388],
+            // June events
+            'causeway_coast_ford_fair': [55.2048, -6.6544], // West Bay, Portrush
+            'cars_at_the_castle': [54.4731, -7.5772], // Castle Irvine Necarne, Fermanagh
+            'iccr_june': [53.2580, -6.7467], // Mondello Park
+            'run_in_the_sun': [52.6749, -6.2921], // Movies@Gorey, Wexford
+            'bumblebee_1000_june': [52.0599, -9.5044], // Killarney
+            'watergrasshill_ids_r3': [52.0599, -8.3459], // Watergrasshill, Cork
+            'retro_cannonball': [51.8986, -8.4706], // Cork
+            'wells_house_car_show': [52.5636, -6.2285], // Wells House, Ballyedmond, Wexford
+            'donegal_international_rally': [54.9540, -7.7342], // Donegal
+            'bohernabreena_car_show': [53.2557, -6.3478], // Bohernabreena, Dublin 24
+            'drift_masters': [53.2580, -6.7467], // Mondello Park
+            // July events
+            'loughgall_stages_rally': [54.4054, -6.6038], // Loughgall
+            'iccr_july': [53.2580, -6.7467], // Mondello Park
+            'cruz_fest': [52.0599, -8.3459], // Kartworld Watergrasshill, Cork
+            'ravens_rock_rally': [52.2593, -7.1101], // Waterford
+            'drift_games_invitational_july': [53.2580, -6.7467], // Mondello Park
+            'mountain_drive_ireland': [53.4791, -9.7854], // Connemara
+            'buggy_championship_july': [54.4731, -7.5772], // St Angelo Airport, Fermanagh
+            'vage_show_and_shine': [52.0599, -8.3459], // Watergrasshill, Cork
+            'imokilly_mini_stage_rally': [51.8986, -8.4706], // Cork
+            // August events
+            'bishopscourt_ids_r4': [54.2463, -5.6189], // Bishopscourt, Down
+            'cars_coffee_tipp_august': [52.4741, -8.1565], // Tipperary Town
+            'cars_coffee_north_east_august': [53.9909, -6.3946], // DKIT college, Louth
+            'cars_coffee_bray_august': [53.2009, -6.1110], // Bray, Wicklow
+            'sligo_cnc_august': [54.2697, -8.4731], // Sligo Retail Park
+            'jpccni_cars_coffee_august': [54.5118, -6.0541], // Lisburn, Antrim
+            'cars_coffee_cork_august': [51.9093, -8.3459], // Little Island, Cork
+            'galway_auto_meet_august': [53.2784, -9.0149], // Galway Crystal
+            'j14_cars_coffee_august': [53.1392, -6.9129], // J14 Mayfield, Kildare
+            'cork_forest_rally': [51.8986, -8.4706], // Cork
+            'ulster_rally': [54.5000, -6.5000], // Ulster (approximate)
+            'historic_festival': [53.2580, -6.7467], // Mondello Park
+            'waterford_cnc_august': [52.2472, -7.1101], // Waterford Retail Park
+            'almc_hellfire_stages_rally': [53.6055, -6.6564], // Meath
+            'davagh_stages_rally': [54.9962, -7.3199], // Derry
+            'watergrasshill_ids_r5': [52.0599, -8.3459], // Watergrasshill, Cork
+            '86_fest_irl': [53.2580, -6.7467], // Mondello Park
+            'limerick_cnc_august': [52.6642, -8.5806], // Limerick
+            'limerick_mini_stages_rally': [52.6642, -8.5806], // Limerick
+            // September events
+            'jpccni_cars_coffee_september': [54.5118, -6.0541], // Lisburn, Antrim
+            '360_motorsportspark_ids_r5': [52.3461, -9.5361], // Kerry
+            'buggy_championship_september': [53.4129, -8.2439], // Location TBD
+            'cars_coffee_tipp_september': [52.4741, -8.1565], // Tipperary Town
+            'clare_stages_rally': [52.9019, -9.0018], // Clare
+            'cars_coffee_north_east_september': [53.9909, -6.3946], // DKIT college, Louth
+            'cars_coffee_bray_september': [53.2009, -6.1110], // Bray, Wicklow
+            'sligo_cnc_september': [54.2697, -8.4731], // Sligo Retail Park
+            'lakeland_stages_rally': [54.3438, -7.6310], // Fermanagh
+            'wexford_stages_rally': [52.3369, -6.4633], // Wexford
+            'iccr_september': [53.2580, -6.7467], // Mondello Park
+            'drive_west_ireland': [52.9019, -9.0018], // West Clare
+            'cars_coffee_cork_september': [51.9093, -8.3459], // Little Island, Cork
+            'galway_auto_meet_september': [53.2784, -9.0149], // Galway Crystal
+            'j14_cars_coffee_september': [53.1392, -6.9129], // J14 Mayfield, Kildare
+            'autofest': [54.5973, -7.3100], // Omagh, Tyrone
+            'bushwhacker_rally': [54.5973, -7.3100], // Tyrone
+            'waterford_cnc_september': [52.2472, -7.1101], // Waterford Retail Park
+            'limerick_cnc_september': [52.6642, -8.5806], // Limerick
+            // October events
+            'buggy_championship_october': [54.2463, -5.6189], // Kirkistown Race Circuit, Down
+            'cork_20_rally': [51.8986, -8.4706], // Cork
+            'cars_coffee_tipp_october': [52.4741, -8.1565], // Tipperary Town
+            'cars_coffee_north_east_october': [53.9909, -6.3946], // DKIT college, Louth
+            'cars_coffee_bray_october': [53.2009, -6.1110], // Bray, Wicklow
+            'sligo_cnc_october': [54.2697, -8.4731], // Sligo Retail Park
+            'jpccni_cars_coffee_october': [54.5118, -6.0541], // Lisburn, Antrim
+            'dogleap_rally': [54.9966, -7.3086], // Derry
+            'cars_coffee_cork_october': [51.9093, -8.3459], // Little Island, Cork
+            'galway_auto_meet_october': [53.2784, -9.0149], // Galway Crystal
+            'j14_cars_coffee_october': [53.1392, -6.9129], // J14 Mayfield, Kildare
+            'iccr_october': [53.2580, -6.7467], // Mondello Park
+            'waterford_cnc_october': [52.2472, -7.1101], // Waterford Retail Park
+            'limerick_cnc_october': [52.6642, -8.5806], // Limerick
+            'fastnet_stages_rally': [51.8986, -8.4706], // Cork
+            // November events
+            'cars_coffee_tipp_november': [52.4741, -8.1565], // Tipperary Town
+            'cars_coffee_north_east_november': [53.9909, -6.3946], // DKIT college, Louth
+            'cars_coffee_bray_november': [53.2009, -6.1110], // Bray, Wicklow
+            'sligo_cnc_november': [54.2697, -8.4731], // Sligo Retail Park
+            'jpccni_cars_coffee_november': [54.5118, -6.0541], // Lisburn, Antrim
+            'cars_coffee_cork_november': [51.9093, -8.3459], // Little Island, Cork
+            'galway_auto_meet_november': [53.2784, -9.0149], // Galway Crystal
+            'j14_cars_coffee_november': [53.1392, -6.9129], // J14 Mayfield, Kildare
+            'drift_games_invitational_november': [53.2580, -6.7467], // Mondello Park
+            'waterford_cnc_november': [52.2472, -7.1101], // Waterford Retail Park
+            'limerick_cnc_november': [52.6642, -8.5806], // Limerick
+            'killarney_historic_rally': [52.0599, -9.5044], // Killarney, Kerry
+            // December events
+            'jpccni_cars_coffee_december': [54.5118, -6.0541], // Lisburn, Antrim
+            'cars_coffee_tipp_december': [52.4741, -8.1565], // Tipperary Town
+            'cars_coffee_north_east_december': [53.9909, -6.3946], // DKIT college, Louth
+            'cars_coffee_bray_december': [53.2009, -6.1110], // Bray, Wicklow
+            'sligo_cnc_december': [54.2697, -8.4731], // Sligo Retail Park
+            'cars_coffee_cork_december': [51.9093, -8.3459], // Little Island, Cork
+            'galway_auto_meet_december': [53.2784, -9.0149], // Galway Crystal
+            'j14_cars_coffee_december': [53.1392, -6.9129], // J14 Mayfield, Kildare
+            'waterford_cnc_december': [52.2472, -7.1101], // Waterford Retail Park
+            'limerick_cnc_december': [52.6642, -8.5806], // Limerick
+            'default': [53.4129, -8.2439] // Center of Ireland
+        };
+
+        // Event type colors
+        const eventColors = {
+            rally: '#1e7a41',
+            show: '#007bff',
+            run: '#ffc107',
+            trackday: '#e83e8c',
+            ids: '#17a2b8',
+            dr: '#6c757d',
+            sd: '#6610f2',
+            bee: '#fd7e14'
+        };
+
+        // Car events data with IDs
+        const carEvents = [
+            {
+                id: "country_cruisers",
+                title: "Country Cruisers Cars and Coffee",
+                date: "May 18, 2025",
+                location: "laois",
+                type: "show",
+                description: "11 AM - 2 PM, Open to: All cars, bikes, and trucks. Located at N78, Ballylynan Lower, Ballylynan, Co. Laois, R14 EH39."
+            },
+            {
+                id: "juicebox_drift_jam",
+                title: "JuiceBox Drift Jam",
+                date: "May 4, 2025",
+                location: "kerry",
+                type: "trackday",
+                description: "€15 entry, U12 are free."
+            },
+            {
+                id: "cars_coffee_tipp",
+                title: "Cars and Coffee Tipp Town",
+                date: "May 4, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Monthly event on the first Sunday of each month at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "herbert_park_show",
+                title: "Herbert Park Car Show",
+                date: "May 4, 2025",
+                location: "dublin",
+                type: "show",
+                description: "10 AM - 4 PM"
+            },
+            {
+                id: "cars_coffee_north_east",
+                title: "Cars and Coffee North East",
+                date: "May 4, 2025",
+                location: "louth",
+                type: "show",
+                description: "Monthly event on the first Sunday of each month at DKIT college dundalk from 9am to 12.30pm, entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray",
+                title: "Cars and Coffee Bray",
+                date: "May 4, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Monthly event on the first Sunday of each month at Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc",
+                title: "Sligo C&C",
+                date: "May 4, 2025",
+                location: "sligo",
+                type: "show",
+                description: "Monthly event on the first Sunday of each month from 11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "db_quay",
+                title: "DB on the Quay",
+                date: "May 4, 2025",
+                location: "wexford",
+                type: "show",
+                description: "Car show at Wexford Quay Front."
+            },
+            {
+                id: "jpccni_cars_coffee",
+                title: "JPCCNI Cars & Coffee",
+                date: "May 5, 2025",
+                location: "antrim",
+                type: "show",
+                description: "Monthly event on the first Monday of each month from 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "drive_lake_ireland",
+                title: "Drive The Lake - Drive Ireland",
+                date: "May 10, 2025",
+                location: "lakes",
+                type: "run",
+                description: "Crusie around Lough Derg."
+            },
+            {
+                id: "tipperary_forest_rally",
+                title: "Tipperary Forest Rally",
+                date: "May 11, 2025",
+                location: "tipperary",
+                type: "rally",
+                description: "Forest rally event held in Tipperary."
+            },
+            {
+                id: "cars_coffee_cork",
+                title: "Cars and Coffee Cork",
+                date: "May 11, 2025",
+                location: "cork",
+                type: "show",
+                description: "Monthly event on the second Sunday of each month at Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "jdm_classics_trackday",
+                title: "JDM Classics Trackday",
+                date: "May 11, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "Drift and Grip Trackday at Mondello Park."
+            },
+            {
+                id: "galway_auto_meet",
+                title: "Galway Auto Meet",
+                date: "May 11, 2025",
+                location: "galway",
+                type: "show",
+                description: "Monthly event on the second Sunday of each month from 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "j14_cars_coffee",
+                title: "J14 Cars and Coffee",
+                date: "May 11, 2025",
+                location: "kildare",
+                type: "show",
+                description: "Monthly event on the second Sunday of each month from 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "street_beasts",
+                title: "Caffeine & Octane - Street Beasts",
+                date: "May 11, 2025",
+                location: "louth",
+                type: "show",
+                description: "From 10 am to 12:30 pm. €10 Per Person, U12's go free. Located at Brewery Business Park, Dundalk."
+            },
+            {
+                id: "europrojekt",
+                title: "EuroProjekt",
+                date: "May 17-18, 2025",
+                location: "westmeath",
+                type: "show",
+                description: "Volkswagen Audi Group enthusiasts in the Midlands of Ireland at Kilbeggan."
+            },
+            {
+                id: "waterford_cnc",
+                title: "Waterford C&C",
+                date: "May 18, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Monthly event on the third Sunday of each month at Waterford Retail Park."
+            },
+            {
+                id: "camshafts_coffee",
+                title: "Camshafts and Coffee",
+                date: "May 18, 2025",
+                location: "dublin",
+                type: "show",
+                description: "12 PM - 3 PM"
+            },
+            {
+                id: "bishopscourt_ids",
+                title: "Bishopscourt - IDS R2",
+                date: "May 23-25, 2025",
+                location: "down",
+                type: "ids",
+                description: "R2 of the Irish Drift Series at Bishopscourt."
+            },
+            {
+                id: "castle_cars_exhibition",
+                title: "Castle & Cars Exhibition 5.0",
+                date: "May 24, 2025",
+                location: "wexford",
+                type: "show",
+                description: "10 am - 3 pm at Johnstown Castle."
+            },
+            {
+                id: "mayors_supercar",
+                title: "Mayor's Supercar Saturday",
+                date: "May 24, 2025",
+                location: "derry",
+                type: "show",
+                description: "12 PM at Guildhall Square."
+            },
+            {
+                id: "irx_championship",
+                title: "IRX (Irish RallyCross Championship)",
+                date: "May 24-25, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "IRX v BRX at Mondello Park."
+            },
+            {
+                id: "limerick_cnc",
+                title: "Limerick C&C",
+                date: "May 25, 2025",
+                location: "limerick",
+                type: "show",
+                description: "Monthly event on the last Sunday of each month at Eastway Business Park, Ballysimon Road from 10 am to 2 pm."
+            },
+            {
+                id: "shift_happens_cars_coffee",
+                title: "Shift Happens IRL Cars and Coffee",
+                date: "May 25, 2025",
+                location: "kildare",
+                type: "show",
+                description: "11 Am - 3 PM at Arth Cafe, Ardclogh, Straffan."
+            },
+            {
+                id: "turbo_lense_meet",
+                title: "Turbo Lense Bank Holiday Meet",
+                date: "May 31, 2025",
+                location: "kildare",
+                type: "show",
+                description: "8pm at the Globe Retail Park, Naas."
+            },
+            {
+                id: "loughderg_1000",
+                title: "LoughDerg 1000",
+                date: "May 31, 2025",
+                location: "tipperary",
+                type: "run",
+                description: "Show/Charity Run at Carey's Glass International, E45 XV81"
+            },
+            {
+                id: "gordon_bennett_run",
+                title: "Gordon Bennett Classic Car Run",
+                date: "May 31 - June 2, 2025",
+                location: "kildare",
+                type: "run",
+                description: "A classic car run through historic routes in Counties Laois, Carlow, and Kildare."
+            },
+            // June events
+            {
+                id: "causeway_coast_ford_fair",
+                title: "Causeway Coast Ford Fair",
+                date: "June 1, 2025",
+                location: "antrim",
+                type: "show",
+                description: "Ford Show at West Bay, Portrush"
+            },
+            {
+                id: "cars_at_the_castle",
+                title: "Cars At The Castle",
+                date: "June 1, 2025",
+                location: "fermanagh",
+                type: "show",
+                description: "Car Show from 11 am to 5 pm at Castle Irvine Necarne"
+            },
+            {
+                id: "cars_coffee_tipp_june",
+                title: "Cars and Coffee Tipp Town",
+                date: "June 1, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Car show at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "buggy_championship_june",
+                title: "Buggy Ireland Championship",
+                date: "June 1, 2025",
+                location: "down",
+                type: "sd",
+                description: "Buggy Championship at Bishopscourt Stage"
+            },
+            {
+                id: "cars_coffee_north_east_june",
+                title: "Cars and Coffee North East",
+                date: "June 1, 2025",
+                location: "louth",
+                type: "show",
+                description: "DKIT college dundalk 9am to 12.30pm entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray_june",
+                title: "Cars and Coffee Bray",
+                date: "June 1, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc_june",
+                title: "Sligo C&C",
+                date: "June 1, 2025",
+                location: "sligo",
+                type: "show",
+                description: "11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "jpccni_cars_coffee_june",
+                title: "JPCCNI Cars & Coffee",
+                date: "June 2, 2025",
+                location: "antrim",
+                type: "show",
+                description: "From 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "iccr_june",
+                title: "ICCR",
+                date: "June 7-8, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "Irish Championship Circuit Racing at Mondello Park"
+            },
+            {
+                id: "cars_coffee_cork_june",
+                title: "Cars and Coffee Cork",
+                date: "June 8, 2025",
+                location: "cork",
+                type: "show",
+                description: "Located in Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "galway_auto_meet_june",
+                title: "Galway Auto Meet",
+                date: "June 8, 2025",
+                location: "galway",
+                type: "show",
+                description: "From 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "run_in_the_sun",
+                title: "Run in the Sun in aid of LauraLynn",
+                date: "June 8, 2025",
+                location: "wexford",
+                type: "show",
+                description: "3rd run in the Sun in aid of LauraLynn at Movies@Gorey"
+            },
+            {
+                id: "j14_cars_coffee_june",
+                title: "J14 Cars and Coffee",
+                date: "June 8, 2025",
+                location: "kildare",
+                type: "show",
+                description: "From 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "laois_heartlands_rally",
+                title: "Laois Heartlands Mini Stages Rally",
+                date: "June 8, 2025",
+                location: "laois",
+                type: "rally",
+                description: "A compact and exciting rally event in Laois."
+            },
+            {
+                id: "bumblebee_1000_june",
+                title: "Bumblebee 1000",
+                date: "June 12-15, 2025",
+                location: "kerry",
+                type: "bee",
+                description: "Talladega nights Road Trip - Killarney"
+            },
+            {
+                id: "watergrasshill_ids_r3",
+                title: "Watergrasshill - IDS R3",
+                date: "June 13-15, 2025",
+                location: "cork",
+                type: "ids",
+                description: "R3 of the Irish Drift Series at Watergrasshill"
+            },
+            {
+                id: "retro_cannonball",
+                title: "Retro Cannonball",
+                date: "June 13-15, 2025",
+                location: "cork",
+                type: "run",
+                description: "A delightful adventure of classic cars. 60's, 70's, 80's & 90's."
+            },
+            {
+                id: "waterford_cnc_june",
+                title: "Waterford C&C",
+                date: "June 15, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Sunday Mornings at Waterford Retail Park."
+            },
+            {
+                id: "wells_house_car_show",
+                title: "Wells House and Gardens 2025 Classic Car Show",
+                date: "June 15, 2025",
+                location: "wexford",
+                type: "show",
+                description: "Classic Car Show at Wells House, Ballyedmond"
+            },
+            {
+                id: "donegal_international_rally",
+                title: "Donegal International Rally",
+                date: "June 20-22, 2025",
+                location: "donegal",
+                type: "rally",
+                description: "The famous Donegal International Rally."
+            },
+            {
+                id: "bohernabreena_car_show",
+                title: "Bohernabreena Classic Car Show & Fair",
+                date: "June 22, 2025",
+                location: "dublin",
+                type: "show",
+                description: "11 AM - 4 PM, For pre 1995 cars at Bohernabreena, Dublin 24."
+            },
+            {
+                id: "drift_masters",
+                title: "Drift Masters",
+                date: "June 28-29, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "Drift Masters at Mondello Park"
+            },
+            // July events
+            {
+                id: "loughgall_stages_rally",
+                title: "Loughgall Stages Rally",
+                date: "July 5, 2025",
+                location: "armagh",
+                type: "rally",
+                description: "A thrilling rally through Loughgall's roads."
+            },
+            {
+                id: "iccr_july",
+                title: "ICCR",
+                date: "July 5-6, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "Irish Championship Circuit Racing at Mondello Park"
+            },
+            {
+                id: "cruz_fest",
+                title: "Cruz Fest",
+                date: "July 6, 2025",
+                location: "cork",
+                type: "show",
+                description: "Car show at Kartworld Watergrasshill, Cork"
+            },
+            {
+                id: "cars_coffee_tipp_july",
+                title: "Cars and Coffee Tipp Town",
+                date: "July 6, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Car show at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "cars_coffee_north_east_july",
+                title: "Cars and Coffee North East",
+                date: "July 6, 2025",
+                location: "louth",
+                type: "show",
+                description: "DKIT college dundalk 9am to 12.30pm entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray_july",
+                title: "Cars and Coffee Bray",
+                date: "July 6, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc_july",
+                title: "Sligo C&C",
+                date: "July 6, 2025",
+                location: "sligo",
+                type: "show",
+                description: "11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "ravens_rock_rally",
+                title: "Ravens Rock Rally",
+                date: "July 6, 2025",
+                location: "waterford",
+                type: "rally",
+                description: "Exciting rally action at Ravens Rock."
+            },
+            {
+                id: "jpccni_cars_coffee_july",
+                title: "JPCCNI Cars & Coffee",
+                date: "July 7, 2025",
+                location: "antrim",
+                type: "show",
+                description: "From 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "cars_coffee_cork_july",
+                title: "Cars and Coffee Cork",
+                date: "July 13, 2025",
+                location: "cork",
+                type: "show",
+                description: "Located in Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "galway_auto_meet_july",
+                title: "Galway Auto Meet",
+                date: "July 13, 2025",
+                location: "galway",
+                type: "show",
+                description: "From 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "j14_cars_coffee_july",
+                title: "J14 Cars and Coffee",
+                date: "July 13, 2025",
+                location: "kildare",
+                type: "show",
+                description: "From 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "down_stages_rally",
+                title: "Down Stages Rally",
+                date: "July 19, 2025",
+                location: "down",
+                type: "rally",
+                description: "An adrenaline-pumping rally in the Down region."
+            },
+            {
+                id: "drift_games_invitational_july",
+                title: "Drift Games Invitational",
+                date: "July 19-20, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "The ultimate drift party weekender at Mondello Park"
+            },
+            {
+                id: "waterford_cnc_july",
+                title: "Waterford C&C",
+                date: "July 20, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Sunday Mornings at Waterford Retail Park."
+            },
+            {
+                id: "sligo_stages_rally",
+                title: "Sligo Stages Rally",
+                date: "July 20, 2025",
+                location: "sligo",
+                type: "rally",
+                description: "An exciting rally in Sligo."
+            },
+            {
+                id: "mountain_drive_ireland",
+                title: "The Mountain Drive - Drive Ireland",
+                date: "July 26, 2025",
+                location: "galway",
+                type: "run",
+                description: "Cruise around Connemara"
+            },
+            {
+                id: "buggy_championship_july",
+                title: "Buggy Ireland Championship",
+                date: "July 26, 2025",
+                location: "fermanagh",
+                type: "sd",
+                description: "Buggy Championship at St Angelo Airport"
+            },
+            {
+                id: "limerick_cnc_july",
+                title: "Limerick C&C",
+                date: "July 27, 2025",
+                location: "limerick",
+                type: "show",
+                description: "Japanese Day - Located in Eastway Business Park, Ballysimon Road from 10 am to 2 pm"
+            },
+            {
+                id: "vage_show_and_shine",
+                title: "VAGE Show and Shine",
+                date: "July 27, 2025",
+                location: "cork",
+                type: "show",
+                description: "Volkswagen and Audi Group Cars Show and Shine at Watergrasshill"
+            },
+            {
+                id: "imokilly_mini_stage_rally",
+                title: "Imokilly Mini Stage Rally",
+                date: "July 27, 2025",
+                location: "cork",
+                type: "rally",
+                description: "A compact yet action-packed rally event."
+            },
+            // August events
+            {
+                id: "bishopscourt_ids_r4",
+                title: "Bishopscourt - IDS R4",
+                date: "August 01-03, 2025",
+                location: "down",
+                type: "ids",
+                description: "R4 of the Irish Drift Series at Bishopscourt"
+            },
+            {
+                id: "cars_coffee_tipp_august",
+                title: "Cars and Coffee Tipp Town",
+                date: "August 3, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Car show at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "cars_coffee_north_east_august",
+                title: "Cars and Coffee North East",
+                date: "August 3, 2025",
+                location: "louth",
+                type: "show",
+                description: "DKIT college dundalk 9am to 12.30pm entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray_august",
+                title: "Cars and Coffee Bray",
+                date: "August 3, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc_august",
+                title: "Sligo C&C",
+                date: "August 3, 2025",
+                location: "sligo",
+                type: "show",
+                description: "11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "jpccni_cars_coffee_august",
+                title: "JPCCNI Cars & Coffee",
+                date: "August 04, 2025",
+                location: "antrim",
+                type: "show",
+                description: "From 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "cars_coffee_cork_august",
+                title: "Cars and Coffee Cork",
+                date: "August 10, 2025",
+                location: "cork",
+                type: "show",
+                description: "Located in Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "galway_auto_meet_august",
+                title: "Galway Auto Meet",
+                date: "August 10, 2025",
+                location: "galway",
+                type: "show",
+                description: "From 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "j14_cars_coffee_august",
+                title: "J14 Cars and Coffee",
+                date: "August 10, 2025",
+                location: "kildare",
+                type: "show",
+                description: "From 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "cork_forest_rally",
+                title: "Cork Forest Rally",
+                date: "August 10, 2025",
+                location: "cork",
+                type: "rally",
+                description: "Forest rally excitement in Cork."
+            },
+            {
+                id: "ulster_rally",
+                title: "Ulster Rally",
+                date: "August 15-16, 2025",
+                location: "ulster",
+                type: "rally",
+                description: "A major rally event held in Ulster."
+            },
+            {
+                id: "historic_festival",
+                title: "Historic Festival",
+                date: "August 16-17, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "Carole Nash Historic Festival at Mondello Park"
+            },
+            {
+                id: "waterford_cnc_august",
+                title: "Waterford C&C",
+                date: "August 17, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Sunday Mornings at Waterford Retail Park."
+            },
+            {
+                id: "almc_hellfire_stages_rally",
+                title: "ALMC Hellfire Stages Rally",
+                date: "August 17, 2025",
+                location: "meath",
+                type: "rally",
+                description: "A thrilling rally through challenging stages."
+            },
+            {
+                id: "davagh_stages_rally",
+                title: "Davagh Stages Rally",
+                date: "August 23, 2025",
+                location: "derry",
+                type: "rally",
+                description: "Exciting stages rally in Davagh."
+            },
+            {
+                id: "watergrasshill_ids_r5",
+                title: "Watergrasshill (PRO2 Final) - IDS R5",
+                date: "August 23-24, 2025",
+                location: "cork",
+                type: "ids",
+                description: "R5 of the Irish Drift Series (PRO2 Final) at Watergrasshill"
+            },
+            {
+                id: "86_fest_irl",
+                title: "86 Fest irl",
+                date: "August 24, 2025",
+                location: "kildare",
+                type: "show",
+                description: "Car show at Mondello Park"
+            },
+            {
+                id: "limerick_cnc_august",
+                title: "Limerick C&C",
+                date: "August 24, 2025",
+                location: "limerick",
+                type: "show",
+                description: "Supercar Day - Located in Eastway Business Park, Ballysimon Road from 10 am to 2 pm"
+            },
+            {
+                id: "limerick_mini_stages_rally",
+                title: "Limerick Mini Stages Rally",
+                date: "August 24, 2025",
+                location: "limerick",
+                type: "rally",
+                description: "Mini stages rally held in Limerick."
+            },
+            // September events
+            {
+                id: "jpccni_cars_coffee_september",
+                title: "JPCCNI Cars & Coffee",
+                date: "September 01, 2025",
+                location: "antrim",
+                type: "show",
+                description: "From 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "360_motorsportspark_ids_r5",
+                title: "360 MotorsportsPark (PRO Final) - IDS R5",
+                date: "September 05-07, 2025",
+                location: "kerry",
+                type: "ids",
+                description: "R5 of the Irish Drift Series (PRO Final) at 360 MotorsportsPark"
+            },
+            {
+                id: "buggy_championship_september",
+                title: "Buggy Ireland Championship",
+                date: "September 6, 2025",
+                location: "ireland",
+                type: "sd",
+                description: "Buggy Championship - Location Coming Soon!"
+            },
+            {
+                id: "cars_coffee_tipp_september",
+                title: "Cars and Coffee Tipp Town",
+                date: "September 7, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Car show at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "clare_stages_rally",
+                title: "Clare Stages Rally",
+                date: "September 07, 2025",
+                location: "clare",
+                type: "rally",
+                description: "A rally featuring scenic routes in Clare."
+            },
+            {
+                id: "cars_coffee_north_east_september",
+                title: "Cars and Coffee North East",
+                date: "September 7, 2025",
+                location: "louth",
+                type: "show",
+                description: "DKIT college dundalk 9am to 12.30pm entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray_september",
+                title: "Cars and Coffee Bray",
+                date: "September 7, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc_september",
+                title: "Sligo C&C",
+                date: "September 7, 2025",
+                location: "sligo",
+                type: "show",
+                description: "11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "lakeland_stages_rally",
+                title: "Lakeland Stages Rally",
+                date: "September 08, 2025",
+                location: "fermanagh",
+                type: "rally",
+                description: "A picturesque rally in the Lakeland region."
+            },
+            {
+                id: "wexford_stages_rally",
+                title: "Wexford Stages Rally",
+                date: "September 13-14, 2025",
+                location: "wexford",
+                type: "rally",
+                description: "A prominent rally event in Wexford."
+            },
+            {
+                id: "iccr_september",
+                title: "ICCR",
+                date: "September 13-14, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "Irish Championship Circuit Racing at Mondello Park"
+            },
+            {
+                id: "drive_west_ireland",
+                title: "Drive West - Drive Ireland",
+                date: "September 14, 2025",
+                location: "clare",
+                type: "run",
+                description: "Cruise around West Clare"
+            },
+            {
+                id: "cars_coffee_cork_september",
+                title: "Cars and Coffee Cork",
+                date: "September 14, 2025",
+                location: "cork",
+                type: "show",
+                description: "Located in Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "galway_auto_meet_september",
+                title: "Galway Auto Meet",
+                date: "September 14, 2025",
+                location: "galway",
+                type: "show",
+                description: "From 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "j14_cars_coffee_september",
+                title: "J14 Cars and Coffee",
+                date: "September 14, 2025",
+                location: "kildare",
+                type: "show",
+                description: "From 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "autofest",
+                title: "Autofest",
+                date: "September 14, 2025",
+                location: "tyrone",
+                type: "show",
+                description: "Car Show from 11 am at Omagh Show, Tyrone"
+            },
+            {
+                id: "bushwhacker_rally",
+                title: "Bushwhacker Rally",
+                date: "September 19-20, 2025",
+                location: "tyrone",
+                type: "rally",
+                description: "An exhilarating rally event through rugged terrain."
+            },
+            {
+                id: "waterford_cnc_september",
+                title: "Waterford C&C",
+                date: "September 21, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Sunday Mornings at Waterford Retail Park."
+            },
+            {
+                id: "limerick_cnc_september",
+                title: "Limerick C&C",
+                date: "September 28, 2025",
+                location: "limerick",
+                type: "show",
+                description: "Convertible Day - Located in Eastway Business Park, Ballysimon Road from 10 am to 2 pm"
+            },
+            // October events
+            {
+                id: "buggy_championship_october",
+                title: "Buggy Ireland Championship",
+                date: "October 4, 2025",
+                location: "down",
+                type: "sd",
+                description: "Buggy Championship at Kirkistown Race Circuit, Down"
+            },
+            {
+                id: "cork_20_rally",
+                title: "Cork 20 Rally",
+                date: "October 04-05, 2025",
+                location: "cork",
+                type: "rally",
+                description: "A major rally event hosted in Cork."
+            },
+            {
+                id: "cars_coffee_tipp_october",
+                title: "Cars and Coffee Tipp Town",
+                date: "October 5, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Car show at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "cars_coffee_north_east_october",
+                title: "Cars and Coffee North East",
+                date: "October 5, 2025",
+                location: "louth",
+                type: "show",
+                description: "DKIT college dundalk 9am to 12.30pm entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray_october",
+                title: "Cars and Coffee Bray",
+                date: "October 5, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc_october",
+                title: "Sligo C&C",
+                date: "October 5, 2025",
+                location: "sligo",
+                type: "show",
+                description: "11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "jpccni_cars_coffee_october",
+                title: "JPCCNI Cars & Coffee",
+                date: "October 06, 2025",
+                location: "antrim",
+                type: "show",
+                description: "From 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "dogleap_rally",
+                title: "Dogleap Rally",
+                date: "October 11, 2025",
+                location: "derry",
+                type: "rally",
+                description: "A thrilling rally through Donegal."
+            },
+            {
+                id: "cars_coffee_cork_october",
+                title: "Cars and Coffee Cork",
+                date: "October 12, 2025",
+                location: "cork",
+                type: "show",
+                description: "Located in Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "galway_auto_meet_october",
+                title: "Galway Auto Meet",
+                date: "October 12, 2025",
+                location: "galway",
+                type: "show",
+                description: "From 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "j14_cars_coffee_october",
+                title: "J14 Cars and Coffee",
+                date: "October 12, 2025",
+                location: "kildare",
+                type: "show",
+                description: "From 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "iccr_october",
+                title: "ICCR",
+                date: "October 19, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "Irish Championship Circuit Racing at Mondello Park"
+            },
+            {
+                id: "waterford_cnc_october",
+                title: "Waterford C&C",
+                date: "October 19, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Sunday Mornings at Waterford Retail Park."
+            },
+            {
+                id: "limerick_cnc_october",
+                title: "Limerick C&C",
+                date: "October 26, 2025",
+                location: "limerick",
+                type: "show",
+                description: "French Day - Located in Eastway Business Park, Ballysimon Road from 10 am to 2 pm"
+            },
+            {
+                id: "fastnet_stages_rally",
+                title: "Fastnet Stages Rally",
+                date: "October 26, 2025",
+                location: "cork",
+                type: "rally",
+                description: "Exciting stages rally through the Fastnet region."
+            },
+            // November events
+            {
+                id: "cars_coffee_tipp_november",
+                title: "Cars and Coffee Tipp Town",
+                date: "November 2, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Car show at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "cars_coffee_north_east_november",
+                title: "Cars and Coffee North East",
+                date: "November 2, 2025",
+                location: "louth",
+                type: "show",
+                description: "DKIT college dundalk 9am to 12.30pm entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray_november",
+                title: "Cars and Coffee Bray",
+                date: "November 2, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc_november",
+                title: "Sligo C&C",
+                date: "November 2, 2025",
+                location: "sligo",
+                type: "show",
+                description: "11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "jpccni_cars_coffee_november",
+                title: "JPCCNI Cars & Coffee",
+                date: "November 03, 2025",
+                location: "antrim",
+                type: "show",
+                description: "From 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "cars_coffee_cork_november",
+                title: "Cars and Coffee Cork",
+                date: "November 9, 2025",
+                location: "cork",
+                type: "show",
+                description: "Located in Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "galway_auto_meet_november",
+                title: "Galway Auto Meet",
+                date: "November 9, 2025",
+                location: "galway",
+                type: "show",
+                description: "From 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "j14_cars_coffee_november",
+                title: "J14 Cars and Coffee",
+                date: "November 9, 2025",
+                location: "kildare",
+                type: "show",
+                description: "From 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "drift_games_invitational_november",
+                title: "Drift Games Invitational",
+                date: "November 15-16, 2025",
+                location: "kildare",
+                type: "trackday",
+                description: "The ultimate drift party weekender at Mondello Park"
+            },
+            {
+                id: "waterford_cnc_november",
+                title: "Waterford C&C",
+                date: "November 16, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Sunday Mornings at Waterford Retail Park."
+            },
+            {
+                id: "limerick_cnc_november",
+                title: "Limerick C&C",
+                date: "November 23, 2025",
+                location: "limerick",
+                type: "show",
+                description: "English Day - Located in Eastway Business Park, Ballysimon Road from 10 am to 2 pm"
+            },
+            {
+                id: "killarney_historic_rally",
+                title: "Killarney Historic Rally",
+                date: "November 29, 2025",
+                location: "kerry",
+                type: "rally",
+                description: "A historic rally event hosted in Killarney."
+            },
+            // December events
+            {
+                id: "jpccni_cars_coffee_december",
+                title: "JPCCNI Cars & Coffee",
+                date: "December 01, 2025",
+                location: "antrim",
+                type: "show",
+                description: "From 19:30 pm to 22:30 pm at Applegreen, Tullynacross Road, Lisburn."
+            },
+            {
+                id: "cars_coffee_tipp_december",
+                title: "Cars and Coffee Tipp Town",
+                date: "December 7, 2025",
+                location: "tipperary",
+                type: "show",
+                description: "Car show at Bohercrow Roundabout, Tipperary Town."
+            },
+            {
+                id: "cars_coffee_north_east_december",
+                title: "Cars and Coffee North East",
+                date: "December 7, 2025",
+                location: "louth",
+                type: "show",
+                description: "DKIT college dundalk 9am to 12.30pm entrance via the Gateway hotel"
+            },
+            {
+                id: "cars_coffee_bray_december",
+                title: "Cars and Coffee Bray",
+                date: "December 7, 2025",
+                location: "wicklow",
+                type: "show",
+                description: "Coffee Delights, Bray from 10 am to 12 pm"
+            },
+            {
+                id: "sligo_cnc_december",
+                title: "Sligo C&C",
+                date: "December 7, 2025",
+                location: "sligo",
+                type: "show",
+                description: "11 am to 2 pm at Sligo Retail Park, Carraroe."
+            },
+            {
+                id: "cars_coffee_cork_december",
+                title: "Cars and Coffee Cork",
+                date: "December 14, 2025",
+                location: "cork",
+                type: "show",
+                description: "Located in Little Island, Spar from 11 am to 2 pm."
+            },
+            {
+                id: "galway_auto_meet_december",
+                title: "Galway Auto Meet",
+                date: "December 14, 2025",
+                location: "galway",
+                type: "show",
+                description: "From 10 am to 1 pm at Galway Crystal, Merlin Park."
+            },
+            {
+                id: "j14_cars_coffee_december",
+                title: "J14 Cars and Coffee",
+                date: "December 14, 2025",
+                location: "kildare",
+                type: "show",
+                description: "From 10 am to 1 pm at J14 Mayfield."
+            },
+            {
+                id: "waterford_cnc_december",
+                title: "Waterford C&C",
+                date: "December 21, 2025",
+                location: "waterford",
+                type: "show",
+                description: "Sunday Mornings at Waterford Retail Park."
+            },
+            {
+                id: "limerick_cnc_december",
+                title: "Limerick C&C",
+                date: "December 28, 2025",
+                location: "limerick",
+                type: "show",
+                description: "Open Day - Located in Eastway Business Park, Ballysimon Road from 10 am to 2 pm"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded, initializing map...");
+            
+            // Initialize the map
+            var map = L.map('map').setView([53.4129, -8.2439], 7);
+            
+            // Add OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Get today's date without time for comparison
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Helper function to parse date strings like "May 31, 2025" or "May 31 - June 2, 2025"
+            function parseEventDate(dateStr) {
+                // If date range, take the first date
+                if (dateStr.includes('-')) {
+                    dateStr = dateStr.split('-')[0].trim();
+                }
+                
+                // Handle dates with specific formats
+                return new Date(dateStr);
+            }
+            
+            // Helper function to check if an event spans multiple months or is in a specific month
+            function isEventInMonth(dateStr, selectedMonth) {
+                // If it's "all" months, always return true
+                if (selectedMonth === 'all') {
+                    return true;
+                }
+                
+                // Check if the date string contains a range (e.g., "May 31 - June 2, 2025")
+                if (dateStr.includes('-')) {
+                    const dateParts = dateStr.split('-').map(part => part.trim());
+                    
+                    // Extract month names from both parts of the range
+                    const startMonthMatch = dateParts[0].match(/^([A-Za-z]+)/);
+                    const endMonthMatch = dateParts[1].match(/^([A-Za-z]+)/);
+                    
+                    if (startMonthMatch && endMonthMatch) {
+                        const startMonth = startMonthMatch[1].toLowerCase();
+                        const endMonth = endMonthMatch[1].toLowerCase();
+                        
+                        // Check if the selected month matches either the start or end month
+                        return selectedMonth.toLowerCase() === startMonth.toLowerCase() || 
+                               selectedMonth.toLowerCase() === endMonth.toLowerCase();
+                    }
+                }
+                
+                // For non-range dates, extract the month and compare
+                const monthMatch = dateStr.match(/^([A-Za-z]+)/);
+                if (monthMatch) {
+                    const eventMonth = monthMatch[1].toLowerCase();
+                    return selectedMonth.toLowerCase() === eventMonth.toLowerCase();
+                }
+                
+                // If we can't determine the month from the string, use the Date object
+                const eventDate = new Date(dateStr);
+                const eventMonth = eventDate.toLocaleString('en-US', { month: 'long' }).toLowerCase();
+                return selectedMonth.toLowerCase() === eventMonth;
+            }
+            
+            // Get filter elements
+            const typeFilter = document.getElementById('type-filter');
+            const locationFilter = document.getElementById('location-filter');
+            const monthFilter = document.getElementById('month-filter');
+            const weekFilter = document.getElementById('week-filter');
+            const viewToggle = document.getElementById('view-toggle');
+            
+            // Initialize week filter
+            function populateWeekFilter() {
+                // Clear existing options except the first one
+                while (weekFilter.options.length > 1) {
+                    weekFilter.remove(1);
+                }
+                
+                // Get all event dates
+                const eventDates = carEvents.map(event => 
+                    parseEventDate(event.date)
+                ).filter(date => date >= today);
+                
+                // Sort dates
+                eventDates.sort((a, b) => a - b);
+                
+                // Group by week
+                const weeks = {};
+                eventDates.forEach(date => {
+                    // Get the Monday of the week
+                    const day = date.getDay();
+                    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+                    const monday = new Date(date);
+                    monday.setDate(diff);
+                    
+                    const weekKey = monday.toISOString().slice(0, 10);
+                    if (!weeks[weekKey]) {
+                        const sunday = new Date(monday);
+                        sunday.setDate(monday.getDate() + 6);
+                        
+                        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        const mondayStr = `${monday.getDate()} ${monthNames[monday.getMonth()]}`;
+                        const sundayStr = `${sunday.getDate()} ${monthNames[sunday.getMonth()]}`;
+                        
+                        weeks[weekKey] = `${mondayStr} - ${sundayStr}`;
+                    }
+                });
+                
+                // Add week options
+                Object.entries(weeks).forEach(([key, label]) => {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = label;
+                    weekFilter.appendChild(option);
+                });
+            }
+            
+            // Function to filter markers based on selected criteria
+            function filterMarkers() {
+                // Clear existing markers
+                map.eachLayer(function(layer) {
+                    if (layer instanceof L.Marker) {
+                        map.removeLayer(layer);
+                    }
+                });
+                
+                // Get selected filter values
+                const selectedType = typeFilter.value.toLowerCase();
+                const selectedLocation = locationFilter.value.toLowerCase();
+                const selectedMonth = monthFilter.value.toLowerCase();
+                const selectedWeek = weekFilter.value;
+                
+                console.log("Filter applied - Month:", selectedMonth);
+                
+                // Add filtered markers
+                carEvents.forEach(event => {
+                    // Parse the event date
+                    const eventDate = parseEventDate(event.date);
+                    
+                    // Check if the event is in the future
+                    const isUpcoming = eventDate >= today;
+                    
+                    // Check if event is in selected week
+                    let weekMatch = true;
+                    if (selectedWeek !== 'all') {
+                        const selectedWeekDate = new Date(selectedWeek);
+                        const day = eventDate.getDay();
+                        const diff = eventDate.getDate() - day + (day === 0 ? -6 : 1);
+                        const eventMonday = new Date(eventDate);
+                        eventMonday.setDate(diff);
+                        
+                        weekMatch = eventMonday.toISOString().slice(0, 10) === selectedWeek;
+                    }
+                    
+                    // Check if event matches selected filters
+                    const typeMatch = selectedType === 'all' || event.type.toLowerCase() === selectedType;
+                    const locationMatch = selectedLocation === 'all' || event.location.toLowerCase() === selectedLocation.toLowerCase();
+                    
+                    // Get the event month
+                    const eventMonth = event.date.split(',')[0].split(' ')[0].toLowerCase();
+                    
+                    // If month filter is set to 'all', show all events
+                    // If month filter is set to a specific month, only show events from that month
+                    const monthMatch = (selectedMonth === 'all') || 
+                                      (selectedMonth !== 'all' && isEventInMonth(event.date, selectedMonth));
+                    
+                    // Log events that match the month filter for debugging
+                    if (monthMatch) {
+                        console.log("Event matches month filter:", event.title, event.date);
+                    }
+                    
+                    // Debug specific events
+                    if (event.id === "bishopscourt_ids" || event.id === "loughderg_1000") {
+                        console.log(`Event ${event.title} (${event.id}):`);
+                        console.log("  Type match:", typeMatch);
+                        console.log("  Location match:", locationMatch);
+                        console.log("  Month match:", monthMatch);
+                        console.log("  Week match:", weekMatch);
+                        console.log("  Is upcoming:", isUpcoming);
+                        console.log("  Has coordinates:", !!eventCoordinates[event.id]);
+                    }
+                    
+                    // Only add marker if event matches all criteria and is upcoming
+                    if (typeMatch && locationMatch && monthMatch && weekMatch) {
+                        // Get coordinates for the event using its ID
+                        let coords = eventCoordinates[event.id];
+                        
+                        // If no coordinates found, use default
+                        if (!coords) {
+                            coords = eventCoordinates.default;
+                        }
+                        
+                        // Use exact coordinates
+                        const lat = coords[0];
+                        const lng = coords[1];
+                        
+                        // Create marker with custom icon
+                        const color = eventColors[event.type] || '#1e7a41';
+                        const icon = L.divIcon({
+                            className: 'custom-marker',
+                            html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white;"></div>`,
+                            iconSize: [15, 15],
+                            iconAnchor: [7.5, 7.5]
+                        });
+                        
+                        const marker = L.marker([lat, lng], { icon: icon });
+                        
+                        // Create popup content
+                        const popupContent = `
+                            <div class="event-popup">
+                                <h3>${event.title}</h3>
+                                <p>${event.date}</p>
+                                <p>${event.description}</p>
+                            </div>
+                        `;
+                        
+                        marker.bindPopup(popupContent);
+                        marker.addTo(map);
+                    }
+                });
+            }
+            
+            // Reset Filters function
+            window.resetFilters = function() {
+                typeFilter.value = 'all';
+                locationFilter.value = 'all';
+                monthFilter.value = 'all';
+                weekFilter.value = 'all';
+                filterMarkers();
+            };
+            
+            // Add event listeners for filters
+            typeFilter.addEventListener('change', filterMarkers);
+            locationFilter.addEventListener('change', filterMarkers);
+            
+            // Add direct event listener to month filter
+            monthFilter.addEventListener('change', function() {
+                console.log("Month filter changed to:", monthFilter.value);
+                // Force update of the dropdown text
+                document.querySelector('#month-filter').value = monthFilter.value;
+                filterMarkers();
+            });
+            
+            // Add click event listener to month filter options
+            monthFilter.addEventListener('click', function() {
+                console.log("Month filter clicked");
+            });
+            
+            weekFilter.addEventListener('change', filterMarkers);
+            
+            // Toggle event listener
+            viewToggle.addEventListener('change', function() {
+                if (!this.checked) {
+                    // Redirect to the calendar view page
+                    window.location.href = 'index.html';
+                }
+            });
+            
+            // Initialize
+            populateWeekFilter();
+            
+            // Set filter to May
+            typeFilter.value = 'all';
+            locationFilter.value = 'all';
+            monthFilter.value = 'may';
+            weekFilter.value = 'all';
+            
+            // Apply filters
+            filterMarkers();
+            
+            // Debug Bishopscourt event
+            console.log("Debugging Bishopscourt IDS event:");
+            const bishopscourt = carEvents.find(event => event.id === "bishopscourt_ids");
+            if (bishopscourt) {
+                console.log("Event found:", bishopscourt);
+                console.log("Coordinates:", eventCoordinates["bishopscourt_ids"]);
+                console.log("Month:", bishopscourt.date.split(',')[0].split(' ')[0].toLowerCase());
+                console.log("Is in May:", isEventInMonth(bishopscourt.date, "may"));
+            } else {
+                console.log("Bishopscourt event not found in carEvents array");
+            }
+            
+            // Log all events that have coordinates
+            console.log("Events with coordinates:");
+            carEvents.forEach(event => {
+                if (eventCoordinates[event.id]) {
+                    console.log(`${event.id}: ${event.title} - ${eventCoordinates[event.id]}`);
+                }
+            });
+            
+            // Function to programmatically set the month filter
+            function setMonthFilter(month) {
+                console.log("Setting month filter to:", month);
+                monthFilter.value = month;
+                filterMarkers();
+            }
+            
+            console.log("Map initialized successfully");
+        });
+    </script>
+</body>
+</html>

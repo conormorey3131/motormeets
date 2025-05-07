@@ -54,6 +54,14 @@ header h1 {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-between;
+  align-items: center;
+}
+
+.filters-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex: 3;
 }
 
 .filter-container select {
@@ -78,7 +86,71 @@ header h1 {
   background-color: #fff;
 }
 
-/* Calendar Container */
+/* View Toggle Switch */
+.view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #1e7a41;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #1e7a41;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Calendar and Map Containers */
 .calendar-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -88,9 +160,38 @@ header h1 {
   padding: 0 1rem;
 }
 
+.map-container {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  height: 600px;
+  display: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* Show map container when toggle is checked */
+input:checked ~ .map-container,
+input:checked + .slider + .map-container {
+  display: block !important;
+}
+
+#ireland-map {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
 @media (max-width: 480px) {
   .calendar-container {
     grid-template-columns: 1fr;
+  }
+  
+  #ireland-map {
+    height: 400px;
   }
 }
 
@@ -288,6 +389,30 @@ footer a:hover {
   .filter-container select {
     padding: 0.75rem 1rem;
   }
+}
+
+/* Map Marker and Popup Styles */
+.custom-marker {
+  cursor: pointer;
+}
+
+.leaflet-popup-content {
+  padding: 5px;
+}
+
+.event-popup {
+  min-width: 200px;
+}
+
+.event-popup h3 {
+  color: #1e7a41;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.event-popup p {
+  margin: 5px 0;
+  font-size: 0.9rem;
 }
 
 /* Global Link Styles */

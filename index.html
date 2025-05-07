@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Events Calendar</title>
+  <title>Motor Meets Ireland - Events Calendar</title>
   <link rel="icon" href="logo.webp" type="image/webp">
 
   <!-- Import a modern Google Font -->
@@ -12,7 +12,16 @@
   <!-- Using Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Add Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+        crossorigin=""/>
 
+  <!-- Make sure Leaflet JS is loaded before our script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+          crossorigin=""></script>
 </head>
 <body>
   <header>
@@ -25,72 +34,88 @@
 
   <!-- Filter Section -->
   <div class="filter-container">
-    <select id="type-filter">
-      <option value="all">All Event Types</option>
-      <option value="rally">Rally</option>
-      <option value="show">Show</option>
-      <option value="run">Run</option>
-      <option value="Trackday">Trackday</option>
-      <option value="ids">Irish Drift Series</option>
-      <option value="dr">Slab Day</option>
-      <option value="bee">Bumblebee 1000</option>
-      <option value="sd">Buggy Championship</option>
-    </select>
+    <div class="filters-group">
+      <select id="type-filter">
+        <option value="all">All Event Types</option>
+        <option value="rally">Rally</option>
+        <option value="show">Show</option>
+        <option value="run">Run</option>
+        <option value="Trackday">Trackday</option>
+        <option value="ids">Irish Drift Series</option>
+        <option value="dr">Slab Day</option>
+        <option value="bee">Bumblebee 1000</option>
+        <option value="sd">Buggy Championship</option>
+      </select>
 
-    <select id="location-filter">
-      <option value="all">All Locations</option>
-      <option value="Antrim">Antrim</option>
-      <option value="Armagh">Armagh</option>
-      <option value="Carlow">Carlow</option>
-      <option value="Cavan">Cavan</option>
-      <option value="Clare">Clare</option>
-      <option value="Cork">Cork</option>
-      <option value="Derry">Derry</option>
-      <option value="Donegal">Donegal</option>
-      <option value="Down">Down</option>
-      <option value="Dublin">Dublin</option>
-      <option value="Fermanagh">Fermanagh</option>
-      <option value="Galway">Galway</option>
-      <option value="Kerry">Kerry</option>
-      <option value="Kildare">Kildare</option>
-      <option value="Kilkenny">Kilkenny</option>
-      <option value="Laois">Laois</option>
-      <option value="Leitrim">Leitirm</option>
-      <option value="Limerick">Limerick</option>
-      <option value="Longford">Longford</option>#
-      <option value="Louth">Louth</option>
-      <option value="Mayo">Mayo</option>
-      <option value="Meath">Meath</option>
-      <option value="Monaghan">Monaghan</option>
-      <option value="Offaly">Offaly</option>
-      <option value="Roscommon">Roscommon</option>
-      <option value="Sligo">Sligo</option>
-      <option value="Tipperary">Tipperary</option>
-      <option value="Tyrone">Tyrone</option>
-      <option value="Waterford">Waterford</option>
-      <option value="Westmeath">Westmeath</option>
-      <option value="Wexford">Wexford</option>
-      <option value="Wicklow">Wicklow</option>
-    </select>
+      <select id="location-filter">
+        <option value="all">All Locations</option>
+        <option value="Antrim">Antrim</option>
+        <option value="Armagh">Armagh</option>
+        <option value="Carlow">Carlow</option>
+        <option value="Cavan">Cavan</option>
+        <option value="Clare">Clare</option>
+        <option value="Cork">Cork</option>
+        <option value="Derry">Derry</option>
+        <option value="Donegal">Donegal</option>
+        <option value="Down">Down</option>
+        <option value="Dublin">Dublin</option>
+        <option value="Fermanagh">Fermanagh</option>
+        <option value="Galway">Galway</option>
+        <option value="Kerry">Kerry</option>
+        <option value="Kildare">Kildare</option>
+        <option value="Kilkenny">Kilkenny</option>
+        <option value="Laois">Laois</option>
+        <option value="Leitrim">Leitirm</option>
+        <option value="Limerick">Limerick</option>
+        <option value="Longford">Longford</option>
+        <option value="Louth">Louth</option>
+        <option value="Mayo">Mayo</option>
+        <option value="Meath">Meath</option>
+        <option value="Monaghan">Monaghan</option>
+        <option value="Offaly">Offaly</option>
+        <option value="Roscommon">Roscommon</option>
+        <option value="Sligo">Sligo</option>
+        <option value="Tipperary">Tipperary</option>
+        <option value="Tyrone">Tyrone</option>
+        <option value="Waterford">Waterford</option>
+        <option value="Westmeath">Westmeath</option>
+        <option value="Wexford">Wexford</option>
+        <option value="Wicklow">Wicklow</option>
+      </select>
 
-    <select id="month-filter">
-      <option value="all">All Months</option>
-      <option value="January">January</option>
-      <option value="February">February</option>
-      <option value="March">March</option>
-      <option value="April">April</option>
-      <option value="May">May</option>
-      <option value="June">June</option>
-      <option value="July">July</option>
-      <option value="August">August</option>
-      <option value="September">September</option>
-      <option value="October">October</option>
-      <option value="November">November</option>
-      <option value="December">December</option>
-    </select>
+      <select id="month-filter">
+        <option value="all">All Months</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+
+      <select id="week-filter">
+        <option value="all">All Weeks</option>
+        <!-- Week options will be populated by JavaScript -->
+      </select>
+    </div>
+    
+<div class="view-toggle">
+      <span>Calendar</span>
+      <label class="switch">
+        <input type="checkbox" id="view-toggle">
+        <span class="slider round"></span>
+      </label>
+      <span>Map</span>
+    </div>
   </div>
 
-  <div class="calendar-container">
+<div id="calendar-view" class="calendar-container">
       <!-- January -->
       <div class="event" data-type="show" data-location="Louth" data-month="January" data-date="2025-01-05">
           <div class="event-date-circle show">5 Jan</div>
@@ -1074,7 +1099,7 @@
       </div>
 
       <!-- May -->
-      <div class="event" data-type="show" data-location="Limerick" data-month="May" data-date="2025-05-03">
+      <div class="event" data-type="show" data-location="Limerick" data-month="May" data-date="2025-05-03" data-eircode="V94 E068">
           <div class="event-date-circle show">3 May</div>
           <h3>Cars at the Cathedral</h3>
           <p class="event-date">May 3, 2025</p>
@@ -1082,7 +1107,7 @@
           <p>Description: A display of exceptional cars, motorbikes and memorabilia. €15 entry</p>
       </div>
 
-      <div class="event" data-type="rally" data-location="Kerry" data-month="May" data-date="2025-05-03">
+      <div class="event" data-type="rally" data-location="Kerry" data-month="May" data-date="2025-05-03" data-eircode="V93 V045">
           <div class="event-date-circle rally">03-04 May</div>
           <h3>Rally of the Lakes</h3>
           <p class="event-date">May 03-04, 2025</p>
@@ -1090,7 +1115,7 @@
           <p>Description: A spectacular rally event near scenic lakes.</p>
       </div>
 
-      <div class="event" data-type="Trackday" data-location="Kerry" data-month="May" data-date="2025-05-04">
+      <div class="event" data-type="Trackday" data-location="Kerry" data-month="May" data-date="2025-05-04" data-eircode="V31 XD86">
           <div class="event-date-circle trackday">4 May</div>
           <h3>JuiceBox Drift Jam</h3>
           <p class="event-date">May 4, 2025</p>
@@ -1106,14 +1131,14 @@
           </p>
       </div>
 
-      <div class="event" data-type="show" data-location="Tipperary" data-month="May" data-date="2025-05-04">
+      <div class="event" data-type="show" data-location="Tipperary" data-month="May" data-date="2025-05-04" data-eircode="E34 RK83">
           <div class="event-date-circle show">4 May</div>
           <h3>Cars and Coffee Tipp Town</h3>
           <p class="event-date">May 4, 2025</p>
           <p>Location: Bohercrow Roundabout Tipperary, Tipperary Town, Tipperary</p>
       </div>
 
-      <div class="event" data-type="show" data-location="Dublin" data-month="May" data-date="2025-05-04">
+      <div class="event" data-type="show" data-location="Dublin" data-month="May" data-date="2025-05-04" data-eircode="D04 H2N9">
           <div class="event-date-circle show">4 May</div>
           <h3>Herbert Park Car Show</h3>
           <p class="event-date">May 4, 2025</p>
@@ -1121,7 +1146,7 @@
           <p>Description: 10 AM - 4 PM</p>
       </div>
 
-      <div class="event" data-type="show" data-location="Louth" data-month="May" data-date="2025-05-04">
+      <div class="event" data-type="show" data-location="Louth" data-month="May" data-date="2025-05-04" data-eircode="A91 K584">
           <div class="event-date-circle show">4 May</div>
           <h3>Cars and Coffee North <br> East</h3>
           <p class="event-date">May 4, 2025</p>
@@ -1137,7 +1162,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="show" data-location="Wicklow" data-month="May" data-date="2025-05-04">
+      <div class="event" data-type="show" data-location="Wicklow" data-month="May" data-date="2025-05-04" data-eircode="A98 RY72">
           <div class="event-date-circle show">4 May</div>
           <h3>Cars and Coffee Bray</h3>
           <p class="event-date">May 4, 2025</p>
@@ -1153,7 +1178,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="show" data-location="Sligo" data-month="May" data-date="2025-05-04">
+      <div class="event" data-type="show" data-location="Sligo" data-month="May" data-date="2025-05-04" data-eircode="F91 FY66">
           <div class="event-date-circle show">4 May</div>
           <h3>Sligo C&C</h3>
           <p class="event-date">May 4, 2025</p>
@@ -1169,7 +1194,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="show" data-location="Wexford" data-month="May" data-date="2025-05-04">
+      <div class="event" data-type="show" data-location="Wexford" data-month="May" data-date="2025-05-04" data-eircode="Y35 X2H3">
           <div class="event-date-circle show">4 May</div>
           <h3>DB on the Quay</h3>
           <p class="event-date">May 4, 2025</p>
@@ -1184,7 +1209,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="show" data-location="Antrim" data-month="May" data-date="2025-05-05">
+      <div class="event" data-type="show" data-location="Antrim" data-month="May" data-date="2025-05-05" data-eircode="BT27 5SF">
           <div class="event-date-circle show">5 May</div>
           <h3>JPCCNI Cars & Coffee</h3>
           <p class="event-date">May 05, 2025</p>
@@ -1200,7 +1225,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="run" data-location="Tipperary" data-month="May" data-date="2025-05-10">
+      <div class="event" data-type="run" data-location="Tipperary" data-month="May" data-date="2025-05-10" data-eircode="E45 KD50">
           <div class="event-date-circle run">10 May</div>
           <h3>Drive The Lake -<br> Drive Ireland</h3>
           <p class="event-date">May 10, 2025</p>
@@ -1216,7 +1241,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="rally" data-location="Tipperary" data-month="May" data-date="2025-05-11">
+      <div class="event" data-type="rally" data-location="Tipperary" data-month="May" data-date="2025-05-11" data-eircode="E34 WN99">
           <div class="event-date-circle rally">11 May</div>
           <h3>Tipperary Forest Rally</h3>
           <p class="event-date">May 11, 2025</p>
@@ -1224,7 +1249,7 @@
           <p>Description: Forest rally event held in Tipperary.</p>
       </div>
 
-      <div class="event" data-type="show" data-location="Cork" data-month="May" data-date="2025-05-11">
+      <div class="event" data-type="show" data-location="Cork" data-month="May" data-date="2025-05-11" data-eircode="T45 HK71">
           <div class="event-date-circle show">11 May</div>
           <h3>Cars and Coffee Cork</h3>
           <p class="event-date">May 11, 2025</p>
@@ -1240,14 +1265,6 @@
           </p>
       </div>
 
-      <div class="event" data-type="Trackday" data-location="Kildare" data-month="May" data-date="2025-05-11">
-          <div class="event-date-circle trackday">11 May</div>
-          <h3>JDM Classics Trackday</h3>
-          <p class="event-date">May 11, 2025</p>
-          <p>Location: Mondello Park</p>
-          <p>Description: Drift and Grip Trackday</p>
-      </div>
-
       <div class="event" data-type="show" data-location="Louth" data-month="May" data-date="2025-05-11">
         <div class="event-date-circle show">11 May</div>
         <h3>Caffeine & Octane - <br> Street Beasts</h3>
@@ -1255,6 +1272,14 @@
         <p>Location: Brewery Business Park, Dundalk, Co. Louth, A91 XR98</p>
         <p>Description: From 10 am to 12:30 pm. €10 Per Person, U12's go free</p>
     </div>
+
+      <div class="event" data-type="Trackday" data-location="Kildare" data-month="May" data-date="2025-05-11">
+          <div class="event-date-circle trackday">11 May</div>
+          <h3>JDM Classics Trackday</h3>
+          <p class="event-date">May 11, 2025</p>
+          <p>Location: Mondello Park</p>
+          <p>Description: Drift and Grip Trackday</p>
+      </div>
 
       <div class="event" data-type="show" data-location="Galway" data-month="May" data-date="2025-05-11">
           <div class="event-date-circle show">11 May</div>
@@ -1309,14 +1334,6 @@
           <p>Location: Eircode - D12 HE02, Dublin</p>
           <p>Description: 12 PM - 3 PM</p>
       </div>
-
-      <div class="event" data-type="show" data-location="Laois" data-month="May" data-date="2025-05-18">
-        <div class="event-date-circle show">18 May</div>
-        <h3>Country Cruisers <br> Cars and Coffee</h3>
-        <p class="event-date">May 18, 2025</p>
-        <p>Location: N78, Ballylehane Lower, Ballylynan, Co. Laois, R14 EH39</p>
-        <p>Description: 11 AM - 2 PM, Open to: All cars, bikes, and trucks</p>
-    </div>
 
       <div class="event" data-type="ids" data-location="Down" data-month="May" data-date="2025-05-25">
           <div class="event-date-circle idc">23-25 May</div>
@@ -1391,14 +1408,6 @@
           <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
       </div>
 
-      <div class="event" data-type="show" data-location="Waterford" data-month="May" data-date="2025-05-25">
-        <div class="event-date-circle show">25 May</div>
-        <h3>Tramore C&C</h3>
-        <p class="event-date">May 25, 2025</p>
-        <p>Location: X91 A2NX</p>
-        <p>Description: 11 am to 1 pm</p>
-    </div>
-
       <div class="event" data-type="rally" data-location="Cavan" data-month="May" data-date="2025-05-25">
           <div class="event-date-circle rally">25 May</div>
           <h3>Cavan Stages Rally</h3>
@@ -1445,6 +1454,14 @@
               </a>
           </p>
       </div>
+
+      <div class="event" data-type="run" data-location="Tipperary" data-month="May" data-date="2025-05-31">
+        <div class="event-date-circle run">31 May</div>
+        <h3>LoughDerg 1000</h3>
+        <p class="event-date">May 31, 2025</p>
+        <p>Location: Carey's Glass International, E45 XV81</p>
+        <p>Description: Show/Charity Run</p>
+    </div>
 
       <!-- June -->
       <div class="event" data-type="show" data-location="Tipperary" data-month="June" data-date="2025-06-01">
@@ -2188,6 +2205,14 @@
           <p>Location: Mondello</p>
       </div>
 
+      <div class="event" data-type="show" data-location="Cavan" data-month="August" data-date="2025-08-24">
+        <div class="event-date-circle show">24 Aug</div>
+        <h3>Cars and Coffee <br>for SoSad</h3>
+        <p class="event-date">August 24, 2025</p>
+        <p>Location: Cavan Bypass (Circus Grounds), A82 TX88</p>
+        <p>Description: 9:30 am to 1:30 pm</p>
+    </div>
+
       <div class="event" data-type="show" data-location="Limerick" data-month="August" data-date="2025-08-24">
           <div class="event-date-circle show">24 Aug</div>
           <h3>Limerick C&C</h3>
@@ -2916,16 +2941,195 @@
   <!-- BEGIN: Upcoming Info Section -->
   <div class="upcoming-info">
     <p>
-      We’ll be adding more events as soon as they’re announced. 
-      If you don’t see a particular event or you’re an event organizer 
+      We'll be adding more events as soon as they're announced. 
+      If you don't see a particular event or you're an event organizer 
       and would like your event featured, please email as many details 
       as possible to
       <a href="mailto:conor@moreydigital.ie">conor@moreydigital.ie</a>.
     </p>
   </div>
-  
 </div>
-  <!-- END: Upcoming Info Section -->
+
+<!-- Map View Container -->
+<div id="map-view" class="map-container">
+  <div id="ireland-map" style="width: 100%; height: 600px; z-index: 1;"></div>
+</div>
+
+<script>
+  // Direct map initialization script
+  document.addEventListener('DOMContentLoaded', function() {
+    const viewToggle = document.getElementById('view-toggle');
+    const calendarView = document.getElementById('calendar-view');
+    const mapView = document.getElementById('map-view');
+    const mapElement = document.getElementById('ireland-map');
+    let mapInitialized = false;
+    let directMap;
+    
+    // Function to initialize the map directly
+    function initializeMap() {
+      if (!mapInitialized) {
+        console.log("Directly initializing map...");
+        
+        // Create the map
+        directMap = L.map('ireland-map').setView([53.4129, -8.2439], 7);
+        
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(directMap);
+        
+        // Store the map in the window object for access by other scripts
+        window.map = directMap;
+        
+        // Create a layer group for markers that script.js can use
+        markerLayer = L.layerGroup().addTo(directMap);
+        
+        // Add markers for events
+        addEventMarkers(directMap);
+        
+        // Mark as initialized
+        mapInitialized = true;
+        console.log("Map directly initialized");
+      }
+      
+      // Force map to update its size
+      if (directMap) {
+        setTimeout(function() {
+          directMap.invalidateSize(true);
+          console.log("Map size invalidated directly");
+        }, 300);
+      }
+    }
+    
+    // Function to add markers for events
+    function addEventMarkers(map) {
+      // County coordinates for Ireland (approximate centers)
+      const countyCoordinates = {
+        'antrim': [54.7214, -6.2051],
+        'armagh': [54.3503, -6.6528],
+        'carlow': [52.8408, -6.9261],
+        'cavan': [53.9897, -7.3633],
+        'clare': [52.9019, -9.0018],
+        'cork': [51.8986, -8.4706],
+        'derry': [54.9966, -7.3086],
+        'donegal': [54.6538, -8.1096],
+        'down': [54.3352, -5.7190],
+        'dublin': [53.3498, -6.2603],
+        'fermanagh': [54.3438, -7.6310],
+        'galway': [53.2707, -9.0568],
+        'kerry': [52.1543, -9.5671],
+        'kildare': [53.1589, -6.9096],
+        'kilkenny': [52.6541, -7.2448],
+        'laois': [53.0324, -7.3599],
+        'leitrim': [54.1244, -8.0014],
+        'leitirm': [54.1244, -8.0014], // Handle misspelling in data
+        'limerick': [52.6638, -8.6267],
+        'longford': [53.7276, -7.7940],
+        'louth': [53.9508, -6.5392],
+        'mayo': [53.8546, -9.3018],
+        'meath': [53.6055, -6.6564],
+        'monaghan': [54.2492, -6.9683],
+        'offaly': [53.2390, -7.7129],
+        'roscommon': [53.6276, -8.1892],
+        'sligo': [54.2766, -8.4761],
+        'tipperary': [52.4738, -8.1619],
+        'tyrone': [54.5973, -7.3100],
+        'waterford': [52.2593, -7.1101],
+        'westmeath': [53.5345, -7.4653],
+        'wexford': [52.3369, -6.4633],
+        'wicklow': [52.9808, -6.0446],
+        'lakes': [53.5, -8.0], // Approximate for "Lakes" location
+        'default': [53.4129, -8.2439] // Center of Ireland
+      };
+      
+      // Event type colors
+      const eventColors = {
+        'rally': '#1e7a41',
+        'show': '#007bff',
+        'run': '#ffc107',
+        'trackday': '#e83e8c',
+        'ids': '#17a2b8',
+        'dr': '#6c757d',
+        'sd': '#6610f2',
+        'bee': '#fd7e14'
+      };
+      
+      // Get all events
+      const events = document.querySelectorAll('.event');
+      
+      // Add markers for each event
+      events.forEach(event => {
+        // Get event data
+        const eventType = event.getAttribute('data-type').toLowerCase();
+        const eventLocation = event.getAttribute('data-location').toLowerCase();
+        const eventTitle = event.querySelector('h3').textContent;
+        const eventDate = event.querySelector('.event-date').textContent;
+        const eventDesc = event.querySelector('p:nth-of-type(2)').nextElementSibling ? 
+                          event.querySelector('p:nth-of-type(2)').textContent : '';
+        
+        // Skip events with no location
+        if (!eventLocation || eventLocation === '') return;
+        
+        // Get coordinates for the county
+        let coords = countyCoordinates[eventLocation.toLowerCase()];
+        if (!coords) {
+          // Try to extract county from location string
+          const locationParts = eventLocation.split(',');
+          for (const part of locationParts) {
+            const trimmed = part.trim().toLowerCase();
+            if (countyCoordinates[trimmed]) {
+              coords = countyCoordinates[trimmed];
+              break;
+            }
+          }
+          
+          // If still no coords, use default
+          if (!coords) {
+            coords = countyCoordinates.default;
+          }
+        }
+        
+        // Add a small random offset to prevent markers from stacking exactly
+        const lat = coords[0] + (Math.random() - 0.5) * 0.05;
+        const lng = coords[1] + (Math.random() - 0.5) * 0.05;
+        
+        // Create marker with custom icon
+        const color = eventColors[eventType] || '#1e7a41';
+        const icon = L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white;"></div>`,
+          iconSize: [15, 15],
+          iconAnchor: [7.5, 7.5]
+        });
+        
+        const marker = L.marker([lat, lng], { icon: icon });
+        
+        // Create popup content
+        const popupContent = `
+          <div class="event-popup">
+            <h3>${eventTitle}</h3>
+            <p>${eventDate}</p>
+            <p>${eventDesc}</p>
+          </div>
+        `;
+        
+        marker.bindPopup(popupContent);
+        marker.addTo(map);
+      });
+    }
+    
+    // Toggle event listener
+    viewToggle.addEventListener('change', function() {
+      console.log("Toggle changed. Checked:", this.checked);
+      
+      if (this.checked) {
+        // Redirect to the map view page
+        window.location.href = 'map-view.html';
+      }
+    });
+  });
+</script>
+<!-- END: Upcoming Info Section -->
 
   <footer>
     <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
