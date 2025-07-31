@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Event - Motor Meets Ireland</title>
+  <link rel="icon" href="logo.webp" type="image/webp">
+
+  <!-- Import Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    .submit-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+    }
+    
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #1e7a41;
+      box-shadow: 0 0 0 2px rgba(30, 122, 65, 0.1);
+    }
+    
+    .submit-btn {
+      background-color: #1e7a41;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      background-color: #165a30;
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: #1e7a41;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    
+    .required {
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.webp" alt="Motor Meets Logo" onclick="window.location.href='index.html'">
+    <h1>Motor Meets - Ireland</h1>
+    <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
+    </a>
+  </header>
+
+  <div class="submit-container">
+    <a href="index.html" class="back-link">← Back to Events</a>
+    <h2>Submit Your Event</h2>
+    <p>Have an automotive event you'd like to add to Motor Meets Ireland? Fill out the form below and we'll review your submission.</p>
+    
+    <form action="https://formspree.io/f/mkgzzzlo" method="POST" id="event-form">
+      <div class="form-group">
+        <label for="event-name">Event Name <span class="required">*</span></label>
+        <input type="text" id="event-name" name="event_name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-type">Event Type <span class="required">*</span></label>
+        <select id="event-type" name="event_type" required>
+          <option value="">Select Type</option>
+          <option value="rally">Rally</option>
+          <option value="show">Show</option>
+          <option value="run">Run</option>
+          <option value="trackday">Trackday</option>
+          <option value="ids">Irish Drift Series</option>
+          <option value="dr">Slab Day</option>
+          <option value="bee">Bumblebee 1000</option>
+          <option value="sd">Buggy Championship</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-date">Event Date <span class="required">*</span></label>
+        <input type="date" id="event-date" name="event_date" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-location">County <span class="required">*</span></label>
+        <select id="event-location" name="event_location" required>
+          <option value="">Select County</option>
+          <option value="Antrim">Antrim</option>
+          <option value="Armagh">Armagh</option>
+          <option value="Carlow">Carlow</option>
+          <option value="Cavan">Cavan</option>
+          <option value="Clare">Clare</option>
+          <option value="Cork">Cork</option>
+          <option value="Derry">Derry</option>
+          <option value="Donegal">Donegal</option>
+          <option value="Down">Down</option>
+          <option value="Dublin">Dublin</option>
+          <option value="Fermanagh">Fermanagh</option>
+          <option value="Galway">Galway</option>
+          <option value="Kerry">Kerry</option>
+          <option value="Kildare">Kildare</option>
+          <option value="Kilkenny">Kilkenny</option>
+          <option value="Laois">Laois</option>
+          <option value="Leitrim">Leitrim</option>
+          <option value="Limerick">Limerick</option>
+          <option value="Longford">Longford</option>
+          <option value="Louth">Louth</option>
+          <option value="Mayo">Mayo</option>
+          <option value="Meath">Meath</option>
+          <option value="Monaghan">Monaghan</option>
+          <option value="Offaly">Offaly</option>
+          <option value="Roscommon">Roscommon</option>
+          <option value="Sligo">Sligo</option>
+          <option value="Tipperary">Tipperary</option>
+          <option value="Tyrone">Tyrone</option>
+          <option value="Waterford">Waterford</option>
+          <option value="Westmeath">Westmeath</option>
+          <option value="Wexford">Wexford</option>
+          <option value="Wicklow">Wicklow</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="venue-name">Venue Name</label>
+        <input type="text" id="venue-name" name="venue_name">
+      </div>
+      
+      <div class="form-group">
+        <label for="event-description">Event Description <span class="required">*</span></label>
+        <textarea id="event-description" name="event_description" required></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="contact-name">Your Name <span class="required">*</span></label>
+        <input type="text" id="contact-name" name="contact_name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contact-email">Your Email <span class="required">*</span></label>
+        <input type="email" id="contact-email" name="_replyto" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-website">Event Website/Social Media</label>
+        <input type="url" id="event-website" name="event_website" placeholder="https://">
+      </div>
+      
+      <!-- Honeypot field for spam protection -->
+      <input type="text" name="_gotcha" style="display:none">
+      
+      <!-- Subject line for email -->
+      <input type="hidden" name="_subject" value="New Event Submission - Motor Meets Ireland">
+      
+      <!-- Redirect to success page after submission -->
+      <input type="hidden" name="_next" value="https://motormeets.ie/submission-success.html">
+      
+      <!-- Disable Formspree's reCAPTCHA -->
+      <input type="hidden" name="_captcha" value="false">
+      
+      <button type="submit" class="submit-btn">Submit Event</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
+  </footer>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z8N0WZHKBN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z8N0WZHKBN');
+  </script>
+  
+  <!-- Form submission handler -->
+  <script>
+    document.getElementById('event-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const submitBtn = form.querySelector('.submit-btn');
+      const originalBtnText = submitBtn.textContent;
+      
+      // Disable button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      
+      // Submit form via AJAX
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: new FormData(form)
+      })
+      .then(response => {
+        if (response.ok) {
+          // Redirect to success page
+          window.location.href = 'submission-success.html';
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(error => {
+        // Re-enable button on error
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        alert('There was an error submitting your event. Please try again.');
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Submitted - Motor Meets Ireland</title>
+  <link rel="icon" href="logo.webp" type="image/webp">
+
+  <!-- Import Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    .success-container {
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      background-color: #1e7a41;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .success-icon::after {
+      content: '✓';
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+    }
+    
+    .success-container h2 {
+      color: #1e7a41;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    
+    .success-container p {
+      color: #666;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .action-buttons a {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .primary-btn {
+      background-color: #1e7a41;
+      color: white;
+    }
+    
+    .primary-btn:hover {
+      background-color: #165a30;
+      color: white;
+    }
+    
+    .secondary-btn {
+      background-color: #f9f9f9;
+      color: #1e7a41;
+      border: 2px solid #1e7a41;
+    }
+    
+    .secondary-btn:hover {
+      background-color: #1e7a41;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.webp" alt="Motor Meets Logo" onclick="window.location.href='index.html'">
+    <h1>Motor Meets - Ireland</h1>
+    <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
+    </a>
+  </header>
+
+  <div class="success-container">
+    <div class="success-icon"></div>
+    <h2>Event Submitted Successfully!</h2>
+    <p>Thank you for submitting your event to Motor Meets Ireland. We'll review your submission and add it to our calendar if it meets our guidelines. This typically takes 1-2 business days.</p>
+    <p>If you have any questions about your submission, please reach out to us on Instagram.</p>
+    
+    <div class="action-buttons">
+      <a href="index.html" class="primary-btn">View Events Calendar</a>
+      <a href="submit-event.html" class="secondary-btn">Submit Another Event</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
+  </footer>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z8N0WZHKBN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z8N0WZHKBN');
+  </script>
+</body>
+</html>

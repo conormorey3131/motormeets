@@ -13,15 +13,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   
-  <!-- Add Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
-        crossorigin=""/>
-
-  <!-- Make sure Leaflet JS is loaded before our script -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
-          crossorigin=""></script>
 </head>
 <body>
   <header>
@@ -105,13 +96,8 @@
       </select>
     </div>
     
-<div class="view-toggle">
-      <span>Calendar</span>
-      <label class="switch">
-        <input type="checkbox" id="view-toggle">
-        <span class="slider round"></span>
-      </label>
-      <span>Map</span>
+    <div style="text-align: center; margin-top: 1rem;">
+      <a href="submit-event.html" class="submit-event-btn" style="display: inline-block; background-color: #1e7a41; color: white; padding: 0.75rem 2rem; text-decoration: none; border-radius: 4px; font-weight: 600; transition: background-color 0.3s ease;">Submit an Event</a>
     </div>
   </div>
 
@@ -3499,197 +3485,9 @@
           <p>Website: <a class="lc-link" rel="noopener" target="_blank">Event Page</a></p>
       </div>
   </div>
-  <!-- BEGIN: Upcoming Info Section -->
-  <div class="upcoming-info">
-    <p>
-      We'll be adding more events as soon as they're announced. 
-      If you don't see a particular event or you're an event organizer 
-      and would like your event featured, please email as many details 
-      as possible to
-      <a href="mailto:conor@moreydigital.ie">conor@moreydigital.ie</a>.
-    </p>
-  </div>
 </div>
 
-<!-- Map View Container -->
-<div id="map-view" class="map-container">
-  <div id="ireland-map" style="width: 100%; height: 600px; z-index: 1;"></div>
-</div>
 
-<script>
-  // Direct map initialization script
-  document.addEventListener('DOMContentLoaded', function() {
-    const viewToggle = document.getElementById('view-toggle');
-    const calendarView = document.getElementById('calendar-view');
-    const mapView = document.getElementById('map-view');
-    const mapElement = document.getElementById('ireland-map');
-    let mapInitialized = false;
-    let directMap;
-    
-    // Function to initialize the map directly
-    function initializeMap() {
-      if (!mapInitialized) {
-        console.log("Directly initializing map...");
-        
-        // Create the map
-        directMap = L.map('ireland-map').setView([53.4129, -8.2439], 7);
-        
-        // Add OpenStreetMap tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(directMap);
-        
-        // Store the map in the window object for access by other scripts
-        window.map = directMap;
-        
-        // Create a layer group for markers that script.js can use
-        markerLayer = L.layerGroup().addTo(directMap);
-        
-        // Add markers for events
-        addEventMarkers(directMap);
-        
-        // Mark as initialized
-        mapInitialized = true;
-        console.log("Map directly initialized");
-      }
-      
-      // Force map to update its size
-      if (directMap) {
-        setTimeout(function() {
-          directMap.invalidateSize(true);
-          console.log("Map size invalidated directly");
-        }, 300);
-      }
-    }
-    
-    // Function to add markers for events
-    function addEventMarkers(map) {
-      // County coordinates for Ireland (approximate centers)
-      const countyCoordinates = {
-        'antrim': [54.7214, -6.2051],
-        'armagh': [54.3503, -6.6528],
-        'carlow': [52.8408, -6.9261],
-        'cavan': [53.9897, -7.3633],
-        'clare': [52.9019, -9.0018],
-        'cork': [51.8986, -8.4706],
-        'derry': [54.9966, -7.3086],
-        'donegal': [54.6538, -8.1096],
-        'down': [54.3352, -5.7190],
-        'dublin': [53.3498, -6.2603],
-        'fermanagh': [54.3438, -7.6310],
-        'galway': [53.2707, -9.0568],
-        'kerry': [52.1543, -9.5671],
-        'kildare': [53.1589, -6.9096],
-        'kilkenny': [52.6541, -7.2448],
-        'laois': [53.0324, -7.3599],
-        'leitrim': [54.1244, -8.0014],
-        'leitirm': [54.1244, -8.0014], // Handle misspelling in data
-        'limerick': [52.6638, -8.6267],
-        'longford': [53.7276, -7.7940],
-        'louth': [53.9508, -6.5392],
-        'mayo': [53.8546, -9.3018],
-        'meath': [53.6055, -6.6564],
-        'monaghan': [54.2492, -6.9683],
-        'offaly': [53.2390, -7.7129],
-        'roscommon': [53.6276, -8.1892],
-        'sligo': [54.2766, -8.4761],
-        'tipperary': [52.4738, -8.1619],
-        'tyrone': [54.5973, -7.3100],
-        'waterford': [52.2593, -7.1101],
-        'westmeath': [53.5345, -7.4653],
-        'wexford': [52.3369, -6.4633],
-        'wicklow': [52.9808, -6.0446],
-        'lakes': [53.5, -8.0], // Approximate for "Lakes" location
-        'default': [53.4129, -8.2439] // Center of Ireland
-      };
-      
-      // Event type colors
-      const eventColors = {
-        'rally': '#1e7a41',
-        'show': '#007bff',
-        'run': '#ffc107',
-        'trackday': '#e83e8c',
-        'ids': '#17a2b8',
-        'dr': '#6c757d',
-        'sd': '#6610f2',
-        'bee': '#fd7e14'
-      };
-      
-      // Get all events
-      const events = document.querySelectorAll('.event');
-      
-      // Add markers for each event
-      events.forEach(event => {
-        // Get event data
-        const eventType = event.getAttribute('data-type').toLowerCase();
-        const eventLocation = event.getAttribute('data-location').toLowerCase();
-        const eventTitle = event.querySelector('h3').textContent;
-        const eventDate = event.querySelector('.event-date').textContent;
-        const eventDesc = event.querySelector('p:nth-of-type(2)').nextElementSibling ? 
-                          event.querySelector('p:nth-of-type(2)').textContent : '';
-        
-        // Skip events with no location
-        if (!eventLocation || eventLocation === '') return;
-        
-        // Get coordinates for the county
-        let coords = countyCoordinates[eventLocation.toLowerCase()];
-        if (!coords) {
-          // Try to extract county from location string
-          const locationParts = eventLocation.split(',');
-          for (const part of locationParts) {
-            const trimmed = part.trim().toLowerCase();
-            if (countyCoordinates[trimmed]) {
-              coords = countyCoordinates[trimmed];
-              break;
-            }
-          }
-          
-          // If still no coords, use default
-          if (!coords) {
-            coords = countyCoordinates.default;
-          }
-        }
-        
-        // Add a small random offset to prevent markers from stacking exactly
-        const lat = coords[0] + (Math.random() - 0.5) * 0.05;
-        const lng = coords[1] + (Math.random() - 0.5) * 0.05;
-        
-        // Create marker with custom icon
-        const color = eventColors[eventType] || '#1e7a41';
-        const icon = L.divIcon({
-          className: 'custom-marker',
-          html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white;"></div>`,
-          iconSize: [15, 15],
-          iconAnchor: [7.5, 7.5]
-        });
-        
-        const marker = L.marker([lat, lng], { icon: icon });
-        
-        // Create popup content
-        const popupContent = `
-          <div class="event-popup">
-            <h3>${eventTitle}</h3>
-            <p>${eventDate}</p>
-            <p>${eventDesc}</p>
-          </div>
-        `;
-        
-        marker.bindPopup(popupContent);
-        marker.addTo(map);
-      });
-    }
-    
-    // Toggle event listener
-    viewToggle.addEventListener('change', function() {
-      console.log("Toggle changed. Checked:", this.checked);
-      
-      if (this.checked) {
-        // Redirect to the map view page
-        window.location.href = 'map-view.html';
-      }
-    });
-  });
-</script>
 <!-- END: Upcoming Info Section -->
 
   <footer>

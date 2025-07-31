@@ -439,3 +439,10 @@ footer a:focus {
   color: #d1d1d1;
   text-decoration: underline;
 }
+
+/* Submit Event Button */
+.submit-event-btn:hover {
+  background-color: #165a30 !important;
+  text-decoration: none !important;
+  color: white !important;
+}
