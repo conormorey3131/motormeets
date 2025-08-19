@@ -42,6 +42,47 @@ header h1 {
   margin: 0;
 }
 
+/* Sponsors Section */
+.sponsors-section {
+  background-color: #fff;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto;
+  max-width: 1200px;
+  border-radius: 8px;
+}
+
+.sponsors-section h2 {
+  color: #1e7a41;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.sponsors-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.sponsor-link {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.sponsor-link:hover {
+  transform: scale(1.05);
+}
+
+.sponsor-logo {
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
 /* Filter Container */
 .filter-container {
   background-color: #fff;
