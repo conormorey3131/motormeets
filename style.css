@@ -524,6 +524,13 @@ footer a:hover {
   .filter-container select {
     padding: 0.75rem 1rem;
   }
+
+  /* Add extra space between filters and footer sponsor on mobile */
+  .footer-sponsor {
+    margin-top: 3rem;
+    padding: 1.25rem;
+    font-size: 0.9rem;
+  }
 }
 
 /* Map Marker and Popup Styles */
@@ -585,9 +592,6 @@ footer a:focus {
 /* Mobile Floating Sponsor Banner */
 @media (max-width: 768px) {
   .sponsors-section.enhanced {
-    position: sticky;
-    top: 0;
-    z-index: 100;
     margin: 0;
     border-radius: 0;
     padding: 1rem;
@@ -660,22 +664,28 @@ footer a:focus {
 
 /* Footer Sponsor Mention */
 .footer-sponsor {
-  background: #f8f9fa;
-  padding: 1rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 1.5rem;
   text-align: center;
-  border-top: 2px solid #1e7a41;
+  border-top: 3px solid #1e7a41;
   font-weight: 500;
   color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
 }
 
 .footer-sponsor a {
   color: #1e7a41;
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
 }
 
 .footer-sponsor a:hover {
   color: #2ca45d;
-  text-decoration: underline;
+  border-bottom: 2px solid #2ca45d;
+  transform: translateY(-1px);
 }
