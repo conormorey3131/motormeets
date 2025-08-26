@@ -83,6 +83,100 @@ header h1 {
   object-fit: contain;
 }
 
+/* Enhanced Sponsor Section */
+.sponsors-section.enhanced {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border: 2px solid #1e7a41;
+  position: relative;
+  overflow: hidden;
+}
+
+.sponsor-badge {
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  background: #ff6b6b;
+  color: white;
+  padding: 5px 15px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  transform: rotate(3deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.sponsor-tagline {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.primary-sponsor {
+  position: relative;
+  padding: 1rem 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(30, 122, 65, 0.15);
+  transition: all 0.3s ease;
+}
+
+.primary-sponsor:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(30, 122, 65, 0.25);
+}
+
+.sponsor-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #1e7a41;
+  color: white;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.primary-sponsor:hover .sponsor-cta {
+  background: #2ca45d;
+  padding-right: 2rem;
+}
+
+.cta-arrow {
+  transition: transform 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.primary-sponsor:hover .cta-arrow {
+  transform: translateX(5px);
+}
+
+.sponsor-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.benefit-item {
+  color: #1e7a41;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Pulsing animation for logo */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.primary-sponsor img {
+  animation: pulse 3s ease-in-out infinite;
+}
+
 /* Filter Container */
 .filter-container {
   background-color: #fff;
@@ -486,4 +580,102 @@ footer a:focus {
   background-color: #165a30 !important;
   text-decoration: none !important;
   color: white !important;
+}
+
+/* Mobile Floating Sponsor Banner */
+@media (max-width: 768px) {
+  .sponsors-section.enhanced {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin: 0;
+    border-radius: 0;
+    padding: 1rem;
+  }
+  
+  .sponsor-badge {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    right: 10px;
+  }
+  
+  .sponsors-section.enhanced h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .sponsor-tagline {
+    font-size: 0.9rem;
+    margin: 0.25rem 0 1rem;
+  }
+  
+  .sponsor-benefits {
+    gap: 1rem;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+  
+  .primary-sponsor {
+    padding: 0.75rem 1rem;
+  }
+  
+  .sponsor-cta {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Mobile-specific floating CTA */
+  .mobile-floating-cta {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-floating-cta {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff6b6b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+    font-weight: bold;
+    text-decoration: none;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .benefit-item {
+    font-size: 0.8rem;
+  }
+}
+
+/* Footer Sponsor Mention */
+.footer-sponsor {
+  background: #f8f9fa;
+  padding: 1rem;
+  text-align: center;
+  border-top: 2px solid #1e7a41;
+  font-weight: 500;
+  color: #333;
+}
+
+.footer-sponsor a {
+  color: #1e7a41;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.footer-sponsor a:hover {
+  color: #2ca45d;
+  text-decoration: underline;
 }

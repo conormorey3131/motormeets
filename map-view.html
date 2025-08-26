@@ -44,6 +44,63 @@
             margin: 0;
         }
         
+        /* Sponsor Section for Map View */
+        .sponsors-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 1rem;
+            max-width: 1200px;
+            border-radius: 8px;
+            border: 2px solid #1e7a41;
+            position: relative;
+        }
+        
+        .sponsor-badge {
+            position: absolute;
+            top: -5px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transform: rotate(3deg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .sponsors-section h2 {
+            color: #1e7a41;
+            font-size: 1.3rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .sponsor-tagline {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .sponsor-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: #1e7a41;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .sponsor-link:hover {
+            background: #2ca45d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 122, 65, 0.25);
+        }
+        
         .filter-container {
             background-color: #fff;
             padding: 1rem 2rem;
@@ -215,6 +272,16 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
         </a>
     </header>
+    
+    <!-- Sponsor Section -->
+    <div class="sponsors-section">
+        <div class="sponsor-badge">Featured Partner</div>
+        <h2>Supported by EireMods</h2>
+        <p class="sponsor-tagline">Ireland's Premier Car Modification Community</p>
+        <a href="https://eiremods.ie" target="_blank" rel="noopener noreferrer" class="sponsor-link">
+            🚗 Visit EireMods.ie →
+        </a>
+    </div>
     
     <div class="filter-container">
         <div class="filters-group">
