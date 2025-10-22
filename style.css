@@ -381,6 +381,10 @@ input:checked + .slider + .map-container {
   background-color: #e83e8c;
 }
 
+.event-date-circle.drift {
+  background-color: #fd7e14;
+}
+
 .event-date-circle.idc {
   background-color: #17a2b8;
 }
