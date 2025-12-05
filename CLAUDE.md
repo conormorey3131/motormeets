@@ -4,12 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Motor Meets Ireland is a static website that displays automotive events across Ireland. It features a dual-view system (calendar and map) with multi-criteria filtering capabilities.
+Motor Meets Ireland is a static website that displays automotive events across Ireland. It features a calendar view with event filtering, a separate map view, and an event submission system.
 
 ## Technology Stack
 
 - **Frontend**: Vanilla HTML5, CSS3, and JavaScript (no frameworks)
-- **Map Library**: Leaflet.js v1.9.4 with OpenStreetMap tiles
+- **Fonts**: Google Fonts (Montserrat)
+- **Map Library**: Leaflet.js v1.9.4 with OpenStreetMap tiles (map-view.html)
+- **Form Handling**: Formspree for event submissions
 - **Hosting**: GitHub Pages with custom domain (motormeets.ie)
 - **No build process**: Direct file editing, no compilation required
 
@@ -18,20 +20,23 @@ Motor Meets Ireland is a static website that displays automotive events across I
 ### Event Data Structure
 Events are embedded directly in HTML with data attributes:
 ```html
-<div class="event-card" data-type="show" data-location="cork" data-month="1" data-week="4">
+<div class="event" data-type="show" data-location="Louth" data-month="January" data-date="2025-01-05">
 ```
 
-Event types: `rally`, `show`, `run`, `trackday`, `ids`, `dr`, `bee`, `sd`
+Event types: `rally`, `show`, `run`, `Trackday`, `drift`, `ids` (Irish Drift Series), `dr` (Slab Day), `bee` (Bumblebee 1000), `sd` (Buggy Championship)
 
 ### JavaScript Organization
-- All functionality in `script.js`
-- Event filtering logic based on data attributes
-- Map markers generated from JavaScript array with coordinates
+- Main filtering logic in `script.js` for calendar view
+- Inline JavaScript in `map-view.html` for map functionality
+- Dynamic week filter generation based on event dates
+- Past events automatically hidden (date comparison with today)
+- Facebook link management through `FB_LINK` constant
 
 ### CSS Architecture
-- Mobile-first responsive design (breakpoints: 768px, 480px)
+- Mobile-first responsive design
 - Primary color: `#1e7a41` (green)
-- BEM-like naming conventions
+- Gradient header: `linear-gradient(135deg, #1e7a41, #2ca45d)`
+- Shared `style.css` across pages
 
 ## Development Commands
 
@@ -41,41 +46,66 @@ Since this is a static site with no build process:
 
 ## Important Implementation Details
 
-### Adding New Events
-1. Add event HTML in `index.html` with proper data attributes
-2. Add corresponding map data in `script.js` (eventData array)
-3. Ensure county coordinates exist in `countyCoordinates` object
+### Event Management
+1. Events stored directly in HTML with `class="event"` and data attributes
+2. Date format: `data-date="YYYY-MM-DD"`
+3. Events automatically filtered to show only upcoming (future) events
+4. Week filter dynamically populated based on available event dates
 
 ### Map View Implementation
-- County-based fallback coordinates for general locations
-- Event-specific coordinates override county defaults
-- Custom marker colors based on event type
+- Separate page (`map-view.html`) with embedded event data
+- Leaflet.js map centered on Ireland
+- Events embedded as JavaScript array within the HTML
+- Filter controls for type, location, and month
 
-### Filtering System
-- Filters work on both calendar and map views
-- Multiple filters can be active simultaneously
-- "Show All" buttons reset individual filter categories
+### Event Submission
+- Form at `submit-event.html` 
+- Processed via Formspree to `motormeets.ie@gmail.com`
+- Success page at `submission-success.html`
+- Fields: event name, type, date, location, description, website, organizer info
+
+### Sponsors Section
+- Featured partner: EireMods (eiremods.ie)
+- Enhanced sponsor section with badge, tagline, and CTA buttons
+- Consistent across calendar and map views
 
 ## File Structure
 
 ```
-├── index.html        # Main calendar view with embedded events
-├── map-view.html     # Dedicated map view page
-├── script.js         # All JavaScript functionality
-├── style.css         # Main stylesheet
-├── CNAME            # GitHub Pages domain config
-└── motorMeets/      # Subdirectory with minimal event listing
+├── index.html               # Main calendar view with embedded events
+├── map-view.html           # Dedicated map view page with inline JS
+├── submit-event.html       # Event submission form
+├── submission-success.html # Form submission success page
+├── script.js               # Calendar view filtering logic
+├── style.css               # Main stylesheet for all pages
+├── logo.webp               # Site logo
+├── eire_logo.png          # EireMods sponsor logo
+├── favicon.ico            # Site favicon
+├── CNAME                  # GitHub Pages domain config (motormeets.ie)
+└── motorMeets/            # Subdirectory with minimal event listing
+    └── index.html         # Basic event list
 ```
 
 ## Common Tasks
 
 ### Update Event Information
-Events are hard-coded in `index.html`. Search for `<div class="event-card"` to find and modify events.
+Events are hard-coded in `index.html`. Search for `<div class="event"` to find and modify events. Each event needs:
+- `data-type`: Event type
+- `data-location`: County name
+- `data-month`: Month name (full, e.g., "January")
+- `data-date`: ISO date format (YYYY-MM-DD)
 
 ### Add New Event Type
-1. Add new type option in filter dropdown in `index.html`
-2. Add corresponding CSS class in `style.css` if custom styling needed
-3. Update event type colors in map markers if applicable
+1. Add new type option in filter dropdown in both `index.html` and `map-view.html`
+2. Update `submit-event.html` form options if needed
+3. Add corresponding CSS styling if needed
 
-### Modify Map Behavior
-Map initialization and marker logic in `script.js` starting at `initializeMap()` function.
+### Modify Filters
+- Type filter: Update `<select id="type-filter">` options
+- Location filter: Update `<select id="location-filter">` with counties
+- Month filter: Standard 12 months
+- Week filter: Auto-generated based on event dates
+
+### Social Media Integration
+- Instagram link in header: @motormeets.ie
+- Facebook link managed via `FB_LINK` constant in script.js
