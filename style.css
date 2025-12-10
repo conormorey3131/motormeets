@@ -817,13 +817,170 @@ input:checked + .slider:before {
 /* Legacy sponsor styles (kept for structure but hidden) */
 .sponsors-section,
 .sponsor-badge,
-.sponsor-tagline,
-.sponsors-container,
-.sponsor-link,
-.sponsor-logo,
-.sponsor-cta,
-.sponsor-benefits,
-.footer-sponsor,
-.mobile-floating-cta {
-  display: none !important;
+/* EireMods Sponsor Section - Mobile First Design */
+.sponsor-section {
+  background: linear-gradient(135deg, #1e7a41 0%, #2ca45d 100%);
+  padding: 2rem 1rem;
+  margin: 2rem 0;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.sponsor-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+.sponsor-content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.sponsor-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.sponsor-link {
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+.sponsor-link:hover {
+  transform: scale(1.05);
+}
+
+.sponsor-logo {
+  max-width: 200px;
+  width: 60%;
+  height: auto;
+  background: white;
+  padding: 1rem;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1rem;
+}
+
+.sponsor-tagline {
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1rem 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.sponsor-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
+.sponsor-btn-primary,
+.sponsor-btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  font-size: 0.95rem;
+  display: block;
+  width: 100%;
+}
+
+.sponsor-btn-primary {
+  background: white;
+  color: var(--primary-color);
+  box-shadow: var(--shadow-md);
+}
+
+.sponsor-btn-primary:hover {
+  background: var(--bg-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.sponsor-btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  backdrop-filter: blur(10px);
+}
+
+.sponsor-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .sponsor-section {
+    padding: 3rem 2rem;
+    margin: 3rem auto;
+    max-width: 900px;
+  }
+  
+  .sponsor-badge {
+    font-size: 0.85rem;
+  }
+  
+  .sponsor-logo {
+    max-width: 250px;
+    width: auto;
+  }
+  
+  .sponsor-tagline {
+    font-size: 1.25rem;
+  }
+  
+  .sponsor-cta {
+    flex-direction: row;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .sponsor-btn-primary,
+  .sponsor-btn-secondary {
+    width: auto;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .sponsor-section {
+    padding: 4rem 3rem;
+  }
+  
+  .sponsor-logo {
+    max-width: 300px;
+  }
+  
+  .sponsor-tagline {
+    font-size: 1.5rem;
+  }
 }
