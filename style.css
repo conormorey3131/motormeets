@@ -459,6 +459,203 @@ footer a:hover::after {
   transform: scaleX(1);
 }
 
+/* Footer CTA Styling */
+.footer-cta {
+  margin-top: 0.5rem !important;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.footer-cta a {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.footer-cta a:hover {
+  opacity: 0.8;
+}
+
+/* Cross-promo Sections */
+.mm-partner-promo,
+.mm-organiser-cta {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin: 2rem 1rem;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  transition: all var(--transition-base);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mm-partner-promo:hover,
+.mm-organiser-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.mm-partner-promo h3,
+.mm-organiser-cta h2 {
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.mm-partner-promo h3 {
+  font-size: 1.25rem;
+}
+
+.mm-organiser-cta h2 {
+  font-size: 1.35rem;
+}
+
+.mm-partner-promo p,
+.mm-organiser-cta p {
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.mm-promo-btn,
+.mm-organiser-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: var(--bg-white);
+  text-decoration: none;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+  font-size: 0.95rem;
+}
+
+.mm-promo-btn:hover,
+.mm-organiser-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+  color: var(--bg-white);
+  text-decoration: none;
+}
+
+/* EireMods specific styling */
+.eiremods-promo {
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Partners Section */
+.mm-partners {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin: 2rem 1rem;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  transition: all var(--transition-base);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mm-partners:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.mm-partners h3 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.mm-partner-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.mm-partner-card {
+  background: var(--bg-light);
+  padding: 1.25rem;
+  border-radius: var(--border-radius-sm);
+  text-align: center;
+  transition: all var(--transition-base);
+  border: 1px solid rgba(30, 122, 65, 0.1);
+}
+
+.mm-partner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--primary-color);
+}
+
+.mm-partner-card h4 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.mm-partner-card p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.partner-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color var(--transition-fast);
+}
+
+.partner-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Tablet and up adjustments */
+@media (min-width: 768px) {
+  .mm-partner-promo,
+  .mm-organiser-cta,
+  .mm-partners {
+    padding: 2rem;
+    margin: 2.5rem auto;
+  }
+  
+  .mm-partner-promo h3 {
+    font-size: 1.4rem;
+  }
+  
+  .mm-organiser-cta h2 {
+    font-size: 1.5rem;
+  }
+  
+  .mm-partners h3 {
+    font-size: 1.4rem;
+  }
+  
+  .mm-partner-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .mm-promo-btn,
+  .mm-organiser-btn {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+}
+
 /* Tablet View (768px and up) */
 @media (min-width: 768px) {
   header {

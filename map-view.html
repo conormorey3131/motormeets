@@ -541,8 +541,40 @@
         <div id="map"></div>
     </div>
     
+    <!-- Partners/Recommended Section -->
+    <section class="mm-partners">
+      <h3>Recommended for car enthusiasts & businesses</h3>
+      <div class="mm-partner-grid">
+        <div class="mm-partner-card">
+          <h4>Morey Digital</h4>
+          <p>Websites & digital solutions for Irish car businesses, events & garages.</p>
+          <a href="https://moreydigital.ie" class="partner-link" id="mm-partners-moreydigital-link">Visit MoreyDigital.ie →</a>
+        </div>
+        <div class="mm-partner-card">
+          <h4>EireMods</h4>
+          <p>Car styling, lips, splitters & accessories for your build.</p>
+          <a href="https://eiremods.ie" class="partner-link" id="mm-partners-eiremods-link">Visit EireMods.ie →</a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Cross-promo: EireMods promo for styling fans -->
+    <section class="mm-partner-promo eiremods-promo">
+      <h3>Want to style your car?</h3>
+      <p>Check out <strong>EireMods.ie</strong> for lips, splitters, badges and accessories for your build.</p>
+      <a href="https://eiremods.ie" class="mm-promo-btn" id="mm-event-eiremods-cta">Shop car styling at EireMods →</a>
+    </section>
+
+    <!-- For Event Organisers CTA -->
+    <section class="mm-organiser-cta">
+      <h2>Organising a car meet or event?</h2>
+      <p>Morey Digital builds websites for car events, clubs and garages – including ticketing, event calendars and sponsor sections. Zero upfront options from €150/month.</p>
+      <a href="https://moreydigital.ie/pricing.html" class="mm-organiser-btn" id="mm-organiser-moreydigital-cta">View website packages for car businesses →</a>
+    </section>
+    
     <footer>
         <p>&copy; 2025 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
+        <p class="footer-cta">Need a website for your garage, car club, event or business? <a href="https://moreydigital.ie/pricing.html" id="mm-footer-moreydigital-cta" target="_blank" rel="noopener noreferrer">View Packages →</a></p>
     </footer>
     
     <script>
@@ -2220,6 +2252,59 @@
             }
             
             console.log("Map initialized successfully");
+        });
+        
+        // Click Tracking for Cross-Promo Links
+        document.addEventListener('DOMContentLoaded', function() {
+          // Defensive check for gtag function
+          function trackClick(eventName, url) {
+            if (typeof gtag === 'function') {
+              gtag('event', 'click', {
+                'event_category': 'cross_promo',
+                'event_label': eventName,
+                'value': 1
+              });
+            }
+          }
+          
+          // Track footer Morey Digital CTA clicks
+          const footerCta = document.getElementById('mm-footer-moreydigital-cta');
+          if (footerCta) {
+            footerCta.addEventListener('click', function() {
+              trackClick('moreydigital_footer_click', this.href);
+            });
+          }
+          
+          // Track EireMods event promo clicks
+          const eiremodsCta = document.getElementById('mm-event-eiremods-cta');
+          if (eiremodsCta) {
+            eiremodsCta.addEventListener('click', function() {
+              trackClick('eiremods_event_promo_click', this.href);
+            });
+          }
+          
+          // Track organiser website CTA clicks
+          const organiserCta = document.getElementById('mm-organiser-moreydigital-cta');
+          if (organiserCta) {
+            organiserCta.addEventListener('click', function() {
+              trackClick('organiser_website_cta_click', this.href);
+            });
+          }
+          
+          // Track partners section clicks
+          const partnersMoreyLink = document.getElementById('mm-partners-moreydigital-link');
+          if (partnersMoreyLink) {
+            partnersMoreyLink.addEventListener('click', function() {
+              trackClick('partners_moreydigital_click', this.href);
+            });
+          }
+          
+          const partnersEireLink = document.getElementById('mm-partners-eiremods-link');
+          if (partnersEireLink) {
+            partnersEireLink.addEventListener('click', function() {
+              trackClick('partners_eiremods_click', this.href);
+            });
+          }
         });
     </script>
 </body>
