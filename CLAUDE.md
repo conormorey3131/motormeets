@@ -65,8 +65,8 @@ Since this is a static site with no build process:
 - Fields: event name, type, date, location, description, website, organizer info
 
 ### Sponsors Section
-- Featured partner: EireMods (eiremods.ie)
-- Enhanced sponsor section with badge, tagline, and CTA buttons
+- Featured partner: Morey Digital (moreydigital.ie)
+- Premium sponsor section with modern dark theme design
 - Consistent across calendar and map views
 
 ## File Structure
@@ -79,7 +79,6 @@ Since this is a static site with no build process:
 ├── script.js               # Calendar view filtering logic
 ├── style.css               # Main stylesheet for all pages
 ├── logo.webp               # Site logo
-├── eire_logo.png          # EireMods sponsor logo
 ├── favicon.ico            # Site favicon
 ├── CNAME                  # GitHub Pages domain config (motormeets.ie)
 └── motorMeets/            # Subdirectory with minimal event listing

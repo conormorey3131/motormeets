@@ -23,6 +23,33 @@
     </a>
   </header>
 
+  <!-- Morey Digital - Premium Sponsor Section -->
+  <section class="sponsor-showcase">
+    <div class="sponsor-showcase-inner">
+      <span class="sponsor-label">Official Partner</span>
+      <h2 class="sponsor-name">Morey <span>Digital</span></h2>
+      <p class="sponsor-tagline">Professional websites for Irish businesses. Modern design, fast delivery, real results.</p>
+
+      <div class="sponsor-services">
+        <span class="sponsor-service-tag">Business Websites</span>
+        <span class="sponsor-service-tag">E-Commerce</span>
+        <span class="sponsor-service-tag">Booking Systems</span>
+        <span class="sponsor-service-tag">SEO</span>
+      </div>
+
+      <div class="sponsor-actions">
+        <a href="https://moreydigital.ie/pricing.html" class="sponsor-btn sponsor-btn-primary" id="mm-sponsor-cta-primary">
+          <span>View Packages</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
+        </a>
+        <a href="https://moreydigital.ie" class="sponsor-btn sponsor-btn-secondary" id="mm-sponsor-cta-secondary" target="_blank" rel="noopener noreferrer">
+          <span>Visit Website</span>
+        </a>
+      </div>
+
+      <p class="sponsor-info">From €150/month · No upfront costs · <a href="https://moreydigital.ie" target="_blank" rel="noopener">moreydigital.ie</a></p>
+    </div>
+  </section>
 
   <!-- Filter Section -->
   <div class="filter-container">
@@ -6475,28 +6502,9 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
 
 <!-- END: Upcoming Info Section -->
 
-<!-- Partners/Recommended Section -->
-<section class="mm-partners">
-  <h3>Recommended for car enthusiasts & businesses</h3>
-  <div class="mm-partner-grid">
-    <div class="mm-partner-card">
-      <h4>Morey Digital</h4>
-      <p>Websites & digital solutions for Irish car businesses, events & garages.</p>
-      <a href="https://moreydigital.ie" class="partner-link" id="mm-partners-moreydigital-link">Visit MoreyDigital.ie →</a>
-    </div>
-  </div>
-</section>
-
-<!-- For Event Organisers CTA -->
-<section class="mm-organiser-cta">
-  <h2>Organising a car meet or event?</h2>
-  <p>Morey Digital builds websites for car events, clubs and garages – including ticketing, event calendars and sponsor sections. Zero upfront options from €150/month.</p>
-  <a href="https://moreydigital.ie/pricing.html" class="mm-organiser-btn" id="mm-organiser-moreydigital-cta">View website packages for car businesses →</a>
-</section>
-
   <footer>
     <p>&copy; 2026 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
-    <p class="footer-cta">Need a website for your garage, car club, event or business? <a href="https://moreydigital.ie/pricing.html" id="mm-footer-moreydigital-cta" target="_blank" rel="noopener noreferrer">View Packages →</a></p>
+    <p class="footer-cta">Need a website for your business? <a href="https://moreydigital.ie/pricing.html" id="mm-footer-moreydigital-cta" target="_blank" rel="noopener noreferrer">View Packages →</a></p>
   </footer>
 
   <!-- JavaScript for Filtering -->
@@ -6523,35 +6531,20 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
           trackClick('moreydigital_footer_click', this.href);
         });
       }
-      
-      // Track EireMods event promo clicks
-      const eiremodsCta = document.getElementById('mm-event-eiremods-cta');
-      if (eiremodsCta) {
-        eiremodsCta.addEventListener('click', function() {
-          trackClick('eiremods_event_promo_click', this.href);
+
+      // Track sponsor section primary CTA clicks
+      const sponsorPrimaryCta = document.getElementById('mm-sponsor-cta-primary');
+      if (sponsorPrimaryCta) {
+        sponsorPrimaryCta.addEventListener('click', function() {
+          trackClick('sponsor_moreydigital_packages_click', this.href);
         });
       }
-      
-      // Track organiser website CTA clicks
-      const organiserCta = document.getElementById('mm-organiser-moreydigital-cta');
-      if (organiserCta) {
-        organiserCta.addEventListener('click', function() {
-          trackClick('organiser_website_cta_click', this.href);
-        });
-      }
-      
-      // Track partners section clicks
-      const partnersMoreyLink = document.getElementById('mm-partners-moreydigital-link');
-      if (partnersMoreyLink) {
-        partnersMoreyLink.addEventListener('click', function() {
-          trackClick('partners_moreydigital_click', this.href);
-        });
-      }
-      
-      const partnersEireLink = document.getElementById('mm-partners-eiremods-link');
-      if (partnersEireLink) {
-        partnersEireLink.addEventListener('click', function() {
-          trackClick('partners_eiremods_click', this.href);
+
+      // Track sponsor section secondary CTA clicks
+      const sponsorSecondaryCta = document.getElementById('mm-sponsor-cta-secondary');
+      if (sponsorSecondaryCta) {
+        sponsorSecondaryCta.addEventListener('click', function() {
+          trackClick('sponsor_moreydigital_website_click', this.href);
         });
       }
     });

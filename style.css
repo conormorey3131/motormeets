@@ -543,9 +543,9 @@ footer a:hover::after {
   text-decoration: none;
 }
 
-/* EireMods specific styling */
+/* Legacy promo styling (hidden) */
 .eiremods-promo {
-  border-left: 4px solid var(--primary-color);
+  display: none;
 }
 
 /* Partners Section */
@@ -1011,173 +1011,354 @@ input:checked + .slider:before {
   transform: translateX(28px);
 }
 
-/* Legacy sponsor styles (kept for structure but hidden) */
-.sponsors-section,
-.sponsor-badge,
-/* EireMods Sponsor Section - Mobile First Design */
-.sponsor-section {
-  background: linear-gradient(135deg, #1e7a41 0%, #2ca45d 100%);
-  padding: 2rem 1rem;
-  margin: 2rem 0;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg);
+/* ============================================
+   MOREY DIGITAL - Premium Sponsor Section
+   Professional, refined design system
+   ============================================ */
+
+/* Sponsor Section - Premium Design */
+.sponsor-showcase {
+  --sponsor-bg: #1a1f2e;
+  --sponsor-bg-accent: #242b3d;
+  --sponsor-text: #ffffff;
+  --sponsor-text-muted: #a0aec0;
+  --sponsor-accent: #1e7a41;
+  --sponsor-accent-light: #2ca45d;
+  --sponsor-border: rgba(255, 255, 255, 0.08);
+
+  background: linear-gradient(165deg, var(--sponsor-bg) 0%, var(--sponsor-bg-accent) 100%);
+  padding: 2.5rem 1.25rem;
+  margin: 2rem 1rem;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    0 12px 48px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.sponsor-section::before {
+/* Subtle geometric pattern overlay */
+.sponsor-showcase::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  animation: pulse 4s ease-in-out infinite;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(30, 122, 65, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(44, 164, 93, 0.06) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 0.3; }
+/* Decorative accent line */
+.sponsor-showcase::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sponsor-accent), var(--sponsor-accent-light));
+  border-radius: 0 0 4px 4px;
 }
 
-.sponsor-content {
-  text-align: center;
+.sponsor-showcase-inner {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
 }
 
-.sponsor-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.25rem 1rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
+/* Badge Label */
+.sponsor-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 1rem;
+  background: rgba(30, 122, 65, 0.15);
+  border: 1px solid rgba(30, 122, 65, 0.3);
+  border-radius: 100px;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 1rem;
-  backdrop-filter: blur(10px);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--sponsor-accent-light);
 }
 
-.sponsor-link {
-  display: inline-block;
-  transition: transform var(--transition-base);
+.sponsor-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--sponsor-accent-light);
+  border-radius: 50%;
+  animation: sponsorPulse 2s ease-in-out infinite;
 }
 
-.sponsor-link:hover {
-  transform: scale(1.05);
+@keyframes sponsorPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
 }
 
-.sponsor-logo {
-  max-width: 200px;
-  width: 60%;
-  height: auto;
-  background: white;
-  padding: 1rem;
-  border-radius: var(--border-radius-sm);
-  box-shadow: var(--shadow-md);
-  margin-bottom: 1rem;
+/* Company Name */
+.sponsor-name {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--sponsor-text);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
+.sponsor-name span {
+  color: var(--sponsor-accent-light);
+}
+
+/* Tagline */
 .sponsor-tagline {
-  color: white;
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 1rem 0;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--sponsor-text-muted);
+  line-height: 1.6;
+  max-width: 400px;
 }
 
-.sponsor-cta {
+/* Services List */
+.sponsor-services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.sponsor-service-tag {
+  padding: 0.375rem 0.875rem;
+  background: var(--sponsor-border);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--sponsor-text-muted);
+  transition: all 0.2s ease;
+}
+
+.sponsor-service-tag:hover {
+  background: rgba(30, 122, 65, 0.15);
+  color: var(--sponsor-accent-light);
+}
+
+/* CTA Buttons */
+.sponsor-actions {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-top: 1.5rem;
-  padding: 0 1rem;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 0.5rem;
 }
 
-.sponsor-btn-primary,
-.sponsor-btn-secondary {
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--border-radius-sm);
+.sponsor-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all var(--transition-base);
-  font-size: 0.95rem;
-  display: block;
-  width: 100%;
+  transition: all 0.25s ease;
+  cursor: pointer;
 }
 
 .sponsor-btn-primary {
-  background: white;
-  color: var(--primary-color);
-  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--sponsor-accent) 0%, var(--sponsor-accent-light) 100%);
+  color: white;
+  box-shadow:
+    0 2px 8px rgba(30, 122, 65, 0.25),
+    0 4px 16px rgba(30, 122, 65, 0.15);
 }
 
 .sponsor-btn-primary:hover {
-  background: var(--bg-light);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow:
+    0 4px 12px rgba(30, 122, 65, 0.3),
+    0 8px 24px rgba(30, 122, 65, 0.2);
+}
+
+.sponsor-btn-primary:active {
+  transform: translateY(0);
 }
 
 .sponsor-btn-secondary {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid white;
-  backdrop-filter: blur(10px);
+  background: transparent;
+  color: var(--sponsor-text);
+  border: 1.5px solid var(--sponsor-border);
 }
 
 .sponsor-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
+  border-color: var(--sponsor-text-muted);
+  background: rgba(255, 255, 255, 0.03);
 }
 
-/* Tablet and up */
+.sponsor-btn svg,
+.sponsor-btn-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Divider */
+.sponsor-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--sponsor-border);
+  margin: 0.5rem 0;
+}
+
+/* Bottom info */
+.sponsor-info {
+  font-size: 0.75rem;
+  color: var(--sponsor-text-muted);
+  opacity: 0.7;
+}
+
+.sponsor-info a {
+  color: var(--sponsor-accent-light);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.sponsor-info a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+/* Tablet (768px+) */
 @media (min-width: 768px) {
-  .sponsor-section {
-    padding: 3rem 2rem;
-    margin: 3rem auto;
-    max-width: 900px;
+  .sponsor-showcase {
+    padding: 3.5rem 3rem;
+    margin: 2.5rem auto;
+    border-radius: 20px;
   }
-  
-  .sponsor-badge {
-    font-size: 0.85rem;
+
+  .sponsor-showcase::after {
+    width: 100px;
+    height: 4px;
   }
-  
-  .sponsor-logo {
-    max-width: 250px;
-    width: auto;
+
+  .sponsor-showcase-inner {
+    gap: 1.75rem;
   }
-  
+
+  .sponsor-label {
+    font-size: 0.75rem;
+    padding: 0.5rem 1.25rem;
+  }
+
+  .sponsor-name {
+    font-size: 2.25rem;
+  }
+
   .sponsor-tagline {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
+    max-width: 480px;
   }
-  
-  .sponsor-cta {
+
+  .sponsor-services {
+    gap: 0.625rem;
+  }
+
+  .sponsor-service-tag {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .sponsor-actions {
     flex-direction: row;
-    justify-content: center;
-    padding: 0;
-  }
-  
-  .sponsor-btn-primary,
-  .sponsor-btn-secondary {
+    max-width: none;
     width: auto;
-    padding: 0.875rem 2rem;
+  }
+
+  .sponsor-btn {
+    padding: 0.9375rem 2rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .sponsor-showcase {
+    padding: 4rem 4rem;
+  }
+
+  .sponsor-name {
+    font-size: 2.5rem;
+  }
+
+  .sponsor-tagline {
+    font-size: 1.125rem;
+    max-width: 520px;
+  }
+
+  .sponsor-btn {
+    padding: 1rem 2.5rem;
     font-size: 1rem;
   }
 }
 
-/* Desktop and up */
-@media (min-width: 1024px) {
-  .sponsor-section {
-    padding: 4rem 3rem;
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+  .sponsor-showcase {
+    padding: 4.5rem 5rem;
   }
-  
-  .sponsor-logo {
-    max-width: 300px;
+}
+
+/* ============================================
+   Dark Mode Adjustments
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  .sponsor-showcase {
+    --sponsor-bg: #0f1219;
+    --sponsor-bg-accent: #161b26;
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.3),
+      0 12px 48px rgba(0, 0, 0, 0.2);
   }
-  
-  .sponsor-tagline {
-    font-size: 1.5rem;
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .sponsor-label::before {
+    animation: none;
   }
+
+  .sponsor-btn-primary:hover,
+  .sponsor-btn-secondary:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
+   Hide legacy sponsor classes
+   ============================================ */
+.sponsors-section,
+.sponsor-section,
+.sponsor-badge,
+.sponsor-content,
+.sponsor-logo,
+.sponsor-cta,
+.eiremods-promo {
+  display: none !important;
 }
