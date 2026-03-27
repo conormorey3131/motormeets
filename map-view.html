@@ -44,17 +44,15 @@
             margin: 0;
         }
         
-        /* Premium Sponsor Section */
+        /* Sponsor Invitation Banner */
         .sponsor-showcase {
-            --sponsor-bg: #1a1f2e;
-            --sponsor-bg-accent: #242b3d;
+            --sponsor-bg: #111111;
             --sponsor-text: #ffffff;
             --sponsor-text-muted: #a0aec0;
-            --sponsor-accent: #1e7a41;
-            --sponsor-accent-light: #2ca45d;
+            --sponsor-accent: #e8002d;
             --sponsor-border: rgba(255, 255, 255, 0.08);
 
-            background: linear-gradient(165deg, var(--sponsor-bg) 0%, var(--sponsor-bg-accent) 100%);
+            background: var(--sponsor-bg);
             padding: 2rem 1.25rem;
             margin: 1rem;
             border-radius: 16px;
@@ -66,16 +64,6 @@
             margin-right: auto;
         }
 
-        .sponsor-showcase::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 20% 80%, rgba(30, 122, 65, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(44, 164, 93, 0.06) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
         .sponsor-showcase::after {
             content: '';
             position: absolute;
@@ -84,7 +72,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: linear-gradient(90deg, var(--sponsor-accent), var(--sponsor-accent-light));
+            background: var(--sponsor-accent);
             border-radius: 0 0 4px 4px;
         }
 
@@ -103,28 +91,14 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.375rem 1rem;
-            background: rgba(30, 122, 65, 0.15);
-            border: 1px solid rgba(30, 122, 65, 0.3);
+            background: rgba(232, 0, 45, 0.15);
+            border: 1px solid rgba(232, 0, 45, 0.3);
             border-radius: 100px;
             font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: var(--sponsor-accent-light);
-        }
-
-        .sponsor-label::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--sponsor-accent-light);
-            border-radius: 50%;
-            animation: sponsorPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes sponsorPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
+            color: var(--sponsor-accent);
         }
 
         .sponsor-name {
@@ -136,10 +110,6 @@
             line-height: 1.2;
         }
 
-        .sponsor-name span {
-            color: var(--sponsor-accent-light);
-        }
-
         .sponsor-tagline {
             margin: 0;
             font-size: 0.875rem;
@@ -147,6 +117,12 @@
             color: var(--sponsor-text-muted);
             line-height: 1.5;
             max-width: 360px;
+        }
+
+        .sponsor-info {
+            font-size: 0.75rem;
+            color: var(--sponsor-text-muted);
+            opacity: 0.7;
         }
 
         .sponsor-actions {
@@ -171,30 +147,14 @@
         }
 
         .sponsor-btn-primary {
-            background: linear-gradient(135deg, var(--sponsor-accent) 0%, var(--sponsor-accent-light) 100%);
+            background: var(--sponsor-accent);
             color: white;
-            box-shadow: 0 2px 8px rgba(30, 122, 65, 0.25);
+            box-shadow: 0 2px 8px rgba(232, 0, 45, 0.25);
         }
 
         .sponsor-btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(30, 122, 65, 0.3);
-        }
-
-        .sponsor-btn-secondary {
-            background: transparent;
-            color: var(--sponsor-text);
-            border: 1.5px solid var(--sponsor-border);
-        }
-
-        .sponsor-btn-secondary:hover {
-            border-color: var(--sponsor-text-muted);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .sponsor-btn svg {
-            width: 14px;
-            height: 14px;
+            box-shadow: 0 4px 12px rgba(232, 0, 45, 0.3);
         }
 
         @media (min-width: 768px) {
@@ -420,21 +380,18 @@
         </a>
     </header>
     
-    <!-- Morey Digital - Premium Sponsor Section -->
+    <!-- Sponsor Invitation Banner -->
     <section class="sponsor-showcase">
         <div class="sponsor-showcase-inner">
-            <span class="sponsor-label">Official Partner</span>
-            <h2 class="sponsor-name">Morey <span>Digital</span></h2>
-            <p class="sponsor-tagline">Professional websites for Irish businesses. Modern design, fast delivery, real results.</p>
+            <span class="sponsor-label">Partner with us</span>
+            <h2 class="sponsor-name">Reach Ireland's car community</h2>
+            <p class="sponsor-tagline">Motor Meets Ireland is the go-to calendar for car enthusiasts across every county. Featured listings, newsletter spots, and brand partnerships available.</p>
             <div class="sponsor-actions">
-                <a href="https://moreydigital.ie/pricing.html" class="sponsor-btn sponsor-btn-primary" id="mm-map-sponsor-cta">
-                    <span>View Packages</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
-                </a>
-                <a href="https://moreydigital.ie" class="sponsor-btn sponsor-btn-secondary" target="_blank" rel="noopener noreferrer">
-                    <span>Visit Website</span>
+                <a href="mailto:conor@moreydigital.ie?subject=Sponsorship%20Enquiry" class="sponsor-btn sponsor-btn-primary" id="mm-map-sponsor-cta">
+                    <span>Get in touch</span>
                 </a>
             </div>
+            <p class="sponsor-info">conor@moreydigital.ie</p>
         </div>
     </section>
     
@@ -515,8 +472,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
-        <p class="footer-cta">Need a website for your business? <a href="https://moreydigital.ie/pricing.html" id="mm-footer-moreydigital-cta" target="_blank" rel="noopener noreferrer">View Packages →</a></p>
+        <p>&copy; 2026 Motor Meets - Ireland</p>
     </footer>
     
     <script>
@@ -2249,19 +2205,11 @@
             }
           }
           
-          // Track footer Morey Digital CTA clicks
-          const footerCta = document.getElementById('mm-footer-moreydigital-cta');
-          if (footerCta) {
-            footerCta.addEventListener('click', function() {
-              trackClick('moreydigital_footer_click', this.href);
-            });
-          }
-          
           // Track sponsor section CTA clicks
           const sponsorCta = document.getElementById('mm-map-sponsor-cta');
           if (sponsorCta) {
             sponsorCta.addEventListener('click', function() {
-              trackClick('sponsor_moreydigital_map_click', this.href);
+              trackClick('sponsor_enquiry_map_click', this.href);
             });
           }
         });

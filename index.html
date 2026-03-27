@@ -23,31 +23,20 @@
     </a>
   </header>
 
-  <!-- Morey Digital - Premium Sponsor Section -->
+  <!-- Sponsor Invitation Banner -->
   <section class="sponsor-showcase">
     <div class="sponsor-showcase-inner">
-      <span class="sponsor-label">Official Partner</span>
-      <h2 class="sponsor-name">Morey <span>Digital</span></h2>
-      <p class="sponsor-tagline">Professional websites for Irish businesses. Modern design, fast delivery, real results.</p>
-
-      <div class="sponsor-services">
-        <span class="sponsor-service-tag">Business Websites</span>
-        <span class="sponsor-service-tag">E-Commerce</span>
-        <span class="sponsor-service-tag">Booking Systems</span>
-        <span class="sponsor-service-tag">SEO</span>
-      </div>
+      <span class="sponsor-label">Partner with us</span>
+      <h2 class="sponsor-name">Reach Ireland's car community</h2>
+      <p class="sponsor-tagline">Motor Meets Ireland is the go-to calendar for car enthusiasts across every county. Featured listings, newsletter spots, and brand partnerships available.</p>
 
       <div class="sponsor-actions">
-        <a href="https://moreydigital.ie/pricing.html" class="sponsor-btn sponsor-btn-primary" id="mm-sponsor-cta-primary">
-          <span>View Packages</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
-        </a>
-        <a href="https://moreydigital.ie" class="sponsor-btn sponsor-btn-secondary" id="mm-sponsor-cta-secondary" target="_blank" rel="noopener noreferrer">
-          <span>Visit Website</span>
+        <a href="mailto:conor@moreydigital.ie?subject=Sponsorship%20Enquiry" class="sponsor-btn sponsor-btn-primary" id="mm-sponsor-cta">
+          <span>Get in touch</span>
         </a>
       </div>
 
-      <p class="sponsor-info">From €150/month · No upfront costs · <a href="https://moreydigital.ie" target="_blank" rel="noopener">moreydigital.ie</a></p>
+      <p class="sponsor-info">conor@moreydigital.ie</p>
     </div>
   </section>
 
@@ -5405,6 +5394,28 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
 </div>
 
 
+<div class="event" data-type="run" data-location="Meath" data-month="May" data-date="2026-05-03">
+  <div class="event-date-circle run">3 May</div>
+  <h3>COVOC Norman Pratt Memorial Run</h3>
+  <p class="event-date">May 3, 2026 | Registration 9:00AM – Run starts 11:00AM</p>
+  <p>Location: Darnley Lodge Hotel, Athboy, Co. Meath (C15 YP2K)</p>
+  <p>
+    Description: Annual COVOC Norman Pratt Memorial Run starting and finishing at the Darnley Lodge Hotel.
+    Open to vehicles registered before 31st December 1996.
+  </p>
+  <p>
+    Entry Fee: €45 per adult, €15 per child
+  </p>
+  <p>
+    Includes: Category prizes (pre-war, 40s–90s, sports cars), commercial vehicle category,
+    light refreshments at mid-point, dinner and prize giving after the run.
+  </p>
+  <p>
+    Additional: Finisher awards for first 60 entries and chances to win the Norman Pratt Memorial Trophy
+    and Hugh Doyle Memorial Trophy (members).
+  </p>
+</div>
+
       <div class="event" data-type="trackday" data-location="Kildare" data-month="May" data-date="2026-05-04">
   <div class="event-date-circle trackday">4 May</div>
   <h3>Trackdays.ie – May Bank Holiday Mondello Park</h3>
@@ -7283,8 +7294,7 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
 <!-- END: Upcoming Info Section -->
 
   <footer>
-    <p>&copy; 2026 Motor Meets - Ireland | Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer">Morey Digital</a></p>
-    <p class="footer-cta">Need a website for your business? <a href="https://moreydigital.ie/pricing.html" id="mm-footer-moreydigital-cta" target="_blank" rel="noopener noreferrer">View Packages →</a></p>
+    <p>&copy; 2026 Motor Meets - Ireland</p>
   </footer>
 
   <!-- JavaScript for Filtering -->
@@ -7304,27 +7314,11 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
         }
       }
       
-      // Track footer Morey Digital CTA clicks
-      const footerCta = document.getElementById('mm-footer-moreydigital-cta');
-      if (footerCta) {
-        footerCta.addEventListener('click', function() {
-          trackClick('moreydigital_footer_click', this.href);
-        });
-      }
-
-      // Track sponsor section primary CTA clicks
-      const sponsorPrimaryCta = document.getElementById('mm-sponsor-cta-primary');
-      if (sponsorPrimaryCta) {
-        sponsorPrimaryCta.addEventListener('click', function() {
-          trackClick('sponsor_moreydigital_packages_click', this.href);
-        });
-      }
-
-      // Track sponsor section secondary CTA clicks
-      const sponsorSecondaryCta = document.getElementById('mm-sponsor-cta-secondary');
-      if (sponsorSecondaryCta) {
-        sponsorSecondaryCta.addEventListener('click', function() {
-          trackClick('sponsor_moreydigital_website_click', this.href);
+      // Track sponsor section CTA clicks
+      const sponsorCta = document.getElementById('mm-sponsor-cta');
+      if (sponsorCta) {
+        sponsorCta.addEventListener('click', function() {
+          trackClick('sponsor_enquiry_click', this.href);
         });
       }
     });

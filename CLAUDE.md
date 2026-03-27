@@ -65,8 +65,8 @@ Since this is a static site with no build process:
 - Fields: event name, type, date, location, description, website, organizer info
 
 ### Sponsors Section
-- Featured partner: Morey Digital (moreydigital.ie)
-- Premium sponsor section with modern dark theme design
+- Sponsor invitation banner with dark theme (#111111 background)
+- Red CTA button (#e8002d) linking to conor@moreydigital.ie
 - Consistent across calendar and map views
 
 ## File Structure
