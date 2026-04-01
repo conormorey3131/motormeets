@@ -104,7 +104,8 @@
     <h2>Submit Your Event</h2>
     <p>Have an automotive event you'd like to add to Motor Meets Ireland? Fill out the form below and we'll review your submission.</p>
     
-    <form action="https://formspree.io/f/mkgzzzlo" method="POST" id="event-form">
+    <form action="https://api.web3forms.com/submit" method="POST" id="event-form">
+      <input type="hidden" name="access_key" value="a0d23cdc-ae70-4316-ae78-a028f54d4bf6">
       <div class="form-group">
         <label for="event-name">Event Name <span class="required">*</span></label>
         <input type="text" id="event-name" name="event_name" required>
@@ -196,16 +197,13 @@
       </div>
       
       <!-- Honeypot field for spam protection -->
-      <input type="text" name="_gotcha" style="display:none">
-      
+      <input type="checkbox" name="botcheck" style="display:none">
+
       <!-- Subject line for email -->
-      <input type="hidden" name="_subject" value="New Event Submission - Motor Meets Ireland">
-      
+      <input type="hidden" name="subject" value="New Event Submission - Motor Meets Ireland">
+
       <!-- Redirect to success page after submission -->
-      <input type="hidden" name="_next" value="https://motormeets.ie/submission-success.html">
-      
-      <!-- Disable Formspree's reCAPTCHA -->
-      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="redirect" value="https://motormeets.ie/submission-success.html">
       
       <button type="submit" class="submit-btn">Submit Event</button>
     </form>
