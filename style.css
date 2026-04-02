@@ -1280,3 +1280,230 @@ input:checked + .slider:before {
 .eiremods-promo {
   display: none !important;
 }
+
+/* ============================================
+   Newsletter Signup Section
+   ============================================ */
+
+.newsletter-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  padding: 2.5rem 1.25rem;
+  margin: 2rem 1rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Decorative pattern */
+.newsletter-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 35px,
+    rgba(255, 255, 255, 0.05) 35px,
+    rgba(255, 255, 255, 0.05) 70px
+  );
+  pointer-events: none;
+}
+
+.newsletter-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+/* Badge Label */
+.newsletter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: white;
+}
+
+/* Heading */
+.newsletter-heading {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+/* Tagline */
+.newsletter-tagline {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+/* Form Styles */
+.newsletter-form {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 0.5rem;
+}
+
+.newsletter-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 0.9375rem 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-dark);
+  transition: all var(--transition-fast);
+}
+
+.newsletter-input::placeholder {
+  color: var(--text-light);
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: white;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.newsletter-btn {
+  padding: 0.9375rem 2rem;
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.newsletter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: var(--bg-light);
+}
+
+.newsletter-btn:active {
+  transform: translateY(0);
+}
+
+/* Privacy text */
+.newsletter-privacy {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .newsletter-section {
+    padding: 3.5rem 3rem;
+    margin: 2.5rem auto;
+    border-radius: 20px;
+  }
+
+  .newsletter-inner {
+    gap: 1.25rem;
+  }
+
+  .newsletter-label {
+    font-size: 0.75rem;
+    padding: 0.5rem 1.25rem;
+  }
+
+  .newsletter-heading {
+    font-size: 2.25rem;
+  }
+
+  .newsletter-tagline {
+    font-size: 1.05rem;
+    max-width: 480px;
+  }
+
+  .newsletter-input-group {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .newsletter-input {
+    padding: 1rem 1.5rem;
+  }
+
+  .newsletter-btn {
+    padding: 1rem 2rem;
+    white-space: nowrap;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .newsletter-section {
+    padding: 4rem 4rem;
+  }
+
+  .newsletter-heading {
+    font-size: 2.5rem;
+  }
+
+  .newsletter-tagline {
+    font-size: 1.125rem;
+    max-width: 520px;
+  }
+
+  .newsletter-btn {
+    padding: 1rem 2.5rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .newsletter-input {
+    background: rgba(52, 73, 94, 0.95);
+    color: var(--text-dark);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .newsletter-input::placeholder {
+    color: var(--text-light);
+  }
+
+  .newsletter-input:focus {
+    background: var(--bg-white);
+  }
+}
