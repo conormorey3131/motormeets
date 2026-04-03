@@ -16,56 +16,131 @@
 </head>
 <body>
   <style>
-    .feature-promo {
-      background: linear-gradient(135deg, #1e7a41, #2ca45d);
-      padding: 1.5rem 1rem;
-      text-align: center;
-      color: white;
+    /* Feature Comparison Section */
+    .feature-comparison {
+      background: #f9f9f9;
+      padding: 2rem 1rem;
     }
-    .feature-promo-inner {
-      max-width: 800px;
+    .feature-comparison-inner {
+      max-width: 700px;
       margin: 0 auto;
     }
-    .feature-promo-badge {
+    .feature-comparison-badge {
+      display: block;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .feature-comparison-badge span {
       display: inline-block;
-      background: rgba(255,255,255,0.2);
+      background: #1e7a41;
+      color: white;
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
       font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 0.75rem;
     }
-    .feature-promo h2 {
+    .feature-comparison h2 {
+      text-align: center;
+      color: #1e7a41;
       font-size: 1.5rem;
       margin: 0 0 0.5rem 0;
+    }
+    .feature-comparison-subtitle {
+      text-align: center;
+      color: #555;
+      margin: 0 0 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .comparison-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .comparison-column {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.25rem;
+      border: 2px solid #ddd;
+    }
+    .comparison-column.featured {
+      border: 3px solid #F47B20;
+      box-shadow: 0 4px 12px rgba(244, 123, 32, 0.2);
+    }
+    .column-header {
+      text-align: center;
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid #eee;
+    }
+    .column-label {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .comparison-column:not(.featured) .column-label {
+      background: #1e7a41;
+      color: white;
+    }
+    .comparison-column.featured .column-label {
+      background: #F47B20;
+      color: white;
+    }
+    .comparison-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .comparison-list li {
+      padding: 0.4rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+      font-size: 0.85rem;
+      color: #333;
+      line-height: 1.4;
+    }
+    .comparison-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #1e7a41;
       font-weight: 600;
     }
-    .feature-promo p {
-      margin: 0 0 1rem 0;
-      opacity: 0.95;
-      font-size: 0.95rem;
-      line-height: 1.5;
+    .comparison-column.featured .comparison-list li::before {
+      color: #F47B20;
     }
-    .feature-promo-btn {
+    .feature-cta {
+      text-align: center;
+    }
+    .feature-btn-orange {
       display: inline-block;
-      background: white;
-      color: #1e7a41;
-      padding: 0.75rem 2rem;
+      background-color: #F47B20;
+      color: white;
+      padding: 0.85rem 2rem;
       border-radius: 4px;
+      font-size: 1rem;
       font-weight: 600;
       text-decoration: none;
-      font-size: 1rem;
       transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 8px rgba(244, 123, 32, 0.3);
     }
-    .feature-promo-btn:hover {
+    .feature-btn-orange:hover {
+      background-color: #e06a10;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(244, 123, 32, 0.4);
     }
-    @media (max-width: 600px) {
-      .feature-promo h2 { font-size: 1.25rem; }
+    @media (max-width: 550px) {
+      .comparison-table {
+        grid-template-columns: 1fr;
+      }
+      .comparison-column.featured {
+        order: -1;
+      }
+      .feature-comparison h2 { font-size: 1.25rem; }
     }
   </style>
 
@@ -80,13 +155,44 @@
     </a>
   </header>
 
-  <!-- Feature Your Event Promo -->
-  <section class="feature-promo">
-    <div class="feature-promo-inner">
-      <span class="feature-promo-badge">For Event Organisers</span>
+  <!-- Feature Your Event Comparison -->
+  <section class="feature-comparison">
+    <div class="feature-comparison-inner">
+      <div class="feature-comparison-badge"><span>For Event Organisers</span></div>
       <h2>Get More People to Your Event</h2>
-      <p>Running a car meet, show, or cruise? Feature your event at the top of Ireland's biggest automotive calendar and reach thousands of enthusiasts looking for their next event.</p>
-      <a href="https://buy.stripe.com/8x214m9dM27edEwdNi4Ja07" target="_blank" rel="noopener noreferrer" class="feature-promo-btn">Feature My Event — €25</a>
+      <p class="feature-comparison-subtitle">List your event for free or get featured for maximum exposure</p>
+
+      <div class="comparison-table">
+        <div class="comparison-column">
+          <div class="column-header">
+            <span class="column-label">Free</span>
+          </div>
+          <ul class="comparison-list">
+            <li>Listed on motormeets.ie</li>
+            <li>Included in weekly events carousel</li>
+            <li>Included in Monday newsletter</li>
+          </ul>
+        </div>
+
+        <div class="comparison-column featured">
+          <div class="column-header">
+            <span class="column-label">Featured — €25</span>
+          </div>
+          <ul class="comparison-list">
+            <li>Everything in free listing</li>
+            <li>Pinned to top of listings with Featured badge</li>
+            <li>Dedicated Instagram post to 3,000+ followers across Instagram, TikTok and Facebook</li>
+            <li>Instagram story with direct link to your event</li>
+            <li>Featured mention in Monday newsletter</li>
+            <li>TikTok mention</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature-cta" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="submit-event.html" style="display: inline-block; background-color: #1e7a41; color: white; padding: 0.85rem 2rem; border-radius: 4px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">Submit Free Event</a>
+        <a href="submit-event.html?featured=true" class="feature-btn-orange">Feature My Event — €25</a>
+      </div>
     </div>
   </section>
 
@@ -7393,6 +7499,7 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
 
   <footer>
     <p>&copy; 2026 Motor Meets - Ireland</p>
+    <p style="margin-top: 0.5rem; font-size: 0.85rem;">Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer" style="color: #1e7a41; text-decoration: none; font-weight: 600;">Morey Digital</a></p>
   </footer>
 
   <!-- JavaScript for Filtering -->

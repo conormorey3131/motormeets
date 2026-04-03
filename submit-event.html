@@ -89,35 +89,187 @@
       color: #e74c3c;
     }
 
-    .feature-box {
-      background: linear-gradient(135deg, #1e7a41, #2ca45d);
+    /* Comparison Table Styles */
+    .comparison-section {
+      margin-bottom: 2rem;
+    }
+
+    .comparison-section h2 {
+      text-align: center;
+      color: #1e7a41;
+      margin-bottom: 1.5rem;
+    }
+
+    .comparison-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .comparison-column {
+      background: #fff;
       border-radius: 8px;
       padding: 1.5rem;
-      margin-bottom: 2rem;
+      border: 2px solid #ddd;
+    }
+
+    .comparison-column.featured {
+      border: 3px solid #F47B20;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(244, 123, 32, 0.2);
+    }
+
+    .column-header {
       text-align: center;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .column-label {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .comparison-column:not(.featured) .column-label {
+      background: #1e7a41;
       color: white;
     }
 
-    .feature-box p {
-      margin: 0 0 1rem 0;
-      font-size: 0.95rem;
+    .comparison-column.featured .column-label {
+      background: #F47B20;
+      color: white;
     }
 
-    .feature-btn {
-      display: inline-block;
-      background-color: white;
+    .comparison-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .comparison-list li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .comparison-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
       color: #1e7a41;
-      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+    }
+
+    .comparison-column.featured .comparison-list li::before {
+      color: #F47B20;
+    }
+
+    .feature-cta {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .feature-btn-orange {
+      display: inline-block;
+      background-color: #F47B20;
+      color: white;
+      padding: 0.85rem 2rem;
       border-radius: 4px;
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(244, 123, 32, 0.3);
     }
 
-    .feature-btn:hover {
-      background-color: #f0f0f0;
+    .feature-btn-orange:hover {
+      background-color: #e06a10;
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(244, 123, 32, 0.4);
+    }
+
+    .form-divider {
+      border: none;
+      border-top: 2px solid #eee;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 500px) {
+      .comparison-table {
+        grid-template-columns: 1fr;
+      }
+      .comparison-column.featured {
+        order: -1;
+      }
+    }
+
+    /* Listing Type Selection */
+    .listing-type-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .listing-option {
+      display: block;
+      padding: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .listing-option:hover {
+      border-color: #1e7a41;
+    }
+
+    .listing-option.selected {
+      border-color: #1e7a41;
+      background: #f0f9f3;
+    }
+
+    .listing-option.featured-option.selected {
+      border-color: #F47B20;
+      background: #fff8f3;
+    }
+
+    .listing-option input[type="radio"] {
+      display: none;
+    }
+
+    .option-label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.25rem;
+    }
+
+    .option-desc {
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .listing-option.selected .option-label {
+      color: #1e7a41;
+    }
+
+    .listing-option.featured-option.selected .option-label {
+      color: #F47B20;
+    }
+
+    @media (max-width: 400px) {
+      .listing-type-options {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -135,16 +287,68 @@
 
   <div class="submit-container">
     <a href="index.html" class="back-link">← Back to Events</a>
-    <h2>Submit Your Event</h2>
-    <p>Have an automotive event you'd like to add to Motor Meets Ireland? Fill out the form below and we'll review your submission.</p>
 
-    <div class="feature-box">
-      <p>Want your event to stand out? Get featured at the top of the calendar!</p>
-      <a href="https://buy.stripe.com/8x214m9dM27edEwdNi4Ja07" target="_blank" rel="noopener noreferrer" class="feature-btn">Feature My Event — €25</a>
+    <div class="comparison-section">
+      <h2>Submit Your Event</h2>
+
+      <div class="comparison-table">
+        <div class="comparison-column">
+          <div class="column-header">
+            <span class="column-label">Free</span>
+          </div>
+          <ul class="comparison-list">
+            <li>Listed on motormeets.ie</li>
+            <li>Included in weekly events carousel</li>
+            <li>Included in Monday newsletter</li>
+          </ul>
+        </div>
+
+        <div class="comparison-column featured">
+          <div class="column-header">
+            <span class="column-label">Featured — €25</span>
+          </div>
+          <ul class="comparison-list">
+            <li>Everything in free listing</li>
+            <li>Pinned to top of listings with Featured badge</li>
+            <li>Dedicated Instagram post to 3,000+ followers across Instagram, TikTok and Facebook</li>
+            <li>Instagram story with direct link to your event</li>
+            <li>Featured mention in Monday newsletter</li>
+            <li>TikTok mention</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature-cta" style="text-align: center;">
+        <p style="color: #555; margin-bottom: 1rem;">Choose your listing type below and fill out the form</p>
+        <a href="#event-form" style="display: inline-block; background-color: #1e7a41; color: white; padding: 0.85rem 2rem; border-radius: 4px; font-size: 1rem; font-weight: 600; text-decoration: none;">Submit Your Event</a>
+      </div>
     </div>
 
+    <hr class="form-divider">
+
+    <h3 id="free-form" style="margin-bottom: 1rem;">Submit Your Event</h3>
     <form action="https://api.web3forms.com/submit" method="POST" id="event-form">
       <input type="hidden" name="access_key" value="a0d23cdc-ae70-4316-ae78-a028f54d4bf6">
+      <input type="hidden" name="listing_type" id="listing-type-hidden" value="free">
+
+      <!-- Listing Type Selection -->
+      <div class="form-group">
+        <label>Listing Type <span class="required">*</span></label>
+        <div class="listing-type-options">
+          <label class="listing-option selected" id="option-free">
+            <input type="radio" name="listing_choice" value="free" checked>
+            <span class="option-label">Free Listing</span>
+            <span class="option-desc">Listed on site + newsletter</span>
+          </label>
+          <label class="listing-option featured-option" id="option-featured">
+            <input type="radio" name="listing_choice" value="featured">
+            <span class="option-label">Featured Listing — €25</span>
+            <span class="option-desc">Pinned + social media promotion</span>
+          </label>
+        </div>
+        <p id="featured-note" style="display: none; margin-top: 0.75rem; padding: 0.75rem; background: #fff3e6; border-left: 3px solid #F47B20; font-size: 0.85rem; color: #333;">After submitting, you'll be redirected to complete your €25 payment via Stripe.</p>
+      </div>
+
       <div class="form-group">
         <label for="event-name">Event Name <span class="required">*</span></label>
         <input type="text" id="event-name" name="event_name" required>
@@ -250,6 +454,7 @@
 
   <footer>
     <p>&copy; 2026 Motor Meets - Ireland</p>
+    <p style="margin-top: 0.5rem; font-size: 0.85rem;">Powered by <a href="https://moreydigital.ie" target="_blank" rel="noopener noreferrer" style="color: #1e7a41; text-decoration: none; font-weight: 600;">Morey Digital</a></p>
   </footer>
 
   <!-- Google tag (gtag.js) -->
@@ -263,17 +468,52 @@
   
   <!-- Form submission handler -->
   <script>
+    // Listing type selection handling
+    const optionFree = document.getElementById('option-free');
+    const optionFeatured = document.getElementById('option-featured');
+    const featuredNote = document.getElementById('featured-note');
+    const listingTypeHidden = document.getElementById('listing-type-hidden');
+    const submitBtn = document.querySelector('.submit-btn');
+    const subjectField = document.querySelector('input[name="subject"]');
+
+    function selectListingType(type) {
+      if (type === 'free') {
+        optionFree.classList.add('selected');
+        optionFeatured.classList.remove('selected');
+        featuredNote.style.display = 'none';
+        listingTypeHidden.value = 'free';
+        submitBtn.textContent = 'Submit Event';
+        subjectField.value = 'New Event Submission - Motor Meets Ireland';
+      } else {
+        optionFeatured.classList.add('selected');
+        optionFree.classList.remove('selected');
+        featuredNote.style.display = 'block';
+        listingTypeHidden.value = 'featured';
+        submitBtn.textContent = 'Submit & Pay €25';
+        subjectField.value = 'FEATURED Event Submission - Motor Meets Ireland';
+      }
+    }
+
+    optionFree.addEventListener('click', () => selectListingType('free'));
+    optionFeatured.addEventListener('click', () => selectListingType('featured'));
+
+    // Check URL for featured parameter
+    if (window.location.search.includes('featured=true')) {
+      selectListingType('featured');
+      document.getElementById('event-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
     document.getElementById('event-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      
+
       const form = this;
-      const submitBtn = form.querySelector('.submit-btn');
       const originalBtnText = submitBtn.textContent;
-      
+      const isFeatured = listingTypeHidden.value === 'featured';
+
       // Disable button and show loading state
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
-      
+
       // Submit form via AJAX
       fetch(form.action, {
         method: 'POST',
@@ -284,8 +524,12 @@
       })
       .then(response => {
         if (response.ok) {
-          // Redirect to success page
-          window.location.href = 'submission-success.html';
+          // Redirect based on listing type
+          if (isFeatured) {
+            window.location.href = 'https://buy.stripe.com/8x214m9dM27edEwdNi4Ja07';
+          } else {
+            window.location.href = 'submission-success.html';
+          }
         } else {
           throw new Error('Form submission failed');
         }
