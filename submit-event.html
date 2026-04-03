@@ -88,6 +88,37 @@
     .required {
       color: #e74c3c;
     }
+
+    .feature-box {
+      background: linear-gradient(135deg, #1e7a41, #2ca45d);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: white;
+    }
+
+    .feature-box p {
+      margin: 0 0 1rem 0;
+      font-size: 0.95rem;
+    }
+
+    .feature-btn {
+      display: inline-block;
+      background-color: white;
+      color: #1e7a41;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .feature-btn:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
@@ -106,7 +137,12 @@
     <a href="index.html" class="back-link">← Back to Events</a>
     <h2>Submit Your Event</h2>
     <p>Have an automotive event you'd like to add to Motor Meets Ireland? Fill out the form below and we'll review your submission.</p>
-    
+
+    <div class="feature-box">
+      <p>Want your event to stand out? Get featured at the top of the calendar!</p>
+      <a href="https://buy.stripe.com/8x214m9dM27edEwdNi4Ja07" target="_blank" rel="noopener noreferrer" class="feature-btn">Feature My Event — €25</a>
+    </div>
+
     <form action="https://api.web3forms.com/submit" method="POST" id="event-form">
       <input type="hidden" name="access_key" value="a0d23cdc-ae70-4316-ae78-a028f54d4bf6">
       <div class="form-group">
