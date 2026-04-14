@@ -169,13 +169,17 @@
 
       <div class="merch-products">
         <div class="merch-card">
-          <div class="merch-card-image" aria-hidden="true">👕</div>
+          <div class="merch-card-image">
+            <img src="https://shop.motormeets.ie/cdn/shop/files/IMG_4394.jpg?v=1776107623&width=600" alt="Motor Meets Ireland Logo Tee" loading="lazy">
+          </div>
           <h3 class="merch-card-title">Logo Tee</h3>
           <p class="merch-card-price">&euro;25</p>
           <a class="merch-buy-btn" href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
         <div class="merch-card">
-          <div class="merch-card-image" aria-hidden="true">🏷️</div>
+          <div class="merch-card-image">
+            <img src="https://shop.motormeets.ie/cdn/shop/files/IMG_4395.jpg?v=1776107649&width=600" alt="Motor Meets Ireland Logo Sticker" loading="lazy">
+          </div>
           <h3 class="merch-card-title">Logo Sticker</h3>
           <p class="merch-card-price">&euro;5</p>
           <a class="merch-buy-btn" href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Buy Now</a>
@@ -7619,15 +7623,18 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
     }
     .merch-card-image {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
       background: linear-gradient(135deg, #eafaf0, #c8ecd6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
       margin-bottom: 1rem;
+    }
+    .merch-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .merch-card-title {
       font-size: 1.3rem;
