@@ -14,12 +14,34 @@
   
   <style>
     .submit-container {
-      max-width: 600px;
+      max-width: 960px;
       margin: 2rem auto;
       padding: 2rem;
       background: #f9f9f9;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    @media (min-width: 768px) {
+      .submit-container {
+        padding: 2.5rem 3rem;
+      }
+    }
+    /* Keep the form itself narrow for readability */
+    .submit-container .back-link,
+    .submit-container > h3,
+    .submit-container > form {
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    .submit-container > h3 {
+      text-align: left;
+    }
+    .form-divider {
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .form-group {
@@ -92,35 +114,44 @@
     /* Comparison Table Styles */
     .comparison-section {
       margin-bottom: 2rem;
+      text-align: center;
     }
 
     .comparison-section h2 {
-      text-align: center;
       color: #1e7a41;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.75rem;
+    }
+    .comparison-section-subtitle {
+      color: #666;
+      font-size: 0.95rem;
+      margin: 0 auto 1.75rem;
+      max-width: 640px;
+      line-height: 1.5;
     }
 
     .comparison-table {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
-    @media (min-width: 720px) {
+    @media (min-width: 820px) {
       .comparison-table {
-        grid-template-columns: 1fr 1fr 1.15fr;
+        grid-template-columns: 1fr 1fr 1.2fr;
+        gap: 1.25rem;
       }
     }
     .column-best-value {
       display: inline-block;
-      margin-top: 0.4rem;
+      margin-top: 0.45rem;
       background: #1e7a41;
       color: #fff;
       font-size: 0.65rem;
       font-weight: 800;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
+      padding: 0.22rem 0.65rem;
       border-radius: 999px;
     }
     .comparison-list li strong {
@@ -133,30 +164,43 @@
 
     .comparison-column {
       background: #fff;
-      border-radius: 8px;
-      padding: 1.5rem;
-      border: 2px solid #ddd;
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      border: 2px solid #e5e5e5;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+    .comparison-column:hover {
+      border-color: #1e7a41;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(30, 122, 65, 0.12);
     }
 
     .comparison-column.featured {
       border: 3px solid #F47B20;
       position: relative;
-      box-shadow: 0 4px 12px rgba(244, 123, 32, 0.2);
+      box-shadow: 0 6px 20px rgba(244, 123, 32, 0.25);
+      background: linear-gradient(180deg, #fff 0%, #fff8f2 100%);
+    }
+    .comparison-column.featured:hover {
+      border-color: #e06a10;
+      box-shadow: 0 10px 28px rgba(244, 123, 32, 0.35);
     }
 
     .column-header {
       text-align: center;
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
+      padding-bottom: 0.9rem;
+      margin-bottom: 0.9rem;
       border-bottom: 1px solid #eee;
     }
 
     .column-label {
       display: inline-block;
-      padding: 0.35rem 1rem;
+      padding: 0.4rem 1rem;
       border-radius: 20px;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 0.85rem;
     }
 
     .comparison-column:not(.featured) .column-label {
@@ -165,7 +209,7 @@
     }
 
     .comparison-column.featured .column-label {
-      background: #F47B20;
+      background: linear-gradient(90deg, #F47B20, #ff9800);
       color: white;
     }
 
@@ -176,47 +220,25 @@
     }
 
     .comparison-list li {
-      padding: 0.5rem 0;
-      padding-left: 1.5rem;
+      padding: 0.5rem 0 0.5rem 1.6rem;
       position: relative;
-      font-size: 0.9rem;
+      font-size: 0.87rem;
       color: #333;
+      line-height: 1.45;
     }
 
     .comparison-list li::before {
       content: "✓";
       position: absolute;
       left: 0;
+      top: 0.5rem;
       color: #1e7a41;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 0.95rem;
     }
 
     .comparison-column.featured .comparison-list li::before {
       color: #F47B20;
-    }
-
-    .feature-cta {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-
-    .feature-btn-orange {
-      display: inline-block;
-      background-color: #F47B20;
-      color: white;
-      padding: 0.85rem 2rem;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(244, 123, 32, 0.3);
-    }
-
-    .feature-btn-orange:hover {
-      background-color: #e06a10;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(244, 123, 32, 0.4);
     }
 
     .form-divider {
@@ -225,10 +247,7 @@
       margin: 2rem 0;
     }
 
-    @media (max-width: 500px) {
-      .comparison-table {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 819px) {
       .comparison-column.featured {
         order: -1;
       }
@@ -318,6 +337,7 @@
 
     <div class="comparison-section">
       <h2>Submit Your Event</h2>
+      <p class="comparison-section-subtitle">Pick a listing type below, then fill out the form. Standard and Boosted submissions are reviewed within 24 hours so your promotion goes live fast.</p>
 
       <div class="comparison-table">
         <div class="comparison-column">
@@ -361,15 +381,11 @@
         </div>
       </div>
 
-      <div class="feature-cta" style="text-align: center;">
-        <p style="color: #555; margin-bottom: 1rem;">Choose your listing type below and fill out the form</p>
-        <a href="#event-form" style="display: inline-block; background-color: #1e7a41; color: white; padding: 0.85rem 2rem; border-radius: 4px; font-size: 1rem; font-weight: 600; text-decoration: none;">Submit Your Event</a>
-      </div>
     </div>
 
     <hr class="form-divider">
 
-    <h3 id="free-form" style="margin-bottom: 1rem;">Submit Your Event</h3>
+    <h3 id="free-form" style="margin-bottom: 1rem;">Event Details</h3>
     <form action="https://api.web3forms.com/submit" method="POST" id="event-form">
       <input type="hidden" name="access_key" value="a0d23cdc-ae70-4316-ae78-a028f54d4bf6">
       <input type="hidden" name="listing_type" id="listing-type-hidden" value="free">
