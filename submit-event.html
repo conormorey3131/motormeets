@@ -102,9 +102,33 @@
 
     .comparison-table {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 1rem;
       margin-bottom: 1.5rem;
+    }
+    @media (min-width: 720px) {
+      .comparison-table {
+        grid-template-columns: 1fr 1fr 1.15fr;
+      }
+    }
+    .column-best-value {
+      display: inline-block;
+      margin-top: 0.4rem;
+      background: #1e7a41;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    .comparison-list li strong {
+      color: #1e7a41;
+      font-weight: 700;
+    }
+    .comparison-column.featured .comparison-list li strong {
+      color: #F47B20;
     }
 
     .comparison-column {
@@ -213,8 +237,13 @@
     /* Listing Type Selection */
     .listing-type-options {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    @media (min-width: 560px) {
+      .listing-type-options {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
     }
 
     .listing-option {
@@ -247,15 +276,17 @@
 
     .option-label {
       display: block;
-      font-weight: 600;
+      font-weight: 700;
       color: #333;
       margin-bottom: 0.25rem;
+      font-size: 0.95rem;
     }
 
     .option-desc {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #666;
+      line-height: 1.35;
     }
 
     .listing-option.selected .option-label {
@@ -265,18 +296,15 @@
     .listing-option.featured-option.selected .option-label {
       color: #F47B20;
     }
-
-    @media (max-width: 400px) {
-      .listing-type-options {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
 <body>
   <header>
     <img src="logo.webp" alt="Motor Meets Logo" onclick="window.location.href='index.html'">
     <h1>Motor Meets - Ireland</h1>
+    <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer" class="header-shop-btn">
+      <span aria-hidden="true">🛍</span> Shop
+    </a>
     <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
     </a>
@@ -303,17 +331,32 @@
           </ul>
         </div>
 
-        <div class="comparison-column featured">
+        <div class="comparison-column">
           <div class="column-header">
-            <span class="column-label">Featured — €25</span>
+            <span class="column-label">Standard — €25</span>
           </div>
           <ul class="comparison-list">
             <li>Everything in free listing</li>
-            <li>Pinned to top of listings with Featured badge</li>
-            <li>Dedicated Instagram post to 3,000+ followers across Instagram, TikTok and Facebook</li>
+            <li>Pinned to top of the calendar with Featured badge</li>
+            <li>Dedicated Instagram post to 5,000+ followers</li>
             <li>Instagram story with direct link to your event</li>
             <li>Featured mention in Monday newsletter</li>
             <li>TikTok mention</li>
+          </ul>
+        </div>
+
+        <div class="comparison-column featured">
+          <div class="column-header">
+            <span class="column-label">Boosted — €80</span>
+            <span class="column-best-value">Best value</span>
+          </div>
+          <ul class="comparison-list">
+            <li>Everything in Standard</li>
+            <li><strong>Instagram story takeover</strong> the week before the event</li>
+            <li>Premium card placement at the top of the calendar</li>
+            <li>Header slot in the Monday newsletter</li>
+            <li><strong>TikTok video</strong> (not just a mention)</li>
+            <li>Facebook post on Motor Meets Ireland page</li>
           </ul>
         </div>
       </div>
@@ -337,16 +380,21 @@
         <div class="listing-type-options">
           <label class="listing-option selected" id="option-free">
             <input type="radio" name="listing_choice" value="free" checked>
-            <span class="option-label">Free Listing</span>
+            <span class="option-label">Free</span>
             <span class="option-desc">Listed on site + newsletter</span>
           </label>
-          <label class="listing-option featured-option" id="option-featured">
-            <input type="radio" name="listing_choice" value="featured">
-            <span class="option-label">Featured Listing — €25</span>
-            <span class="option-desc">Pinned + social media promotion</span>
+          <label class="listing-option featured-option" id="option-standard">
+            <input type="radio" name="listing_choice" value="standard">
+            <span class="option-label">Standard — €25</span>
+            <span class="option-desc">Pinned + IG post, story, TikTok mention</span>
+          </label>
+          <label class="listing-option featured-option" id="option-boosted">
+            <input type="radio" name="listing_choice" value="boosted">
+            <span class="option-label">Boosted — €80</span>
+            <span class="option-desc">All Standard + story takeover, TikTok video, FB post</span>
           </label>
         </div>
-        <p id="featured-note" style="display: none; margin-top: 0.75rem; padding: 0.75rem; background: #fff3e6; border-left: 3px solid #F47B20; font-size: 0.85rem; color: #333;">After submitting, you'll be redirected to complete your €25 payment via Stripe.</p>
+        <p id="featured-note" style="display: none; margin-top: 0.75rem; padding: 0.75rem; background: #fff3e6; border-left: 3px solid #F47B20; font-size: 0.85rem; color: #333;">After submitting, you'll be redirected to complete your payment via Stripe.</p>
       </div>
 
       <div class="form-group">
@@ -468,38 +516,55 @@
   
   <!-- Form submission handler -->
   <script>
-    // Listing type selection handling
+    // Stripe payment links per tier.
+    const STANDARD_STRIPE_URL = 'https://buy.stripe.com/8x214m9dM27edEwdNi4Ja07';
+    const BOOSTED_STRIPE_URL = 'https://buy.stripe.com/4gM6oG75EdPWaskeRm4Ja0a';
+
     const optionFree = document.getElementById('option-free');
-    const optionFeatured = document.getElementById('option-featured');
+    const optionStandard = document.getElementById('option-standard');
+    const optionBoosted = document.getElementById('option-boosted');
     const featuredNote = document.getElementById('featured-note');
     const listingTypeHidden = document.getElementById('listing-type-hidden');
     const submitBtn = document.querySelector('.submit-btn');
     const subjectField = document.querySelector('input[name="subject"]');
 
+    const allOptions = [optionFree, optionStandard, optionBoosted];
+
     function selectListingType(type) {
+      allOptions.forEach(o => o.classList.remove('selected'));
       if (type === 'free') {
         optionFree.classList.add('selected');
-        optionFeatured.classList.remove('selected');
         featuredNote.style.display = 'none';
         listingTypeHidden.value = 'free';
         submitBtn.textContent = 'Submit Event';
         subjectField.value = 'New Event Submission - Motor Meets Ireland';
-      } else {
-        optionFeatured.classList.add('selected');
-        optionFree.classList.remove('selected');
+      } else if (type === 'boosted') {
+        optionBoosted.classList.add('selected');
         featuredNote.style.display = 'block';
-        listingTypeHidden.value = 'featured';
+        listingTypeHidden.value = 'boosted';
+        submitBtn.textContent = 'Submit & Pay €80';
+        subjectField.value = 'BOOSTED (€80) Event Submission - Motor Meets Ireland';
+      } else {
+        optionStandard.classList.add('selected');
+        featuredNote.style.display = 'block';
+        listingTypeHidden.value = 'standard';
         submitBtn.textContent = 'Submit & Pay €25';
-        subjectField.value = 'FEATURED Event Submission - Motor Meets Ireland';
+        subjectField.value = 'STANDARD (€25) Event Submission - Motor Meets Ireland';
       }
     }
 
     optionFree.addEventListener('click', () => selectListingType('free'));
-    optionFeatured.addEventListener('click', () => selectListingType('featured'));
+    optionStandard.addEventListener('click', () => selectListingType('standard'));
+    optionBoosted.addEventListener('click', () => selectListingType('boosted'));
 
-    // Check URL for featured parameter
-    if (window.location.search.includes('featured=true')) {
-      selectListingType('featured');
+    // Pre-select tier based on URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const featuredParam = params.get('featured');
+    if (featuredParam === 'boosted') {
+      selectListingType('boosted');
+      document.getElementById('event-form').scrollIntoView({ behavior: 'smooth' });
+    } else if (featuredParam === 'standard' || featuredParam === 'true') {
+      selectListingType('standard');
       document.getElementById('event-form').scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -508,25 +573,22 @@
 
       const form = this;
       const originalBtnText = submitBtn.textContent;
-      const isFeatured = listingTypeHidden.value === 'featured';
+      const tier = listingTypeHidden.value;
 
-      // Disable button and show loading state
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
 
-      // Submit form via AJAX
       fetch(form.action, {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json'
-        },
+        headers: { 'Accept': 'application/json' },
         body: new FormData(form)
       })
       .then(response => {
         if (response.ok) {
-          // Redirect based on listing type
-          if (isFeatured) {
-            window.location.href = 'https://buy.stripe.com/8x214m9dM27edEwdNi4Ja07';
+          if (tier === 'boosted') {
+            window.location.href = BOOSTED_STRIPE_URL;
+          } else if (tier === 'standard') {
+            window.location.href = STANDARD_STRIPE_URL;
           } else {
             window.location.href = 'submission-success.html';
           }
@@ -535,7 +597,6 @@
         }
       })
       .catch(error => {
-        // Re-enable button on error
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;
         alert('There was an error submitting your event. Please try again.');

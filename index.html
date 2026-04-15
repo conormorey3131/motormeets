@@ -16,15 +16,63 @@
 </head>
 <body>
   <style>
-    /* Feature Comparison Section */
-    .feature-comparison {
-      background: #f9f9f9;
-      padding: 2rem 1rem;
+    /* Map view switch */
+    .view-switch {
+      text-align: center;
+      margin-top: 1rem;
     }
-    .feature-comparison-inner {
-      max-width: 700px;
-      margin: 0 auto;
+    .view-switch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #fff;
+      color: #1e7a41;
+      border: 2px solid #1e7a41;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
     }
+    .view-switch-btn:hover {
+      background: #1e7a41;
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(30, 122, 65, 0.3);
+    }
+
+    /* Header Shop button */
+    .header-shop-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #F47B20;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.88rem;
+      letter-spacing: 0.3px;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(244, 123, 32, 0.45);
+      transition: all 0.25s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .header-shop-btn:hover {
+      background: #e06a10;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(244, 123, 32, 0.55);
+    }
+    @media (max-width: 550px) {
+      .header-shop-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Feature Comparison (reused inside Featured Events pitch) */
     .feature-comparison-badge {
       display: block;
       text-align: center;
@@ -41,23 +89,38 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    .feature-comparison h2 {
-      text-align: center;
-      color: #1e7a41;
-      font-size: 1.5rem;
-      margin: 0 0 0.5rem 0;
-    }
-    .feature-comparison-subtitle {
-      text-align: center;
-      color: #555;
-      margin: 0 0 1.5rem 0;
-      font-size: 0.95rem;
-    }
     .comparison-table {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin-bottom: 1.5rem;
+    }
+    .comparison-table-3col {
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 720px) {
+      .comparison-table-3col {
+        grid-template-columns: 1fr 1fr 1.15fr;
+      }
+    }
+    .column-best-value {
+      display: inline-block;
+      margin-top: 0.4rem;
+      background: #1e7a41;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    .comparison-list li strong {
+      color: #1e7a41;
+      font-weight: 700;
+    }
+    .comparison-column.featured .comparison-list li strong {
+      color: #F47B20;
     }
     .comparison-column {
       background: #fff;
@@ -113,26 +176,6 @@
     .comparison-column.featured .comparison-list li::before {
       color: #F47B20;
     }
-    .feature-cta {
-      text-align: center;
-    }
-    .feature-btn-orange {
-      display: inline-block;
-      background-color: #F47B20;
-      color: white;
-      padding: 0.85rem 2rem;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(244, 123, 32, 0.3);
-    }
-    .feature-btn-orange:hover {
-      background-color: #e06a10;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(244, 123, 32, 0.4);
-    }
     @media (max-width: 550px) {
       .comparison-table {
         grid-template-columns: 1fr;
@@ -140,13 +183,275 @@
       .comparison-column.featured {
         order: -1;
       }
-      .feature-comparison h2 { font-size: 1.25rem; }
+    }
+
+    /* Featured Events Section */
+    .featured-events-section {
+      background: linear-gradient(135deg, #fff8f2 0%, #fff 50%, #fff8f2 100%);
+      border-top: 4px solid #F47B20;
+      border-bottom: 4px solid #F47B20;
+      padding: 2.5rem 1rem 3rem;
+      margin: 1.5rem 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-events-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 0%, rgba(244, 123, 32, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 100%, rgba(244, 123, 32, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .featured-events-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .featured-events-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .featured-events-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, #F47B20, #ff9800);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      box-shadow: 0 4px 14px rgba(244, 123, 32, 0.4);
+      margin-bottom: 0.9rem;
+    }
+    .featured-events-header h2 {
+      font-size: 2rem;
+      color: #1e7a41;
+      margin: 0.25rem 0 0.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .featured-events-subtitle {
+      color: #555;
+      font-size: 0.95rem;
+      margin: 0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+    .featured-events-cta-link {
+      color: #F47B20;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .featured-events-cta-link:hover {
+      text-decoration: underline;
+    }
+    .featured-events-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .featured-events-section {
+        padding: 3rem 1.5rem 3.5rem;
+      }
+      .featured-events-header h2 {
+        font-size: 2.4rem;
+      }
+      .featured-events-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    /* Pitch block — the sell */
+    .featured-events-pitch {
+      margin-top: 2.5rem;
+      background: #fff;
+      border: 2px solid rgba(244, 123, 32, 0.25);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem 1.5rem;
+      box-shadow: 0 6px 22px rgba(30, 122, 65, 0.08);
+      text-align: center;
+    }
+    .featured-events-social-proof {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0 auto 1rem;
+      padding: 0.6rem 1.1rem;
+      background: linear-gradient(135deg, rgba(30, 122, 65, 0.08), rgba(244, 123, 32, 0.08));
+      border: 1px solid rgba(30, 122, 65, 0.2);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #1e7a41;
+      font-weight: 500;
+      line-height: 1.4;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .featured-events-social-proof strong {
+      color: #F47B20;
+      font-weight: 800;
+    }
+    .featured-events-social-proof-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+    .featured-events-pitch-title {
+      margin: 0 0 1.25rem;
+      font-size: 1.3rem;
+      color: #1e7a41;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) {
+      .featured-events-social-proof {
+        font-size: 0.95rem;
+        padding: 0.7rem 1.4rem;
+      }
+    }
+    .featured-events-pitch .comparison-table {
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+    .featured-events-cta-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .featured-events-cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      justify-content: center;
+    }
+    .featured-events-cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #F47B20, #ff9800);
+      color: #fff;
+      padding: 1rem 2.25rem;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 18px rgba(244, 123, 32, 0.4);
+      transition: all 0.25s ease;
+    }
+    .featured-events-cta-btn:hover {
+      background: linear-gradient(135deg, #e06a10, #f57c00);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(244, 123, 32, 0.5);
+    }
+    .featured-events-cta-btn-free {
+      background: #fff;
+      color: #1e7a41;
+      border: 2px solid #1e7a41;
+      box-shadow: 0 4px 12px rgba(30, 122, 65, 0.15);
+    }
+    .featured-events-cta-btn-free:hover {
+      background: #1e7a41;
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(30, 122, 65, 0.3);
+    }
+    .featured-events-cta-btn-standard {
+      background: #1e7a41;
+      box-shadow: 0 4px 14px rgba(30, 122, 65, 0.35);
+    }
+    .featured-events-cta-btn-standard:hover {
+      background: #2ca45d;
+      box-shadow: 0 6px 18px rgba(30, 122, 65, 0.45);
+    }
+    .featured-events-cta-note {
+      font-size: 0.78rem;
+      color: #777;
+      font-style: italic;
+    }
+    @media (min-width: 768px) {
+      .featured-events-pitch {
+        padding: 2.25rem 2rem 2rem;
+      }
+      .featured-events-pitch-title {
+        font-size: 1.55rem;
+      }
+    }
+    /* Featured event card */
+    .event.featured {
+      border: 3px solid #F47B20;
+      background: linear-gradient(135deg, #fff 0%, #fff8f2 100%);
+      box-shadow: 0 8px 28px rgba(244, 123, 32, 0.3);
+      padding: 2.75rem 2rem 1.75rem;
+      min-height: 140px;
+    }
+    .event.featured::before {
+      background: linear-gradient(90deg, #F47B20, #ff9800, #F47B20);
+      transform: scaleX(1);
+      height: 6px;
+    }
+    .event.featured::after {
+      content: "★ FEATURED";
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(90deg, #F47B20, #ff9800);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.4rem 1.1rem;
+      border-radius: 0 0 10px 0;
+      letter-spacing: 1px;
+      z-index: 2;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(244, 123, 32, 0.4);
+    }
+    .event.featured h3 {
+      font-size: 1.6rem;
+      color: #1e7a41;
+      margin-bottom: 0.5rem;
+    }
+    .event.featured .event-date {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #F47B20;
+    }
+    .event.featured .event-date-circle {
+      width: 80px;
+      height: 80px;
+      font-size: 0.95rem;
+      top: 1.5rem;
+      right: 1.5rem;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 14px rgba(244, 123, 32, 0.35);
+    }
+    .event.featured:hover {
+      border-color: #e06a10;
+      box-shadow: 0 14px 36px rgba(244, 123, 32, 0.4);
+      transform: translateY(-4px);
+    }
+    @media (min-width: 768px) {
+      .event.featured {
+        padding: 3rem 2.5rem 2rem;
+      }
+      .event.featured h3 {
+        font-size: 1.9rem;
+      }
     }
   </style>
 
   <header>
     <img src="logo.webp" alt="Motor Meets Logo" onclick="resetFilters()">
     <h1>Motor Meets - Ireland</h1>
+    <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer" class="header-shop-btn">
+      <span aria-hidden="true">🛍</span> Shop
+    </a>
     <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
     </a>
@@ -174,7 +479,7 @@
           </div>
           <h3 class="merch-card-title">Logo Tee</h3>
           <p class="merch-card-price">&euro;25</p>
-          <a class="merch-buy-btn" href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          <a class="merch-buy-btn" href="https://shop.motormeets.ie/products/unisex-t-shirt?variant=61503600230730" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
         <div class="merch-card">
           <div class="merch-card-image">
@@ -182,76 +487,13 @@
           </div>
           <h3 class="merch-card-title">Logo Sticker</h3>
           <p class="merch-card-price">&euro;5</p>
-          <a class="merch-buy-btn" href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          <a class="merch-buy-btn" href="https://shop.motormeets.ie/products/bubble-free-stickers?variant=61504486572362" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
       </div>
 
       <p class="merch-shop-link">
         <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Visit the full shop at shop.motormeets.ie &rarr;</a>
       </p>
-    </div>
-  </section>
-
-  <!-- Feature Your Event Comparison -->
-  <section class="feature-comparison">
-    <div class="feature-comparison-inner">
-      <div class="feature-comparison-badge"><span>For Event Organisers</span></div>
-      <h2>Get More People to Your Event</h2>
-      <p class="feature-comparison-subtitle">List your event for free or get featured for maximum exposure</p>
-
-      <div class="comparison-table">
-        <div class="comparison-column">
-          <div class="column-header">
-            <span class="column-label">Free</span>
-          </div>
-          <ul class="comparison-list">
-            <li>Listed on motormeets.ie</li>
-            <li>Included in weekly events carousel</li>
-            <li>Included in Monday newsletter</li>
-          </ul>
-        </div>
-
-        <div class="comparison-column featured">
-          <div class="column-header">
-            <span class="column-label">Featured — €25</span>
-          </div>
-          <ul class="comparison-list">
-            <li>Everything in free listing</li>
-            <li>Pinned to top of listings with Featured badge</li>
-            <li>Dedicated Instagram post to 3,000+ followers across Instagram, TikTok and Facebook</li>
-            <li>Instagram story with direct link to your event</li>
-            <li>Featured mention in Monday newsletter</li>
-            <li>TikTok mention</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="feature-cta" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <a href="submit-event.html" style="display: inline-block; background-color: #1e7a41; color: white; padding: 0.85rem 2rem; border-radius: 4px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">Submit Free Event</a>
-        <a href="submit-event.html?featured=true" class="feature-btn-orange">Feature My Event — €25</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter Signup Section -->
-  <section class="newsletter-section">
-    <div class="newsletter-inner">
-      <span class="newsletter-label">Stay Updated</span>
-      <h2 class="newsletter-heading">Get Event Updates</h2>
-      <p class="newsletter-tagline">Subscribe to receive the latest car meets and events straight to your inbox.</p>
-
-      <form action="https://motormeets.us2.list-manage.com/subscribe/post?u=97ed9f136731464eaf5114c8c&amp;id=1178e92f90&amp;f_id=0084ece3f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="newsletter-form" target="_blank">
-        <div class="newsletter-input-group">
-          <input type="email" name="EMAIL" class="newsletter-input" id="mce-EMAIL" placeholder="Enter your email" required>
-          <button type="submit" name="subscribe" class="newsletter-btn">Subscribe</button>
-        </div>
-        <!-- Bot protection -->
-        <div aria-hidden="true" style="position: absolute; left: -5000px;">
-          <input type="text" name="b_97ed9f136731464eaf5114c8c_1178e92f90" tabindex="-1" value="">
-        </div>
-      </form>
-
-      <p class="newsletter-privacy">No spam, unsubscribe anytime.</p>
     </div>
   </section>
 
@@ -289,7 +531,7 @@
         <option value="Kildare">Kildare</option>
         <option value="Kilkenny">Kilkenny</option>
         <option value="Laois">Laois</option>
-        <option value="Leitrim">Leitirm</option>
+        <option value="Leitrim">Leitrim</option>
         <option value="Limerick">Limerick</option>
         <option value="Longford">Longford</option>
         <option value="Louth">Louth</option>
@@ -328,11 +570,105 @@
         <!-- Week options will be populated by JavaScript -->
       </select>
     </div>
-    
-    <div style="text-align: center; margin-top: 1rem;">
-      <a href="submit-event.html" class="submit-event-btn" style="display: inline-block; background-color: #1e7a41; color: white; padding: 0.75rem 2rem; text-decoration: none; border-radius: 4px; font-weight: 600; transition: background-color 0.3s ease;">Submit an Event</a>
+
+    <div class="view-switch">
+      <a href="map-view.html" class="view-switch-btn">
+        <span aria-hidden="true">🗺</span> View on Map
+      </a>
     </div>
   </div>
+
+<section class="featured-events-section">
+    <div class="featured-events-inner">
+      <div class="featured-events-header">
+        <span class="featured-events-badge">★ Featured</span>
+        <h2>Featured Events</h2>
+        <p class="featured-events-subtitle">Paid listings from organisers who've featured their event to put it in front of more eyes. <a href="submit-event.html?featured=standard" class="featured-events-cta-link">Feature yours from €25 →</a></p>
+      </div>
+      <div class="featured-events-grid">
+        <div class="event featured" data-type="show" data-location="Cork" data-month="July" data-date="2026-07-05">
+            <div class="event-date-circle show">5 Jul</div>
+            <h3>Cruz Fest 2026</h3>
+            <p class="event-date">Sunday, July 5, 2026</p>
+            <p>Location: Kartworld Watergrasshill, Watergrasshill, Cork</p>
+        </div>
+
+        <div class="event featured" data-type="trackday" data-location="Kildare" data-month="September" data-date="2026-09-06">
+            <div class="event-date-circle trackday">6 Sep</div>
+            <h3>AE86 Fest</h3>
+            <p class="event-date">September 06, 2026</p>
+            <p>Location: Mondello Park, Naas, Co. Kildare</p>
+            <p>Description: Mondello Park event day (tickets via Mondello).</p>
+            <p>
+                Website:
+                <a href="https://mondellopark.ticketsolve.com/ticketbooth/shows/1173664732?utm_campaign=event-page&utm_id=events-page&utm_medium=organic&utm_source=referral" target="_blank" rel="noopener">
+                    Tickets
+                </a>
+            </p>
+        </div>
+      </div>
+
+      <div class="featured-events-pitch">
+        <div class="feature-comparison-badge"><span>For Event Organisers</span></div>
+        <h3 class="featured-events-pitch-title">Get More People to Your Event</h3>
+        <p class="featured-events-social-proof">
+          <span class="featured-events-social-proof-icon" aria-hidden="true">📈</span>
+          Reaching <strong>5,000+</strong> car enthusiasts across Instagram, TikTok &amp; Facebook — and <strong>2,600+</strong> monthly website visitors
+        </p>
+
+        <div class="comparison-table comparison-table-3col">
+          <div class="comparison-column">
+            <div class="column-header">
+              <span class="column-label">Free</span>
+            </div>
+            <ul class="comparison-list">
+              <li>Listed on motormeets.ie</li>
+              <li>Included in weekly events carousel</li>
+              <li>Included in Monday newsletter</li>
+            </ul>
+          </div>
+
+          <div class="comparison-column">
+            <div class="column-header">
+              <span class="column-label">Standard — €25</span>
+            </div>
+            <ul class="comparison-list">
+              <li>Everything in free listing</li>
+              <li>Pinned to top of the calendar with Featured badge</li>
+              <li>Dedicated Instagram post to 5,000+ followers</li>
+              <li>Instagram story with direct link to your event</li>
+              <li>Featured mention in Monday newsletter</li>
+              <li>TikTok mention</li>
+            </ul>
+          </div>
+
+          <div class="comparison-column featured">
+            <div class="column-header">
+              <span class="column-label">Boosted — €80</span>
+              <span class="column-best-value">Best value</span>
+            </div>
+            <ul class="comparison-list">
+              <li>Everything in Standard</li>
+              <li><strong>Instagram story takeover</strong> the week before the event</li>
+              <li>Premium card placement at the top of the calendar</li>
+              <li>Header slot in the Monday newsletter</li>
+              <li><strong>TikTok video</strong> (not just a mention)</li>
+              <li>Facebook post on Motor Meets Ireland page</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="featured-events-cta-row">
+          <div class="featured-events-cta-buttons">
+            <a href="submit-event.html" class="featured-events-cta-btn featured-events-cta-btn-free">Submit Free Event</a>
+            <a href="submit-event.html?featured=standard" class="featured-events-cta-btn featured-events-cta-btn-standard">Feature — €25</a>
+            <a href="submit-event.html?featured=boosted" class="featured-events-cta-btn">Boosted — €80</a>
+          </div>
+          <span class="featured-events-cta-note">One-off payment · Covers the full run-up to your event</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
 <div id="calendar-view" class="calendar-container">
 
@@ -876,7 +1212,7 @@
           <p>Description: Forest rally event full of excitement.</p>
       </div>
 
-      <div class="event" data-type="bee" data-location="Leitirm" data-month="April" data-date="2025-04-13">
+      <div class="event" data-type="bee" data-location="Leitrim" data-month="April" data-date="2025-04-13">
           <div class="event-date-circle bee">12-13 Apr</div>
           <h3>Bumblebee 1000</h3>
           <p class="event-date">April 12-13, 2025</p>
@@ -956,7 +1292,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="bee" data-location="Leitirm" data-month="April" data-date="2025-04-12">
+      <div class="event" data-type="bee" data-location="Leitrim" data-month="April" data-date="2025-04-12">
           <div class="event-date-circle bee">12 Apr</div>
           <h3>FINISH LINE - <br>Bumblebee 1000</h3>
           <p class="event-date">April 12, 2025</p>
@@ -972,7 +1308,7 @@
           </p>
       </div>
 
-      <div class="event" data-type="bee" data-location="Leitirm" data-month="April" data-date="2025-04-13">
+      <div class="event" data-type="bee" data-location="Leitrim" data-month="April" data-date="2025-04-13">
           <div class="event-date-circle bee">13 Apr</div>
           <h3>Startline - <br>Bumblebee 1000</h3>
           <p class="event-date">April 13, 2025</p>
@@ -2214,13 +2550,6 @@
                   Event Page
               </a>
           </p>
-      </div>
-
-      <div class="event" data-type="show" data-location="Cork" data-month="July" data-date="2025-07-06">
-          <div class="event-date-circle show">6 Jul</div>
-          <h3>Cruz Fest</h3>
-          <p class="event-date">July 6, 2025</p>
-          <p>Location: Kartworld Watergrasshill, Watergrasshill, Cork</p>
       </div>
 
             <div class="event" data-type="show" data-location="Clare" data-month="July" data-date="2025-07-06">
@@ -6752,20 +7081,6 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
           <p>Description: Last Sunday of the month</p>
       </div>
 
-<div class="event" data-type="trackday" data-location="Kildare" data-month="September" data-date="2026-09-06">
-  <div class="event-date-circle trackday">6 Sep</div>
-  <h3>AE86 Fest</h3>
-  <p class="event-date">September 06, 2026</p>
-  <p>Location: Mondello Park, Naas, Co. Kildare</p>
-  <p>Description: Mondello Park event day (tickets via Mondello).</p>
-  <p>
-    Website:
-    <a href="https://mondellopark.ticketsolve.com/ticketbooth/shows/1173664732?utm_campaign=event-page&utm_id=events-page&utm_medium=organic&utm_source=referral" target="_blank" rel="noopener">
-      Tickets
-    </a>
-  </p>
-</div>
-
       <div class="event" data-type="show" data-location="Galway" data-month="September" data-date="2026-09-06">
           <div class="event-date-circle show">6 Sep</div>
           <h3>Kiltullagh Cars and Coffee</h3>
@@ -7526,6 +7841,28 @@ The AA Ireland Service Centre Cork are hosting the first ever AA Classic Cars an
 
 
 <!-- END: Upcoming Info Section -->
+
+  <!-- Newsletter Signup Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-inner">
+      <span class="newsletter-label">Stay Updated</span>
+      <h2 class="newsletter-heading">Get Event Updates</h2>
+      <p class="newsletter-tagline">Subscribe to receive the latest car meets and events straight to your inbox.</p>
+
+      <form action="https://motormeets.us2.list-manage.com/subscribe/post?u=97ed9f136731464eaf5114c8c&amp;id=1178e92f90&amp;f_id=0084ece3f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="newsletter-form" target="_blank">
+        <div class="newsletter-input-group">
+          <input type="email" name="EMAIL" class="newsletter-input" id="mce-EMAIL" placeholder="Enter your email" required>
+          <button type="submit" name="subscribe" class="newsletter-btn">Subscribe</button>
+        </div>
+        <!-- Bot protection -->
+        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+          <input type="text" name="b_97ed9f136731464eaf5114c8c_1178e92f90" tabindex="-1" value="">
+        </div>
+      </form>
+
+      <p class="newsletter-privacy">No spam, unsubscribe anytime.</p>
+    </div>
+  </section>
 
   <!-- Sponsor Invitation Banner -->
   <section class="sponsor-showcase">

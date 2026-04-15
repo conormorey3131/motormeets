@@ -133,6 +133,36 @@ header h1 {
   letter-spacing: 0.5px;
 }
 
+/* Header Shop button (shared) */
+.header-shop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #F47B20;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.3px;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(244, 123, 32, 0.45);
+  transition: all 0.25s ease;
+  position: relative;
+  z-index: 1;
+}
+.header-shop-btn:hover {
+  background: #e06a10;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(244, 123, 32, 0.55);
+}
+@media (max-width: 550px) {
+  .header-shop-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
 /* Instagram icon animation */
 header a {
   position: relative;

@@ -43,6 +43,68 @@
             font-size: 1.75rem;
             margin: 0;
         }
+
+        .header-shop-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #F47B20;
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.88rem;
+            letter-spacing: 0.3px;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(244, 123, 32, 0.45);
+            transition: all 0.25s ease;
+        }
+        .header-shop-btn:hover {
+            background: #e06a10;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(244, 123, 32, 0.55);
+        }
+        @media (max-width: 550px) {
+            .header-shop-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Promo strip */
+        .promo-strip {
+            background: linear-gradient(90deg, #1A6B3C 0%, #1e7a41 50%, #F47B20 100%);
+            padding: 0.85rem 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem 1.5rem;
+            color: #fff;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .promo-strip a {
+            color: #fff;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.4rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.2s ease;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .promo-strip a:hover {
+            background: #fff;
+            color: #1e7a41;
+        }
+        .promo-strip-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
         
         /* Sponsor Invitation Banner */
         .sponsor-showcase {
@@ -375,6 +437,9 @@
     <header>
         <img src="logo.webp" alt="Motor Meets Logo" onclick="resetFilters()">
         <h1>Motor Meets - Ireland</h1>
+        <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer" class="header-shop-btn">
+            <span aria-hidden="true">🛍</span> Shop
+        </a>
         <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
         </a>
@@ -382,7 +447,15 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style="width: 24px; height: 24px; display: inline-block;"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z"/></svg>
         </a>
     </header>
-    
+
+    <!-- Promo Strip: merch + featured events -->
+    <div class="promo-strip">
+        <span class="promo-strip-text"><span aria-hidden="true">🏁</span> New Motor Meets gear in the shop</span>
+        <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Shop now →</a>
+        <span class="promo-strip-text"><span aria-hidden="true">★</span> Get your event seen by 5,000+ enthusiasts</span>
+        <a href="submit-event.html?featured=standard">Feature it →</a>
+    </div>
+
     <!-- Sponsor Invitation Banner -->
     <section class="sponsor-showcase">
         <div class="sponsor-showcase-inner">
@@ -430,7 +503,7 @@
                 <option value="Kildare">Kildare</option>
                 <option value="Kilkenny">Kilkenny</option>
                 <option value="Laois">Laois</option>
-                <option value="Leitrim">Leitirm</option>
+                <option value="Leitrim">Leitrim</option>
                 <option value="Limerick">Limerick</option>
                 <option value="Longford">Longford</option>
                 <option value="Louth">Louth</option>
