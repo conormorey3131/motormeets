@@ -102,11 +102,6 @@
       margin-bottom: 1.25rem;
       text-align: center;
     }
-    .cross-sell-card.merch {
-      background: linear-gradient(135deg, #1A6B3C 0%, #1e7a41 100%);
-      color: #fff;
-      border: none;
-    }
     .cross-sell-card.featured-upsell {
       border: 2px solid #F47B20;
       background: linear-gradient(135deg, #fff 0%, #fff8f2 100%);
@@ -121,10 +116,6 @@
       border-radius: 999px;
       margin-bottom: 0.85rem;
     }
-    .cross-sell-card.merch .cross-sell-eyebrow {
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
-    }
     .cross-sell-card.featured-upsell .cross-sell-eyebrow {
       background: linear-gradient(90deg, #F47B20, #ff9800);
       color: #fff;
@@ -134,52 +125,13 @@
       font-size: 1.4rem;
       font-weight: 800;
     }
-    .cross-sell-card.merch h3 { color: #fff; }
     .cross-sell-card.featured-upsell h3 { color: #1e7a41; }
     .cross-sell-card p {
       margin: 0 0 1.4rem;
       font-size: 0.95rem;
       line-height: 1.55;
     }
-    .cross-sell-card.merch p { color: rgba(255, 255, 255, 0.92); }
     .cross-sell-card.featured-upsell p { color: #555; }
-
-    .merch-mini {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 0 auto 1.5rem;
-      max-width: 600px;
-    }
-    .merch-mini-item {
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      min-width: 140px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .merch-mini-item img {
-      width: 100%;
-      max-width: 120px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-bottom: 0.5rem;
-    }
-    .merch-mini-name {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.15rem;
-    }
-    .merch-mini-price {
-      display: block;
-      font-size: 0.85rem;
-      color: #ffd9b3;
-      font-weight: 700;
-    }
 
     .cross-sell-cta {
       display: inline-block;
@@ -189,15 +141,6 @@
       text-decoration: none;
       font-size: 1rem;
       transition: all 0.25s ease;
-    }
-    .cross-sell-card.merch .cross-sell-cta {
-      background: #fff;
-      color: #1e7a41;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-    }
-    .cross-sell-card.merch .cross-sell-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
     }
     .cross-sell-card.featured-upsell .cross-sell-cta {
       background: linear-gradient(135deg, #F47B20, #ff9800);
@@ -214,9 +157,6 @@
   <header>
     <img src="logo.webp" alt="Motor Meets Logo" onclick="window.location.href='index.html'">
     <h1>Motor Meets - Ireland</h1>
-    <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer" class="header-shop-btn">
-      <span aria-hidden="true">🛍</span> Shop
-    </a>
     <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
     </a>
@@ -245,25 +185,6 @@
       <a href="submit-event.html?featured=standard" class="cross-sell-cta">See Featured Options →</a>
     </div>
 
-    <!-- Merch promo -->
-    <div class="cross-sell-card merch">
-      <span class="cross-sell-eyebrow">🏁 Shop the Drop</span>
-      <h3>Rep Motor Meets Ireland</h3>
-      <p>Official Motor Meets gear. Every purchase directly supports the calendar — and looks the part at the next meet.</p>
-      <div class="merch-mini">
-        <div class="merch-mini-item">
-          <img src="https://shop.motormeets.ie/cdn/shop/files/IMG_4394.jpg?v=1776107623&width=300" alt="Logo Tee" loading="lazy">
-          <span class="merch-mini-name">Logo Tee</span>
-          <span class="merch-mini-price">€25</span>
-        </div>
-        <div class="merch-mini-item">
-          <img src="https://shop.motormeets.ie/cdn/shop/files/IMG_4395.jpg?v=1776107649&width=300" alt="Logo Sticker" loading="lazy">
-          <span class="merch-mini-name">Logo Sticker</span>
-          <span class="merch-mini-price">€5</span>
-        </div>
-      </div>
-      <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer" class="cross-sell-cta">Shop the full range →</a>
-    </div>
   </div>
 
   <footer>

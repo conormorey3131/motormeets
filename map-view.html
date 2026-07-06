@@ -44,33 +44,6 @@
             margin: 0;
         }
 
-        .header-shop-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            background: #F47B20;
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.88rem;
-            letter-spacing: 0.3px;
-            padding: 0.5rem 1rem;
-            border-radius: 999px;
-            text-decoration: none;
-            box-shadow: 0 4px 14px rgba(244, 123, 32, 0.45);
-            transition: all 0.25s ease;
-        }
-        .header-shop-btn:hover {
-            background: #e06a10;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(244, 123, 32, 0.55);
-        }
-        @media (max-width: 550px) {
-            .header-shop-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-        }
-
         /* Promo strip */
         .promo-strip {
             background: linear-gradient(90deg, #1A6B3C 0%, #1e7a41 50%, #F47B20 100%);
@@ -437,9 +410,6 @@
     <header>
         <img src="logo.webp" alt="Motor Meets Logo" onclick="resetFilters()">
         <h1>Motor Meets - Ireland</h1>
-        <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer" class="header-shop-btn">
-            <span aria-hidden="true">🛍</span> Shop
-        </a>
         <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
         </a>
@@ -448,10 +418,8 @@
         </a>
     </header>
 
-    <!-- Promo Strip: merch + featured events -->
+    <!-- Promo Strip: featured events -->
     <div class="promo-strip">
-        <span class="promo-strip-text"><span aria-hidden="true">🏁</span> New Motor Meets gear in the shop</span>
-        <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Shop now →</a>
         <span class="promo-strip-text"><span aria-hidden="true">★</span> Get your event seen by 5,000+ enthusiasts</span>
         <a href="submit-event.html?featured=standard">Feature it →</a>
     </div>

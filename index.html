@@ -16,36 +16,6 @@
 </head>
 <body>
   <style>
-    /* Header Shop button */
-    .header-shop-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: #F47B20;
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.88rem;
-      letter-spacing: 0.3px;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(244, 123, 32, 0.45);
-      transition: all 0.25s ease;
-      position: relative;
-      z-index: 1;
-    }
-    .header-shop-btn:hover {
-      background: #e06a10;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(244, 123, 32, 0.55);
-    }
-    @media (max-width: 550px) {
-      .header-shop-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-      }
-    }
-
     /* Feature Comparison (reused inside Featured Events pitch) */
     .feature-comparison-badge {
       display: block;
@@ -423,9 +393,6 @@
   <header>
     <img src="logo.webp" alt="Motor Meets Logo" onclick="resetFilters()">
     <h1>Motor Meets - Ireland</h1>
-    <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer" class="header-shop-btn">
-      <span aria-hidden="true">🛍</span> Shop
-    </a>
     <a href="https://www.instagram.com/motormeets.ie/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #fff;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 24px; height: 24px; display: inline-block;">
     </a>
@@ -433,43 +400,6 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style="width: 24px; height: 24px; display: inline-block;"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z"/></svg>
     </a>
   </header>
-
-  <!-- Merch Section -->
-  <section class="merch-section">
-    <div class="merch-inner">
-      <span class="merch-label">Shop</span>
-      <h2 class="merch-heading">Motor Meets Ireland Merch</h2>
-      <p class="merch-social-proof">Every purchase directly supports Motor Meets Ireland 🇮🏁</p>
-      <p class="merch-tagline">Rep the community. Official Motor Meets gear shipped across Ireland.</p>
-
-      <div class="merch-shipping-banner">
-        <span aria-hidden="true">🚚</span> Free delivery on orders over &euro;30
-      </div>
-
-      <div class="merch-products">
-        <div class="merch-card">
-          <div class="merch-card-image">
-            <img src="https://shop.motormeets.ie/cdn/shop/files/IMG_4394.jpg?v=1776107623&width=600" alt="Motor Meets Ireland Logo Tee" loading="lazy">
-          </div>
-          <h3 class="merch-card-title">Logo Tee</h3>
-          <p class="merch-card-price">&euro;25</p>
-          <a class="merch-buy-btn" href="https://shop.motormeets.ie/products/unisex-t-shirt?variant=61503600230730" target="_blank" rel="noopener noreferrer">Buy Now</a>
-        </div>
-        <div class="merch-card">
-          <div class="merch-card-image">
-            <img src="https://shop.motormeets.ie/cdn/shop/files/IMG_4395.jpg?v=1776107649&width=600" alt="Motor Meets Ireland Logo Sticker" loading="lazy">
-          </div>
-          <h3 class="merch-card-title">Logo Sticker</h3>
-          <p class="merch-card-price">&euro;5</p>
-          <a class="merch-buy-btn" href="https://shop.motormeets.ie/products/bubble-free-stickers?variant=61504486572362" target="_blank" rel="noopener noreferrer">Buy Now</a>
-        </div>
-      </div>
-
-      <p class="merch-shop-link">
-        <a href="https://shop.motormeets.ie/" target="_blank" rel="noopener noreferrer">Visit the full shop at shop.motormeets.ie &rarr;</a>
-      </p>
-    </div>
-  </section>
 
   <!-- Filter Section -->
   <div class="filter-container">
@@ -7970,149 +7900,6 @@ Enjoy a great family day out with vintage cars, tractors, bikes, a dog show, and
       <p class="sponsor-info">hello@motormeets.ie</p>
     </div>
   </section>
-
-  <style>
-    .merch-section {
-      background: #1A6B3C;
-      padding: 3.5rem 1.5rem;
-      color: #fff;
-      text-align: center;
-    }
-    .merch-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .merch-label {
-      display: inline-block;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      background: rgba(255, 255, 255, 0.18);
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      margin-bottom: 1rem;
-    }
-    .merch-heading {
-      font-size: 2.25rem;
-      margin: 0 0 0.5rem;
-      font-weight: 800;
-      color: #fff;
-    }
-    .merch-social-proof {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin: 0 0 0.75rem;
-      color: #d8f5e3;
-      letter-spacing: 0.3px;
-    }
-    .merch-tagline {
-      font-size: 1rem;
-      opacity: 0.92;
-      margin: 0 auto 1.5rem;
-      max-width: 640px;
-      color: #fff;
-    }
-    .merch-shipping-banner {
-      display: inline-block;
-      background: #ffd447;
-      color: #1A6B3C;
-      font-weight: 800;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-      padding: 0.7rem 1.4rem;
-      border-radius: 999px;
-      margin: 0 auto 2rem;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-      text-transform: uppercase;
-    }
-    .merch-products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.75rem;
-    }
-    .merch-card {
-      flex: 1 1 260px;
-      max-width: 320px;
-      background: #fff;
-      color: #1a2e1f;
-      border-radius: 16px;
-      padding: 1.75rem 1.5rem;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .merch-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-    }
-    .merch-card-image {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 12px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #eafaf0, #c8ecd6);
-      margin-bottom: 1rem;
-    }
-    .merch-card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .merch-card-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin: 0 0 0.4rem;
-      color: #1a2e1f;
-    }
-    .merch-card-price {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #1A6B3C;
-      margin: 0 0 1.1rem;
-    }
-    .merch-buy-btn {
-      display: inline-block;
-      background: #1A6B3C;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 0.75rem 1.75rem;
-      border-radius: 999px;
-      letter-spacing: 0.4px;
-      transition: background 0.2s ease, transform 0.2s ease;
-      box-shadow: 0 4px 12px rgba(26, 107, 60, 0.35);
-    }
-    .merch-buy-btn:hover {
-      background: #135029;
-      transform: translateY(-1px);
-    }
-    .merch-shop-link {
-      margin: 2rem 0 0;
-      font-size: 1rem;
-      font-weight: 600;
-    }
-    .merch-shop-link a {
-      color: #fff;
-      text-decoration: none;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.6);
-      padding-bottom: 2px;
-      transition: border-color 0.2s ease;
-    }
-    .merch-shop-link a:hover {
-      border-bottom-color: #fff;
-    }
-    @media (max-width: 600px) {
-      .merch-heading { font-size: 1.7rem; }
-      .merch-shipping-banner { font-size: 0.85rem; padding: 0.6rem 1.1rem; }
-      .merch-card { padding: 1.5rem 1.25rem; }
-    }
-  </style>
 
   <footer>
     <p>&copy; 2026 Motor Meets - Ireland</p>
