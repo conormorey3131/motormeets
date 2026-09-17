@@ -1,0 +1,21 @@
+name = "motormeets-approvals"
+main = "worker.mjs"
+compatibility_date = "2026-09-17"
+
+[vars]
+GITHUB_REPOSITORY = "conormorey3131/motormeets"
+GITHUB_BRANCH = "main"
+WA_LANGUAGE = "en"
+WA_APPROVAL_TEMPLATE = "motormeets_event_review"
+# Set WA_VERSION to a supported Meta Graph version when connecting the sender.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "motormeets-approvals"
+database_id = "REPLACE_AFTER_DATABASE_CREATION"
+
+[triggers]
+crons = ["*/5 * * * *"]
+# Secrets: INTAKE_SECRET, WA_TOKEN, WA_PHONE_ID, WA_RECIPIENT,
+# META_APP_SECRET, META_VERIFY_TOKEN, GITHUB_TOKEN.
+# Keep real configuration, tokens and the receiving phone number out of git.

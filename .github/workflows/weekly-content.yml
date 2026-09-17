@@ -1,0 +1,73 @@
+name: Monday social content
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+      timezone: Europe/Dublin
+  workflow_dispatch:
+    inputs:
+      monday:
+        description: 'Optional issue Monday (YYYY-MM-DD); blank uses this week'
+        required: false
+        type: string
+permissions:
+  contents: write
+concurrency:
+  group: motormeets-weekly-content
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - name: Test weekly selection
+        run: python -m unittest discover -s automation -p 'test_*.py'
+      - name: Choose issue dates
+        id: issue
+        env:
+          ISSUE_MONDAY: ${{ inputs.monday }}
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import date, datetime, timedelta
+          from zoneinfo import ZoneInfo
+          today = datetime.now(ZoneInfo('Europe/Dublin')).date()
+          monday = date.fromisoformat(os.environ['ISSUE_MONDAY']) if os.environ.get('ISSUE_MONDAY') else today-timedelta(days=today.weekday())
+          if monday.weekday() != 0:
+              raise ValueError('Issue date must be Monday')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'monday={monday}\ntag=weekly-{monday}\n')
+          PY
+      - name: Build pack from published event source
+        env:
+          MONDAY: ${{ steps.issue.outputs.monday }}
+        run: |
+          python automation/weekly.py --html index.html --monday "$MONDAY" --out pack
+          python automation/render.py --pack pack
+          python - <<'PY'
+          import shutil
+          shutil.make_archive('website-preview', 'zip', 'pack')
+          PY
+      - name: Publish downloadable pack
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.issue.outputs.tag }}
+        run: |
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --title "Motor Meets — $TAG" --notes-file pack/captions.md
+          fi
+          gh release upload "$TAG" pack/graphics.zip pack/captions.md pack/events.json website-preview.zip --clobber
+          gh release edit "$TAG" --notes-file pack/captions.md
+      - name: Send download link to WhatsApp when connected
+        env:
+          WA_TOKEN: ${{ secrets.WA_TOKEN }}
+          WA_PHONE_ID: ${{ secrets.WA_PHONE_ID }}
+          WA_RECIPIENT: ${{ secrets.WA_RECIPIENT }}
+          WA_VERSION: ${{ secrets.WA_VERSION }}
+          WA_PACK_TEMPLATE: ${{ secrets.WA_PACK_TEMPLATE }}
+          TAG: ${{ steps.issue.outputs.tag }}
+        run: python automation/notify.py "https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG"
